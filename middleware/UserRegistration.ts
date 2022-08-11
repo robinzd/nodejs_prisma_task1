@@ -11,7 +11,7 @@ export const UserRegistration = async (req: any, res: any) => {
   const getUser: user_registration | null =
     await prisma.user_registration.findUnique({
       where: {
-        email_id: "r2@gmail.com",
+        email_id: "r@gmail.com",
       },
     });
 
@@ -22,7 +22,7 @@ export const UserRegistration = async (req: any, res: any) => {
       data: {
         first_name: "Robinson",
         last_name: "Rajiv",
-        contact_number: Number(6381945164),
+        contact_number: Number(6381945165),
         email_id: "r2@gmail.com",
         address: "Tiruchirapalli",
         created_at: date_ob,
@@ -30,6 +30,9 @@ export const UserRegistration = async (req: any, res: any) => {
         status: 1,
       },
     });
+    console.log(user);
    res.status(200).json({ Result: "successfully inserted"});
   }
+  
 };
+
