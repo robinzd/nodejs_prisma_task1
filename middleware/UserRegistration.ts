@@ -9,48 +9,58 @@ let date_ob = new Date();
 const prisma = new PrismaClient();
 export const UserRegistration = async (req: any, res: any) => {
   //     //req.body  //-------------> Has all request data
-  const email=req.body.email_id;
+  const first=req.body.first_name;
+  const last=req.body.last_name;
   const contact=req.body.contact_number;
-  const getUser: user_registration | null =
+  const mail=req.body.email_id;
+  const address=req.body.address;
+  const status=req.body.status
+  const getUser: object | null =
     await prisma.user_registration.findUnique({
       where:
        {
-        email_id: email,
+        contact_number:contact,
       },
+
+     
       
       });
-      const Users: user_registration | null =
+     const Users: object | null =
       await prisma.user_registration.findUnique({
         where: {
-          contact_number:contact
+         email_id:mail,
         },
-   
+
+        
 });
 console.log(getUser);
 console.log(Users);
-if (getUser || Users) {
-    res.status(400).json({ Result: "Contact number or Email id already registered"});
-  } else {
+
+if(getUser || Users){
+res.status(400).json({ Result: "Contact number or Email id already registered"});
+}
+else{ 
    let user: any = await prisma.user_registration.create({
       data: {
-        first_name: "Robinson",
-        last_name: "Rajiv",
-        contact_number: Number(12380955156),
-        email_id: "ar15gmail.com",
-        address: "Tiruchirapalli",
+        first_name: first,
+        last_name: last,
+        contact_number: contact,
+        email_id: mail,
+        address: address,
         created_at: date_ob,
         updated_at: date_ob,
-        status: 1,
+        status: status,
       },
     });
     
     console.log(user);
-    let data={
+    let datas={
       datasadd:JSON.stringify(user, (_, v) => typeof v === 'bigint' ? v.toString() : v)
     }
-    data = JSON.parse(data.datasadd);
-    res.status(200).json({ Result: "successfully registered",datas:data,request:req.body});
-  }
+    datas = JSON.parse(datas.datasadd);
+    
+    res.status(200).json({Result: "successfully registered",data:datas,request1:req.body});
   
+}
 };
 
