@@ -46,9 +46,8 @@ if(getUserlogin && getlogin){
 res.status(200).json({ Result: "Successfully Loged In",data:data,request:req.body});
 }
 else{
-    res.status(200).json({ Result: "Contact Number Or Email Id is Not Matched"});
+    res.status(400).json({ Result: "Contact Number Or Email Id is Not Matched"});
 } 
 
-  
 };
 
