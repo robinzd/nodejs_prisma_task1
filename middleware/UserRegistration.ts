@@ -21,10 +21,7 @@ export const UserRegistration = async (req: any, res: any) => {
        {
         contact_number:contact,
       },
-
-     
-      
-      });
+});
      const Users: object | null =
       await prisma.user_registration.findUnique({
         where: {
