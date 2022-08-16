@@ -27,7 +27,7 @@ export const ReadUser = async (req: any, res: any) => {
   if (ReadUser) {
     res
       .status(200)
-      .json({ Result: "User Details", data: data, requet: req.body });
+      .json({ Result: "User Details", data:data, requet: req.body });
   } else {
     res.status(400).json({ Result: "Record Not Found" });
   }

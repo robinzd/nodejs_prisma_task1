@@ -18,3 +18,10 @@ model user_registration {
   updated_at     DateTime @db.DateTime(0)
   status         Int
 }
+
+model users_product_table {
+  id            Int    @id @default(autoincrement())
+  product_name  String @db.VarChar(200)
+  product_price Int
+  Customer_id   Int
+}
