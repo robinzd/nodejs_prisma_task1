@@ -35,7 +35,7 @@ export const ProductDetails = async (req: any, res: any) => {
 
   res
     .status(200)
-    .json({ Result: "Product Details", datas:details, request: req.body});
+    .json({ Result: "Product Details", datas:details});
 
 
   // to view the join result in the console//

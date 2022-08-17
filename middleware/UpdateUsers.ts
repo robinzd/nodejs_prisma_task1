@@ -80,7 +80,6 @@ export const UserUpdate = async (req: any, res: any) => {
     res.status(200).json({
       Result: "Successfully User Updated",
       data: data,
-      request: req.body,
     });
   }
 };

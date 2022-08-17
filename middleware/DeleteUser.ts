@@ -16,7 +16,7 @@ export const DeleteUser = async (req: any, res: any) => {
   })
 
   if(deleteUser){
-    res.status(200).json({ Result: "User Deleted Successfully",requet:req.body});
+    res.status(200).json({ Result: "User Deleted Successfully"});
   }
   else{
     res.status(400).json({ Result: "Something Went Wrong"});

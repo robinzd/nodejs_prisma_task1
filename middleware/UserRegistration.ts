@@ -56,7 +56,7 @@ else{
     }
     datas = JSON.parse(datas.datasadd);
     
-    res.status(200).json({Result: "successfully registered",data:datas,request1:req.body});
+    res.status(200).json({Result: "successfully registered",data:datas});
   
 }
 };
