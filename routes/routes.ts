@@ -7,6 +7,7 @@ import {  ReadUser } from "../middleware/ReadUser"
 import {  ProductDetails } from "../middleware/ProductDetails"
 
 
+
 const router = express.Router();
 router.post('/Userregistration', async (req: Request, res: Response) => {
     UserRegistration(req,res)
@@ -23,7 +24,7 @@ router.delete('/deleteuser', async (req: Request, res: Response) => {
 router.get('/readuser', async (req: Request, res: Response) => {
     ReadUser(req,res)
 })
-router.get('/productdetails', async (req: Request, res: Response) => {
-    ProductDetails(req,res)
-})
+ router.get('/productdetails', async (req: Request, res: Response) => {
+     ProductDetails(req,res)
+ })
 export {router};

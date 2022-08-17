@@ -19,9 +19,30 @@ model user_registration {
   status         Int
 }
 
-model users_product_table {
-  id            Int    @id @default(autoincrement())
-  product_name  String @db.VarChar(200)
-  product_price Int
-  Customer_id   Int
+model customer_tbl {
+  ID                  Int              @id @default(autoincrement())
+  customer_first_name String           @db.VarChar(255)
+  customer_last_name  String           @db.VarChar(255)
+  Email_id            String           @db.VarChar(255)
+  deliver_status      deliver_status[]
+  orders_tbl          orders_tbl[]
+}
+
+model orders_tbl {
+  ID            Int           @id @default(autoincrement())
+  product_name  String?       @db.VarChar(255)
+  Product_price Int?
+  customer_id   Int?
+  customer_tbl  customer_tbl? @relation(fields: [customer_id], references: [ID], onDelete: Restrict, onUpdate: Restrict, map: "FK_PersonOrder")
+
+  @@index([customer_id], map: "FK_PersonOrder")
+}
+
+model deliver_status {
+  ID           Int          @id @default(autoincrement())
+  status       Int
+  customer_id  Int
+  customer_tbl customer_tbl @relation(fields: [customer_id], references: [ID], onUpdate: Restrict, map: "FK_orderstatus")
+
+  @@index([customer_id], map: "FK_orderstatus")
 }

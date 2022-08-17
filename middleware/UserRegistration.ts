@@ -39,7 +39,7 @@ res.status(400).json({ Result: "Contact number or Email id already registered"})
 else{ 
    let user: any = await prisma.user_registration.create({
       data: {
-        first_name: first,
+        first_name:first,
         last_name: last,
         contact_number: contact,
         email_id: mail,
