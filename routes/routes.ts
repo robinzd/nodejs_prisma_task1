@@ -5,8 +5,7 @@ import {  UserUpdate } from "../middleware/UpdateUsers"
 import {  DeleteUser } from "../middleware/DeleteUser"
 import {  ReadUser } from "../middleware/ReadUser"
 import {  ProductDetails } from "../middleware/ProductDetails"
-
-
+import {  ProductDetailsview } from "../middleware/viewproductdetails"
 
 const router = express.Router();
 router.post('/Userregistration', async (req: Request, res: Response) => {
@@ -27,4 +26,8 @@ router.get('/readuser', async (req: Request, res: Response) => {
  router.get('/productdetails', async (req: Request, res: Response) => {
      ProductDetails(req,res)
  })
+ router.get('/viewdetails', async (req: Request, res: Response) => {
+    ProductDetailsview (req,res)
+})
+
 export {router};

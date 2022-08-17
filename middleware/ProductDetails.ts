@@ -37,18 +37,15 @@ export const ProductDetails = async (req: any, res: any) => {
     .status(200)
     .json({ Result: "Product Details", datas:details, request: req.body});
 
-  const allUsers = await prisma.customer_tbl.findMany({
-    where:{
-        Email_id:mail,
-    },
-    include: {
-      orders_tbl: true,
-      deliver_status: true,
-    },
-  });
 
-console.dir(allUsers, {depth: null});
-res
-    .status(200)
-    .json({ Result: "Product Details For All The Details",datas1:allUsers});
+  // to view the join result in the console//
+  // const allUsers = await prisma.customer_tbl.findMany({
+  //   include: {
+  //     orders_tbl: true,
+  //     deliver_status: true,
+  //   },
+  // });
+  // console.dir(allUsers, {depth: null});
+  // *******************************************************************//
+
 };

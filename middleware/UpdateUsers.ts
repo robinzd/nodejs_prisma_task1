@@ -11,7 +11,8 @@ export const UserUpdate = async (req: any, res: any) => {
   //     //req.body  //-------------> Has all request data
   const first = req.body.first_name;
   const last = req.body.last_name;
-  const contact = req.body.contact_number;
+  const contact1 = req.body.new_contact_number;
+  const contact=req.body.registered_contact_number
   const mail = req.body.registered_email_id;
   const mail1 = req.body.new_email_id;
   const address = req.body.address;
@@ -19,7 +20,7 @@ export const UserUpdate = async (req: any, res: any) => {
   const CheckContact: object | null = await prisma.user_registration.findUnique(
     {
       where: {
-        contact_number: contact,
+        contact_number: contact1,
       },
     }
   );
@@ -31,9 +32,30 @@ export const UserUpdate = async (req: any, res: any) => {
 
  
    if (CheckMail || CheckContact) {
-    res
-      .status(400)
-      .json({ Result: "Contact Or Email Already Registered or record not found" });
+    const updateUsers1 = await prisma.user_registration.update({
+      where: {
+        email_id: mail,
+      },
+      data: {
+        first_name: first,
+        last_name: last,
+        email_id: mail,
+        contact_number:contact,
+        address: address,
+        updated_at: date_ob,
+        status: status,
+      },
+    });
+    let data1 = {
+      datasadd: JSON.stringify(updateUsers1, (_, v) =>
+        typeof v === "bigint" ? v.toString() : v
+      ),
+    };
+    data1 = JSON.parse(data1.datasadd);
+    res.status(200).json({
+      Result: "Email and contact are same cannot be updated remaining fields are updated",
+      data: data1,
+    });
   } else {
     const updateUsers = await prisma.user_registration.update({
       where: {
@@ -43,7 +65,7 @@ export const UserUpdate = async (req: any, res: any) => {
         first_name: first,
         last_name: last,
         email_id: mail1,
-        contact_number: contact,
+        contact_number: contact1,
         address: address,
         updated_at: date_ob,
         status: status,
