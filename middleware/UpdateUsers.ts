@@ -12,7 +12,7 @@ export const UserUpdate = async (req: any, res: any) => {
   const first = req.body.first_name;
   const last = req.body.last_name;
   const contact1 = req.body.new_contact_number;
-  const contact=req.body.registered_contact_number
+  const contact = req.body.registered_contact_number;
   const mail = req.body.registered_email_id;
   const mail1 = req.body.new_email_id;
   const address = req.body.address;
@@ -30,9 +30,8 @@ export const UserUpdate = async (req: any, res: any) => {
     },
   });
 
- 
-   if (CheckMail || CheckContact) {
-    const updateUsers1 = await prisma.user_registration.update({
+  if (CheckContact && CheckMail) {
+    const updateUsers3 = await prisma.user_registration.update({
       where: {
         email_id: mail,
       },
@@ -40,23 +39,80 @@ export const UserUpdate = async (req: any, res: any) => {
         first_name: first,
         last_name: last,
         email_id: mail,
-        contact_number:contact,
+        contact_number: contact,
         address: address,
         updated_at: date_ob,
         status: status,
       },
     });
-    let data1 = {
-      datasadd: JSON.stringify(updateUsers1, (_, v) =>
+    let data3 = {
+      datasadd: JSON.stringify(updateUsers3, (_, v) =>
         typeof v === "bigint" ? v.toString() : v
       ),
     };
-    data1 = JSON.parse(data1.datasadd);
+    data3 = JSON.parse(data3.datasadd);
     res.status(200).json({
-      Result: "Email and contact are same cannot be updated remaining fields are updated",
-      data: data1,
+      Result:
+        "contact number and email id already registered cannot be updated remaining fields are updated",
+      data: data3,
     });
-  } else {
+
+    if (CheckContact) {
+      const updateUsers1 = await prisma.user_registration.update({
+        where: {
+          email_id: mail,
+        },
+        data: {
+          first_name: first,
+          last_name: last,
+          email_id: mail1,
+          contact_number: contact,
+          address: address,
+          updated_at: date_ob,
+          status: status,
+        },
+      });
+      let data1 = {
+        datasadd: JSON.stringify(updateUsers1, (_, v) =>
+          typeof v === "bigint" ? v.toString() : v
+        ),
+      };
+      data1 = JSON.parse(data1.datasadd);
+      res.status(200).json({
+        Result:
+          "contact number already registered cannot be updated remaining fields are updated",
+        data: data1,
+      });
+    }
+    if (CheckMail) {
+      const updateUsers2 = await prisma.user_registration.update({
+        where: {
+          email_id: mail,
+        },
+        data: {
+          first_name: first,
+          last_name: last,
+          email_id: mail,
+          contact_number: contact1,
+          address: address,
+          updated_at: date_ob,
+          status: status,
+        },
+      });
+      let data2 = {
+        datasadd: JSON.stringify(updateUsers2, (_, v) =>
+          typeof v === "bigint" ? v.toString() : v
+        ),
+      };
+      data2 = JSON.parse(data2.datasadd);
+      res.status(200).json({
+        Result:
+          "Email Id already registered cannot be updated remaining fields are updated",
+        data: data2,
+      });
+    }
+  }
+  else{
     const updateUsers = await prisma.user_registration.update({
       where: {
         email_id: mail,
