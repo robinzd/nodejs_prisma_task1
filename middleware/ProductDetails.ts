@@ -2,7 +2,7 @@ import {
   PrismaClient,
   customer_tbl,
   orders_tbl,
-  deliver_status,
+  deliver_status,customer_agedetails
 } from "@prisma/client";
 import { visitFunctionBody } from "typescript";
 import { isGeneratorFunction } from "util/types";
@@ -18,6 +18,7 @@ export const ProductDetails = async (req: any, res: any) => {
   const mail = req.body.email_id;
   const status = req.body.status;
   const product_name = req.body.product_name;
+  const age=req.body.age;
 
   let details = await prisma.customer_tbl.create({
     data: {
@@ -29,6 +30,9 @@ export const ProductDetails = async (req: any, res: any) => {
       },
       deliver_status: {
         create: { status: status },
+      },
+      customer_agedetails:{
+        create:{customer_age:age},
       },
     },
   });

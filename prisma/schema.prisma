@@ -20,10 +20,11 @@ model user_registration {
 }
 
 model customer_tbl {
-  ID                  Int              @id @default(autoincrement())
-  customer_first_name String           @db.VarChar(255)
-  customer_last_name  String           @db.VarChar(255)
-  Email_id            String           @db.VarChar(255)
+  ID                  Int                   @id @default(autoincrement())
+  customer_first_name String                @db.VarChar(255)
+  customer_last_name  String                @db.VarChar(255)
+  Email_id            String                @db.VarChar(255)
+  customer_agedetails customer_agedetails[]
   deliver_status      deliver_status[]
   orders_tbl          orders_tbl[]
 }
@@ -45,4 +46,13 @@ model deliver_status {
   customer_tbl customer_tbl @relation(fields: [customer_id], references: [ID], onUpdate: Restrict, map: "FK_orderstatus")
 
   @@index([customer_id], map: "FK_orderstatus")
+}
+
+model customer_agedetails {
+  ID           Int          @id @default(autoincrement())
+  customer_id  Int
+  customer_age Int
+  customer_tbl customer_tbl @relation(fields: [customer_id], references: [ID], onUpdate: Restrict, map: "FK_firstname")
+
+  @@index([customer_id], map: "FK_firstname")
 }
