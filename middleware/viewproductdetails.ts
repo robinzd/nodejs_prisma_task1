@@ -2,7 +2,7 @@ import {
     PrismaClient,
     customer_tbl,
     orders_tbl,
-    deliver_status,
+    deliver_status,customer_agedetails
   } from "@prisma/client";
   import { visitFunctionBody } from "typescript";
   import { isGeneratorFunction } from "util/types";

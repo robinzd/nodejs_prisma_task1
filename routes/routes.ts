@@ -20,7 +20,7 @@ router.post('/Userregistration', async (req: Request, res: Response) => {
 router.post('/Userlogin', async (req: Request, res: Response) => {
     UserLogin(req,res)
 })
-router.post('/userupdate', async (req: Request, res: Response) => {
+router.put('/userupdate', async (req: Request, res: Response) => {
     UserUpdate(req,res)
 })
 router.delete('/deleteuser', async (req: Request, res: Response) => {
