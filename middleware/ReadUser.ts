@@ -11,7 +11,7 @@ export const ReadUser = async (req: any, res: any) => {
   // By unique identifier
   // Returns an object or null
   const mail = req.body.email_id;
-  const ReadUser: object | null = await prisma.user_registration.findUnique({
+  const ReadUser: object | null = await prisma.user_registration.findMany({
     where: {
       email_id: mail,
     },

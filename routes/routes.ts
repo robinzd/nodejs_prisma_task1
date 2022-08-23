@@ -14,7 +14,7 @@ import {  Count } from "../middleware/count"
 import { Distinct } from "../middleware/distinct"
 
 const router = express.Router();
-router.post('/Userregistration', async (req: Request, res: Response) => {
+router.post('/userregistration', async (req: Request, res: Response) => {
     UserRegistration(req,res)
 })
 router.post('/Userlogin', async (req: Request, res: Response) => {

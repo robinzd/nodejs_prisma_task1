@@ -9,6 +9,7 @@ let date_ob = new Date();
 const prisma = new PrismaClient();
 export const UserRegistration = async (req: any, res: any) => {
   //     //req.body  //-------------> Has all request data
+  
   const first=req.body.first_name;
   const last=req.body.last_name;
   const contact=req.body.contact_number;
@@ -27,8 +28,6 @@ export const UserRegistration = async (req: any, res: any) => {
         where: {
          email_id:mail,
         },
-
-        
 });
 console.log(getUser);
 console.log(Users);
