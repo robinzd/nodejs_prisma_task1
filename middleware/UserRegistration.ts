@@ -11,9 +11,7 @@ export const UserRegistration = async (req: any, res: any) => {
   //     //req.body  //-------------> Has all request data
   
   const first=req.body.first_name;
-  console.log(req.body);
   const last=req.body.last_name;
-  console.log(last);
   const contact=req.body.contact_number;
   const mail=req.body.email_id;
   const address=req.body.address;
@@ -22,7 +20,7 @@ export const UserRegistration = async (req: any, res: any) => {
     await prisma.user_registration.findFirst({
       where:
        {
-        contact_number:contact,
+        contact_number:parseInt(contact),
       },
 });
      const Users: object | null =
@@ -42,12 +40,12 @@ else{
       data: {
         first_name:first,
         last_name: last,
-        contact_number: contact,
+        contact_number: parseInt(contact),
         email_id: mail,
         address: address,
         created_at: date_ob,
         updated_at: date_ob,
-        status: status,
+        status: parseInt(status),
       },
     });
     
@@ -57,7 +55,7 @@ else{
     }
     datas = JSON.parse(datas.datasadd);
     
-    res.status(200).json({Result: "successfully registered",data:datas});
+    res.status(200).json({Result: "successfully registered"});
   
 }
 };
