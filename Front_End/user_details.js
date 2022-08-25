@@ -7,7 +7,7 @@ $(document).ready(function () {
     success: function (datas) {
       var result = "";
       datas.data.forEach((item) => {
-        const{first_name,last_name,contact_number,email_id,address, created_at,updated_at,status}=item;
+        const{first_name,last_name,contact_number,email_id,address,status}=item;
     result += `
                 <tr>
                     <td>${count}</td>
@@ -16,8 +16,6 @@ $(document).ready(function () {
                     <td>${contact_number}</td>
                     <td>${email_id}</td>
                     <td>${address}</td>
-                    <td>${created_at}</td>
-                    <td>${updated_at}</td>
                     <td>${status}</td>
                     <td>
                     <a href="#" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
@@ -45,21 +43,21 @@ $(document).ready(function () {
     var address=$('#address').val();
     var status=$('#status').val();
     var url1="http://localhost:2000/api//userregistration";
-  if(firstname!='' && lastname!='' &&number!='' &&email!='' &&address!=='' &&status!=''){
+    if(firstname!='' && lastname!='' &&number!=''  &&email!=''  &&address!==''  &&status!=''){
+      var result=JSON.stringify({ 
+        first_name:firstname,
+        last_name: lastname,
+        contact_number:number,
+        email_id:email,
+        address: address,
+        created_at: date_ob,
+        updated_at: date_ob,
+        status: status,})
      $.ajax({
-          type:'Post',
-          dataType:"json",
+           type:'Post',
+           dataType:"JSON",
            url:url1,
-           data:JSON.stringify({
-            first_name:firstname,
-            last_name: lastname,
-            contact_number:number,
-            email_id:email,
-            address: address,
-            created_at: date_ob,
-            updated_at: date_ob,
-            status: status,
-          }), 
+           data:JSON.parse(result), 
           success:function(response){
             console.log(response);
           }
@@ -69,6 +67,8 @@ $(document).ready(function () {
     }
   })
 });
+
+
 
 
 

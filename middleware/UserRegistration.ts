@@ -11,12 +11,13 @@ export const UserRegistration = async (req: any, res: any) => {
   //     //req.body  //-------------> Has all request data
   
   const first=req.body.first_name;
-  console.log(first);
+  console.log(req.body);
   const last=req.body.last_name;
+  console.log(last);
   const contact=req.body.contact_number;
   const mail=req.body.email_id;
   const address=req.body.address;
-  const status=req.body.status
+  const status=req.body.status;
   const getUser: object | null =
     await prisma.user_registration.findFirst({
       where:
