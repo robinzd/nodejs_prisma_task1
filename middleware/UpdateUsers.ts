@@ -11,35 +11,32 @@ export const UserUpdate = async (req: any, res: any) => {
   //     //req.body  //-------------> Has all request data
   const first = req.body.first_name;
   const last = req.body.last_name;
-  const contact1 = req.body.new_contact_number;
-  const contact = req.body.registered_contact_number;
-  const mail = req.body.registered_email_id;
-  const mail1 = req.body.new_email_id;
+  const contact = req.body.new_contact_number;
+  const id = req.body.id;
+  const mail = req.body.new_email_id;
   const address = req.body.address;
   const status = req.body.status;
-  const CheckContact: object | null = await prisma.user_registration.findUnique(
+  const CheckContact: object | null = await prisma.user_registration.findFirst(
     {
       where: {
-        contact_number: contact1,
+        contact_number: contact,
       },
     }
   );
-  const CheckMail: object | null = await prisma.user_registration.findUnique({
+  const CheckMail: object | null = await prisma.user_registration.findFirst({
     where: {
-      email_id: mail1,
+      email_id: mail,
     },
   });
 
   if (CheckContact && CheckMail) {
     const updateUsers3 = await prisma.user_registration.update({
       where: {
-        email_id: mail,
+        id:id,
       },
       data: {
         first_name: first,
         last_name: last,
-        email_id: mail,
-        contact_number: contact,
         address: address,
         updated_at: date_ob,
         status: status,
@@ -59,13 +56,12 @@ export const UserUpdate = async (req: any, res: any) => {
   } else if (CheckContact != null) {
     const updateUsers1 = await prisma.user_registration.update({
       where: {
-        email_id: mail,
+        id: id,
       },
       data: {
         first_name: first,
         last_name: last,
-        email_id: mail1,
-        contact_number: contact,
+        email_id: mail,
         address: address,
         updated_at: date_ob,
         status: status,
@@ -85,13 +81,12 @@ export const UserUpdate = async (req: any, res: any) => {
   } else if (CheckMail != null) {
     const updateUsers2 = await prisma.user_registration.update({
       where: {
-        email_id: mail,
+        id:id,
       },
       data: {
         first_name: first,
         last_name: last,
-        email_id: mail,
-        contact_number: contact1,
+        contact_number: contact,
         address: address,
         updated_at: date_ob,
         status: status,
@@ -111,13 +106,13 @@ export const UserUpdate = async (req: any, res: any) => {
   } else {
     const updateUsers = await prisma.user_registration.update({
       where: {
-        email_id: mail,
+        id: id,
       },
       data: {
         first_name: first,
         last_name: last,
-        email_id: mail1,
-        contact_number: contact1,
+        email_id: mail,
+        contact_number: contact,
         address: address,
         updated_at: date_ob,
         status: status,

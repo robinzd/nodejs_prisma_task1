@@ -12,6 +12,7 @@ $(document).ready(function () {
       var result = "";
       datas.data.forEach((item) => {
         const {
+          id,
           first_name,
           last_name,
           contact_number,
@@ -22,6 +23,7 @@ $(document).ready(function () {
         result += `
                 <tr>
                     <td>${count}</td>
+                    <th>${id}</td>
                     <td>${first_name}</td>
                     <td>${last_name}</td>
                     <td>${contact_number}</td>
@@ -29,7 +31,8 @@ $(document).ready(function () {
                     <td>${address}</td>
                     <td>${status}</td>
                     <td>
-                    <a href="#" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                    <a data-bs-toggle="modal"
+                    data-bs-target="#exampleModal1" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
                     </td>
                     </tr>
                     ${count++}
@@ -101,4 +104,5 @@ $(document).ready(function () {
       alert("Please Provide All The Information!");
     }
   });
+
 });

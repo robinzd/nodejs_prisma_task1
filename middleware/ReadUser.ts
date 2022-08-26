@@ -10,10 +10,10 @@ export const ReadUser = async (req: any, res: any) => {
   //     //req.body  //-------------> Has all request data
   // By unique identifier
   // Returns an object or null
-  const mail = req.body.email_id;
+  const id = req.body.id;
   const ReadUser: object | null = await prisma.user_registration.findMany({
     where: {
-      email_id: mail,
+      id: id,
     },
   });
 
