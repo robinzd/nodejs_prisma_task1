@@ -23,7 +23,6 @@ $(document).ready(function () {
         result += `
                 <tr>
                     <td>${count}</td>
-                    <th>${id}</td>
                     <td>${first_name}</td>
                     <td>${last_name}</td>
                     <td>${contact_number}</td>
@@ -32,21 +31,34 @@ $(document).ready(function () {
                     <td>${status}</td>
                     <td>
                     <a data-bs-toggle="modal"
-                    data-bs-target="#exampleModal1" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                    data-bs-target="#exampleModal1" class="edit" data-myval="${id}" onclick="${edit()}" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
                     </td>
                     </tr>
                     ${count++}
-                `;
+                  `;
+                  console.log(id);
+                 var a = $('.edit').data('myval');
+                 console.log(a);
+                 function edit(){
+                  $("#updateform").html(
+                    `<div class="mb-3">
+                  <label for="recipient-name" class="col-form-label"
+                       >First Name</label
+                     >
+                   <input type="text" class="form-control" value="${a}" id="u_firstname"/>
+                   </div>`
+                   );
+                  }
       });
       if (result.length == 0) {
         $("#table").html(
           '<tr class="norecords"><td colspan="8">No Records Found</td></tr>'
         );
-      } else {
+      }else{
         $("#table").append(result);
       }
 
-      //   <a href="#" class="delete" title="Delete" data-toggle="tooltip" onclick="return confirm('Do you really want to Delete ?');"><i class="material-icons">&#xE872;</i></a>
+      // <a href="#" class="delete" title="Delete" data-toggle="tooltip" onclick="return confirm('Do you really want to Delete ?');"><i class="material-icons">&#xE872;</i></a>
       // <a href="#" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
     },
   });
@@ -90,7 +102,7 @@ $(document).ready(function () {
         },
         success: function (response) {
           let resultString = "";
-          for (const [key, value] of Object.entries(response)) {
+          for (const [key, value] of Object.entries(response)){
             resultString += `${value}\n`;
           }
           alert(resultString);
@@ -104,5 +116,4 @@ $(document).ready(function () {
       alert("Please Provide All The Information!");
     }
   });
-
 });
