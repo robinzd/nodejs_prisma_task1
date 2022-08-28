@@ -31,25 +31,12 @@ $(document).ready(function () {
                     <td>${status}</td>
                     <td>
                     <a data-bs-toggle="modal"
-                    data-bs-target="#exampleModal1" class="edit" data-myval="${id}" onclick="${edit()}" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                    data-bs-target="#exampleModal1" class="edit" data-myval="${id}" data-first="${first_name}" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
                     </td>
                     </tr>
                     ${count++}
                   `;
-                  console.log(id);
-                 var a = $('.edit').data('myval');
-                 console.log(a);
-                 function edit(){
-                  $("#updateform").html(
-                    `<div class="mb-3">
-                  <label for="recipient-name" class="col-form-label"
-                       >First Name</label
-                     >
-                   <input type="text" class="form-control" value="${a}" id="u_firstname"/>
-                   </div>`
-                   );
-                  }
-      });
+        });
       if (result.length == 0) {
         $("#table").html(
           '<tr class="norecords"><td colspan="8">No Records Found</td></tr>'
@@ -63,7 +50,8 @@ $(document).ready(function () {
     },
   });
 
-  // submit button ajax
+ 
+  // submit button ajax //
   $("#userform").on("submit", function (e) {
     e.preventDefault();
     let date_ob = new Date();
@@ -116,4 +104,12 @@ $(document).ready(function () {
       alert("Please Provide All The Information!");
     }
   });
+  // submit form end //
+
+
+// update form //
+  $(document).on("click",".edit",function(){
+    $("#u_firstname").val($(this).data("first"));
+  });
+
 });
