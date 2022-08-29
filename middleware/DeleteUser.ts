@@ -8,15 +8,15 @@ import { isGeneratorFunction } from "util/types";
 const prisma = new PrismaClient();
 export const DeleteUser = async (req: any, res: any) => {
   //     //req.body  //-------------> Has all request data
-  const mail = req.body.email_id;
+  const id = req.body.id;
   const deleteUser = await prisma.user_registration.delete({
     where: {
-      email_id: mail,
+      id:id,
     },
   })
 
   if(deleteUser){
-    res.status(200).json({ Result: "User Deleted Successfully"});
+    res.status(200).json({Result: "User Deleted Successfully"});
   }
   else{
     res.status(400).json({ Result: "Something Went Wrong"});
