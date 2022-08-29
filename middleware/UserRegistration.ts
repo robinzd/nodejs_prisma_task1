@@ -29,9 +29,6 @@ export const UserRegistration = async (req: any, res: any) => {
          email_id:mail,
         },
 });
-console.log(getUser);
-console.log(Users);
-
 if(getUser || Users){
 res.status(400).json({ Result: "Contact number or Email id already registered"});
 }
@@ -48,15 +45,12 @@ else{
         status: parseInt(status),
       },
     });
-    
-    console.log(user);
     let datas={
       datasadd:JSON.stringify(user, (_, v) => typeof v === 'bigint' ? v.toString() : v)
     }
     datas = JSON.parse(datas.datasadd);
     
     res.status(200).json({Result: "successfully registered"});
-  
 }
 };
 
