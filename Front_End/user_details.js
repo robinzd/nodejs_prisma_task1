@@ -205,6 +205,9 @@ $(document).on("click",".delete",function(){
       alert(deleterow);
       location.reload(true);
     },
+    error: function () {
+      alert("Something Went Wrong");
+    },
   })
 })
 // delete user //
