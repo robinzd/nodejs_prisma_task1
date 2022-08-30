@@ -1,7 +1,3 @@
-// const { json } = require("stream/consumers");
-
-// const { error } = require("console");
-
 $(document).ready(function () {
   var url = "http://localhost:2000/api//readuser";
   var count = 1;
@@ -43,18 +39,17 @@ $(document).ready(function () {
                     </tr>
                     ${count++}
                   `;
-        });
+      });
       if (result.length == 0) {
         $("#table").html(
           '<tr class="norecords"><td colspan="8">No Records Found</td></tr>'
         );
-      }else{
+      } else {
         $("#table").append(result);
       }
     },
   });
 
- 
   // submit button ajax  start//
   $("#userform").on("submit", function (e) {
     e.preventDefault();
@@ -94,7 +89,7 @@ $(document).ready(function () {
         },
         success: function (response) {
           let resultString = "";
-          for (const [key, value] of Object.entries(response)){
+          for (const [key, value] of Object.entries(response)) {
             resultString += `${value}\n`;
           }
           alert(resultString);
@@ -110,10 +105,9 @@ $(document).ready(function () {
   });
   // submit button ajax  start//
 
-
-//Get User In The Input Box For Update Start //
-  $(document).on("click",".edit",function(){
-    $("#u_id").val($(this).data("id"))
+  //Get User In The Input Box For Update Start //
+  $(document).on("click", ".edit", function () {
+    $("#u_id").val($(this).data("id"));
     $("#u_firstname").val($(this).data("first"));
     $("#u_lastname").val($(this).data("last"));
     $("#u_number").val($(this).data("contact"));
@@ -125,91 +119,122 @@ $(document).ready(function () {
 
   //User Update Submit Button Ajax Call Starts//
   $("#updateform").on("submit", function (e) {
-  e.preventDefault();
-  let date_ob = new Date();
-  var update_id= $("#u_id").val();
-  var update_firstname = $("#u_firstname").val();
-  var update_lastname=$("#u_lastname").val();
-  var update_contact=$("#u_number").val();
-  var update_email=$("#u_email").val();
-  var update_address=$("#u_address").val();
-  var update_status=$("#u_status").val();
-  var url2="http://localhost:2000/api//UserUpdate";
-  if(update_firstname!="" && update_lastname!="" && update_contact!="" && update_email!="" && update_address!="" && update_status!=""){
-    var update_result=JSON.stringify({
-        id:update_id,
+    e.preventDefault();
+    let date_ob = new Date();
+    var update_id = $("#u_id").val();
+    var update_firstname = $("#u_firstname").val();
+    var update_lastname = $("#u_lastname").val();
+    var update_contact = $("#u_number").val();
+    var update_email = $("#u_email").val();
+    var update_address = $("#u_address").val();
+    var update_status = $("#u_status").val();
+    var url2 = "http://localhost:2000/api//UserUpdate";
+    if (
+      update_firstname != "" &&
+      update_lastname != "" &&
+      update_contact != "" &&
+      update_email != "" &&
+      update_address != "" &&
+      update_status != ""
+    ) {
+      var update_result = JSON.stringify({
+        id: update_id,
         first_name: update_firstname,
         last_name: update_lastname,
-        contact_number:update_contact,
-        email_id:update_email,
+        contact_number: update_contact,
+        email_id: update_email,
         address: update_address,
         updated_at: date_ob,
-        status:update_status,
+        status: update_status,
+      });
+      console.log(update_result);
+      $.ajax({
+        url: url2,
+        data: update_result,
+        method: "PUT",
+        timeout: 0,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        success: function (response) {
+          let string = "";
+          for (const [key, value] of Object.entries(response)) {
+            string += `${value}\n`;
+          }
+          alert(string);
+          location.reload(true);
+        },
+      });
+    } else {
+      alert("Please Provide All The Information!");
+    }
+  });
+  // user edit ajax call ends //
+
+  // user view jquery starts //
+  $(document).on("click", ".view", function () {
+    $("#v_firstname").val($(this).data("viewfirst"));
+    $("#v_lastname").val($(this).data("viewlast"));
+    $("#v_number").val($(this).data("viewcontact"));
+    $("#v_email").val($(this).data("viewemail"));
+    $("#v_address").val($(this).data("viewaddress"));
+    $("#v_status").val($(this).data("viewstatus"));
+  });
+  // user view jquery ends //
+
+  //  delete user //
+  $(document).on("click", ".delete", function () {
+    var deleteid = $(this).data("deleteid");
+    var url3 = "http://localhost:2000/api//deleteuser";
+    var delete_result = JSON.stringify({
+      id: deleteid,
     });
-    console.log(update_result);
     $.ajax({
-      url: url2,
-      data: update_result,
-      method: "PUT",
+      url: url3,
+      data: delete_result,
+      method: "DELETE",
       timeout: 0,
       headers: {
         "Content-Type": "application/json",
       },
-      success: function (response){
-        let string = "";
-        for (const [key, value] of Object.entries(response)){
-          string += `${value}\n`;
+      success: function (response) {
+        let deleterow = "";
+        for (const [key, value] of Object.entries(response)) {
+          deleterow += `${value}\n`;
         }
-        alert(string);
+        alert(deleterow);
         location.reload(true);
       },
+      error: function () {
+        alert("Something Went Wrong");
+      },
     });
-  }
-  else{
-    alert("Please Provide All The Information!");
-  }
-  })
- // user edit ajax call ends //
+  });
+  // delete user //
 
- // user view jquery starts //
-  $(document).on("click",".view",function(){
-    $("#v_firstname").val($(this).data("viewfirst"))
-    $("#v_lastname").val($(this).data("viewlast"))
-    $("#v_number").val($(this).data("viewcontact"))
-    $("#v_email").val($(this).data("viewemail"))
-    $("#v_address").val($(this).data("viewaddress"))
-    $("#v_status").val($(this).data("viewstatus"))
-  })
- // user view jquery ends //
-
-//  delete user //
-$(document).on("click",".delete",function(){
-  var deleteid=$(this).data("deleteid")
-  var url3="http://localhost:2000/api//deleteuser"
-  var delete_result=JSON.stringify({
-    id:deleteid,
-  })
-   $.ajax({
-    url: url3,
-    data:delete_result,
-    method: "DELETE",
-    timeout: 0,
-    headers: {
-      "Content-Type": "application/json",
-    },
-    success: function (response){
-      let deleterow = "";
-      for (const [key, value] of Object.entries(response)){
-        deleterow += `${value}\n`;
-      }
-      alert(deleterow);
-      location.reload(true);
-    },
-    error: function () {
-      alert("Something Went Wrong");
-    },
-  })
-})
-// delete user //
-  
+  // search user starts//
+  $("#search").on("keyup", function () {
+    var value = $(this).val().toLowerCase();
+    if (value != "") {
+      $("#table tr").filter(function () {
+        var result = $(this).toggle(
+          $(this).text().toLowerCase().indexOf(value) > -1
+        );
+        var final_result = JSON.stringify({
+          result,
+        });
+        var url4 = "http://localhost:2000/api//search";
+        $.ajax({
+          url: url4,
+          data: final_result,
+          method: "GET",
+          timeout: 0,
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+      });
+    }
+  });
+  // search user ends //
 });

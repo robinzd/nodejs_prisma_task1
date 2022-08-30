@@ -16,23 +16,21 @@ export const UserUpdate = async (req: any, res: any) => {
   const mail = req.body.email_id;
   const address = req.body.address;
   const status = req.body.status;
-  const CheckContact: object | null = await prisma.user_registration.findFirst(
-    {
-      where: {
-        contact_number:parseInt(contact),
-      },
-    }
-  );
+  const CheckContact: object | null = await prisma.user_registration.findFirst({
+    where: {
+      contact_number: parseInt(contact),
+    },
+  });
   const CheckMail: object | null = await prisma.user_registration.findFirst({
     where: {
-      email_id:mail,
+      email_id: mail,
     },
   });
 
   if (CheckContact && CheckMail) {
     const updateUsers3 = await prisma.user_registration.update({
       where: {
-        id:parseInt(id),
+        id: parseInt(id),
       },
       data: {
         first_name: first,
@@ -50,7 +48,8 @@ export const UserUpdate = async (req: any, res: any) => {
     data3 = JSON.parse(data3.datasadd);
     res.status(200).json({
       Result:
-        "contact number and email id already registered cannot be updated remaining fields are updated"});
+        "contact number and email id already registered cannot be updated remaining fields are updated",
+    });
   } else if (CheckContact != null) {
     const updateUsers1 = await prisma.user_registration.update({
       where: {
@@ -73,11 +72,12 @@ export const UserUpdate = async (req: any, res: any) => {
     data1 = JSON.parse(data1.datasadd);
     res.status(200).json({
       Result:
-        "contact number already registered cannot be updated remaining fields are updated"});
+        "contact number already registered cannot be updated remaining fields are updated",
+    });
   } else if (CheckMail != null) {
     const updateUsers2 = await prisma.user_registration.update({
       where: {
-        id:parseInt(id),
+        id: parseInt(id),
       },
       data: {
         first_name: first,
@@ -96,12 +96,12 @@ export const UserUpdate = async (req: any, res: any) => {
     data2 = JSON.parse(data2.datasadd);
     res.status(200).json({
       Result:
-        "Email Id already registered cannot be updated remaining fields are updated"
+        "Email Id already registered cannot be updated remaining fields are updated",
     });
   } else {
     const updateUsers = await prisma.user_registration.update({
       where: {
-        id:parseInt(id),
+        id: parseInt(id),
       },
       data: {
         first_name: first,
@@ -120,6 +120,7 @@ export const UserUpdate = async (req: any, res: any) => {
     };
     data = JSON.parse(data.datasadd);
     res.status(200).json({
-      Result: "Successfully User Updated"});
+      Result: "Successfully User Updated",
+    });
   }
 };
