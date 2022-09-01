@@ -61,45 +61,49 @@ $(document).ready(function () {
     var address = $("#address").val();
     var status = $("#status").val();
     var url1 = "http://localhost:2000/api//userregistration";
-    if (
-      firstname != "" &&
-      lastname != "" &&
-      number != "" &&
-      email != "" &&
-      address !== "" &&
-      status != ""
-    ) {
-      var result = JSON.stringify({
-        first_name: firstname,
-        last_name: lastname,
-        contact_number: number,
-        email_id: email,
-        address: address,
-        created_at: date_ob,
-        updated_at: date_ob,
-        status: status,
-      });
-      $.ajax({
-        url: url1,
-        data: result,
-        method: "POST",
-        timeout: 0,
-        headers: {
-          "Content-Type": "application/json",
-        },
-        success: function (response) {
-          let resultString = "";
-          for (const [key, value] of Object.entries(response)) {
-            resultString += `${value}\n`;
-          }
-          alert(resultString);
-          location.reload(true);
-        },
-        error: function () {
-          alert("Contact Or Email Is Already Registered");
-        },
-      });
-    } else {
+    if (number.length > 10) {
+      alert("Invalid Contact Number");
+    }
+      else if (
+        firstname != "" &&
+        lastname != "" &&
+        number != "" &&
+        email != "" &&
+        address !== "" &&
+        status != ""
+      ) {
+        var result = JSON.stringify({
+          first_name: firstname,
+          last_name: lastname,
+          contact_number: number,
+          email_id: email,
+          address: address,
+          created_at: date_ob,
+          updated_at: date_ob,
+          status: status,
+        });
+        $.ajax({
+          url: url1,
+          data: result,
+          method: "POST",
+          timeout: 0,
+          headers: {
+            "Content-Type": "application/json",
+          },
+          success: function (response){
+            let resultString = "";
+            for (const [key, value] of Object.entries(response)) {
+              resultString += `${value}\n`;
+            }
+            alert(resultString);
+            location.reload(true);
+          },
+          error: function () {
+            alert("Contact Or Email Is Already Registered");
+          },
+        });
+      }
+     else {
       alert("Please Provide All The Information!");
     }
   });
@@ -129,7 +133,10 @@ $(document).ready(function () {
     var update_address = $("#u_address").val();
     var update_status = $("#u_status").val();
     var url2 = "http://localhost:2000/api//UserUpdate";
-    if (
+    if (update_contact.length > 10) {
+      alert("Invalid Contact Number");
+    }
+    else if (
       update_firstname != "" &&
       update_lastname != "" &&
       update_contact != "" &&
@@ -210,31 +217,14 @@ $(document).ready(function () {
       },
     });
   });
-  // delete user //
+  // delete user//
 
   // search user starts//
   $("#search").on("keyup", function () {
     var value = $(this).val().toLowerCase();
-    if (value != "") {
-      $("#table tr").filter(function () {
-        var result = $(this).toggle(
-          $(this).text().toLowerCase().indexOf(value) > -1
-        );
-        var final_result = JSON.stringify({
-          result,
-        });
-        var url4 = "http://localhost:2000/api//search";
-        $.ajax({
-          url: url4,
-          data: final_result,
-          method: "GET",
-          timeout: 0,
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-      });
-    }
+    $("#table tr").filter(function () {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+    });
   });
   // search user ends //
 });

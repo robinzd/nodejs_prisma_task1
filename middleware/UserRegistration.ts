@@ -42,7 +42,7 @@ else{
         address: address,
         created_at: date_ob,
         updated_at: date_ob,
-        status: parseInt(status),
+        status:status,
       },
     });
     let datas={

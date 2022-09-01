@@ -37,7 +37,7 @@ export const UserUpdate = async (req: any, res: any) => {
         last_name: last,
         address: address,
         updated_at: date_ob,
-        status: parseInt(status),
+        status:status,
       },
     });
     let data3 = {
@@ -61,7 +61,7 @@ export const UserUpdate = async (req: any, res: any) => {
         email_id: mail,
         address: address,
         updated_at: date_ob,
-        status: parseInt(status),
+        status:status,
       },
     });
     let data1 = {
@@ -85,7 +85,7 @@ export const UserUpdate = async (req: any, res: any) => {
         contact_number: parseInt(contact),
         address: address,
         updated_at: date_ob,
-        status: parseInt(status),
+        status:status,
       },
     });
     let data2 = {
@@ -110,7 +110,7 @@ export const UserUpdate = async (req: any, res: any) => {
         contact_number: parseInt(contact),
         address: address,
         updated_at: date_ob,
-        status: parseInt(status),
+        status:status,
       },
     });
     let data = {

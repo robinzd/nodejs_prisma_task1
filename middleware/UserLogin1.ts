@@ -8,46 +8,31 @@ import { isGeneratorFunction } from "util/types";
 const prisma = new PrismaClient();
 export const UserLogin = async (req: any, res: any) => {
   //     //req.body  //-------------> Has all request data
-  const email=req.body.email_id;
-  const contact=req.body.contact_number;
-  const getUserlogin: object | null = await prisma.user_registration.findUnique({
+  const email = req.body.email_id;
+  const contact = req.body.contact_number;
+  const getUserlogin: object | null = await prisma.user_registration.findFirst({
     where: {
-      email_id:email,
-    
+      email_id: email,
     },
-})
-  const getlogin: object | null = await prisma.user_registration.findUnique({
+  });
+  const getlogin: object | null = await prisma.user_registration.findFirst({
     where: {
-     contact_number:contact
+      contact_number:parseInt(contact),
     },
+});
 
-    select: {
-       id:true,
-       first_name:true,
-       last_name:true,
-       contact_number:true,
-       email_id:true,
-       address:true,
-       created_at:true,
-       updated_at:true,
-       status:true,
-      },
-
-
-})
-
-  let data={
-    datasadd:JSON.stringify(getlogin, (_, v) => typeof v === 'bigint' ? v.toString() : v)
-  }
+  let data = {
+    datasadd: JSON.stringify(getlogin, (_, v) =>
+      typeof v === "bigint" ? v.toString() : v
+    ),
+  };
   data = JSON.parse(data.datasadd);
-   
 
-if(getUserlogin && getlogin){
-res.status(200).json({ Result: "Successfully Loged In",data:data});
-}
-else{
-    res.status(400).json({ Result: "Contact Number Or Email Id is Not Matched"});
-} 
-
+  if (getUserlogin && getlogin) {
+    res.status(200).json({ Result: "Successfully Loged In" });
+  } else {
+    res
+      .status(400)
+      .json({ Result: "Contact Number Or Email Id is Not Matched" });
+  }
 };
-
