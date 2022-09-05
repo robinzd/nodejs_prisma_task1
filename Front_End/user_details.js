@@ -19,8 +19,7 @@ $(document).ready(function () {
         result += `
                 <tr>
                     <td>${count}</td>
-                    <td>${first_name}</td>
-                    <td>${last_name}</td>
+                    <td>${first_name} ${last_name}</td>
                     <td>${contact_number}</td>
                     <td>${email_id}</td>
                     <td>${address}</td>

@@ -322,3 +322,7 @@ input#search:focus {
   border: 1px solid lightgreen;
   box-shadow: none !important;
 }
+
+.info{
+  margin-left: 20% !important;
+}

@@ -30,22 +30,26 @@ model customer_tbl {
 }
 
 model orders_tbl {
-  ID            Int           @id @default(autoincrement())
-  product_name  String?       @db.VarChar(255)
-  Product_price Int?
-  customer_id   Int?
-  customer_tbl  customer_tbl? @relation(fields: [customer_id], references: [ID], onDelete: Restrict, onUpdate: Restrict, map: "FK_PersonOrder")
+  ID             Int              @id @default(autoincrement())
+  product_name   String?          @db.VarChar(255)
+  Product_price  Int?
+  customer_id    Int?
+  customer_tbl   customer_tbl?    @relation(fields: [customer_id], references: [ID], onDelete: Restrict, onUpdate: Restrict, map: "FK_Person")
+  deliver_status deliver_status[]
 
-  @@index([customer_id], map: "FK_PersonOrder")
+  @@index([customer_id], map: "FK_Person")
 }
 
 model deliver_status {
   ID           Int          @id @default(autoincrement())
   status       Int
   customer_id  Int
+  product_id   Int?
+  orders_tbl   orders_tbl?  @relation(fields: [product_id], references: [ID], onDelete: Restrict, onUpdate: Restrict, map: "FK_PersonOrderdetails")
   customer_tbl customer_tbl @relation(fields: [customer_id], references: [ID], onUpdate: Restrict, map: "FK_orderstatus")
 
   @@index([customer_id], map: "FK_orderstatus")
+  @@index([product_id], map: "FK_PersonOrderdetails")
 }
 
 model customer_agedetails {
