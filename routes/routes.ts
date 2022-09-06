@@ -13,6 +13,8 @@ import { IdGroupBy } from "../middleware/groupby";
 import { Count } from "../middleware/count";
 import { Distinct } from "../middleware/distinct";
 import { Search } from "../middleware/search";
+import {UpdateProductDetails} from "../middleware/updateproductdetails";
+import{Readstatus} from "../middleware/viewproductstatus";
 
 const router = express.Router();
 router.post("/userregistration", async (req: Request, res: Response) => {
@@ -62,6 +64,14 @@ router.get("/distinct", async (req: Request, res: Response) => {
 
 router.get("/search", async (req: Request, res: Response) => {
   Search(req, res);
+});
+
+router.put("/updateproductdetails", async (req: Request, res: Response) => {
+  UpdateProductDetails(req, res);
+});
+
+router.get("/productstatus", async (req: Request, res: Response) => {
+  Readstatus(req, res);
 });
 
 export { router };

@@ -26,7 +26,7 @@ import {
           },
           deliver_status: {
             select: {
-              status: true,
+              product_status: true,
             },
           },
           customer_agedetails: {

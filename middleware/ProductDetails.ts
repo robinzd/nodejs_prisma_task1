@@ -16,8 +16,10 @@ export const ProductDetails = async (req: any, res: any) => {
   const first_name = req.body.first_name;
   const last_name = req.body.last_name;
   const mail = req.body.email_id;
-  const status = req.body.status;
+  const status = req.body.product_status;
   const product_name = req.body.product_name;
+  const quantity=req.body.product_quantity;
+  const price=req.body.product_price;
   const age=req.body.age;
 
   let details = await prisma.customer_tbl.create({
@@ -26,10 +28,13 @@ export const ProductDetails = async (req: any, res: any) => {
       customer_last_name: last_name,
       Email_id: mail,
       orders_tbl: {
-        create: {product_name: product_name},
+        create: {product_name: product_name,
+                  product_quantity:quantity,
+                Product_price:price},
       },
       deliver_status: {
-        create: { status: status },
+        create: { product_status: status,
+        },
       },
       customer_agedetails:{
         create:{customer_age:age},

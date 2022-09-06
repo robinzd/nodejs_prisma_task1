@@ -85,7 +85,7 @@
             <h5 class="modal-title" id="exampleModalLabel">View Product Details</h5>
           </div>
           <div class="modal-body">
-            <form id="updateform">
+            <form>
               <div class="row mb-3" >
                 <label for="inputEmail3" class="col-sm-2 col-form-label">Customer Id:</label>
                   <label id="v_customer" class="col-sm-2 col-form-label info"></label>
@@ -118,5 +118,66 @@
     </div>
   </div>
     <!-- view user modal ends -->
+
+
+
+    <!-- edit user modal starts -->
+    <div
+      class="modal fade"
+      id="exampleModal1"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">View Product Details</h5>
+          </div>
+          <div class="modal-body">
+            <form id="updateform">
+              <div class="mb-3">
+                 <label for="recipient-name" class="col-form-label" 
+                   >Customer Id</label
+                 >
+                 <input type="text" class="form-control" id="u_customerid" readonly />
+               </div>
+               <div class="mb-3">
+                 <label for="message-text" class="col-form-label"
+                   >Product Name</label
+                 >
+                 <input type="text" class="form-control" id="u_name"/>
+               </div>
+               <div class="mb-3">
+                 <label for="message-text" class="col-form-label"
+                   >Product Price</label
+                 >
+                 <input type="number" class="form-control" id="u_price" readonly/>
+               </div>
+               <div class="mb-3">
+                <label for="message-text" class="col-form-label"
+                >Product Status</label
+              >
+                <select class="form-control" aria-label="Default select example" id="select">
+                  <option disabled>select Status</option>
+                </select>
+               </div>
+              </div>
+           <div class="modal-footer">
+             <button
+               type="button" id="clickbutton"
+               class="btn btn-secondary"
+               data-bs-dismiss="modal"
+             >
+               Close
+             </button>
+             <button type="submit" class="btn btn-primary">Update User</button>
+           </div>
+         </form>
+        </div>
+      </div>
+    </div>
+  </div>
+    <!-- edit user modal ends -->
   </body>
 </html>

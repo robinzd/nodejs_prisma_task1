@@ -30,33 +30,35 @@ model customer_tbl {
 }
 
 model orders_tbl {
-  ID             Int              @id @default(autoincrement())
-  product_name   String?          @db.VarChar(255)
-  Product_price  Int?
-  customer_id    Int?
-  customer_tbl   customer_tbl?    @relation(fields: [customer_id], references: [ID], onDelete: Restrict, onUpdate: Restrict, map: "FK_Person")
-  deliver_status deliver_status[]
+  product_id       Int          @id @default(autoincrement())
+  product_name     String       @db.VarChar(255)
+  Product_price    Int
+  product_quantity Int
+  customer_id      Int
+  customer_tbl     customer_tbl @relation(fields: [customer_id], references: [ID], onUpdate: Restrict, map: "orders_tbl_ibfk_1")
 
-  @@index([customer_id], map: "FK_Person")
+  @@index([customer_id], map: "customer_id")
 }
 
 model deliver_status {
-  ID           Int          @id @default(autoincrement())
-  status       Int
-  customer_id  Int
-  product_id   Int?
-  orders_tbl   orders_tbl?  @relation(fields: [product_id], references: [ID], onDelete: Restrict, onUpdate: Restrict, map: "FK_PersonOrderdetails")
-  customer_tbl customer_tbl @relation(fields: [customer_id], references: [ID], onUpdate: Restrict, map: "FK_orderstatus")
+  deliver_id     Int          @id @default(autoincrement())
+  customer_id    Int
+  product_status String       @db.VarChar(200)
+  customer_tbl   customer_tbl @relation(fields: [customer_id], references: [ID], onUpdate: Restrict, map: "deliver_status_ibfk_1")
 
-  @@index([customer_id], map: "FK_orderstatus")
-  @@index([product_id], map: "FK_PersonOrderdetails")
+  @@index([customer_id], map: "customer_id")
 }
 
 model customer_agedetails {
   ID           Int          @id @default(autoincrement())
   customer_id  Int
   customer_age Int
-  customer_tbl customer_tbl @relation(fields: [customer_id], references: [ID], onUpdate: Restrict, map: "FK_firstname")
+  customer_tbl customer_tbl @relation(fields: [customer_id], references: [ID], onUpdate: Restrict, map: "customer_agedetails_ibfk_1")
 
-  @@index([customer_id], map: "FK_firstname")
+  @@index([customer_id], map: "customer_id")
+}
+
+model status {
+  ID             Int    @id @default(autoincrement())
+  current_status String @db.VarChar(255)
 }
