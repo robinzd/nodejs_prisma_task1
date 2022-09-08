@@ -61,3 +61,23 @@ model status {
   ID             Int    @id @default(autoincrement())
   current_status String @db.VarChar(255)
 }
+
+model cart_table {
+  id               Int           @id @default(autoincrement())
+  product_id       Int
+  product_name     String        @db.VarChar(255)
+  product_price    Int
+  product_quantity Int?
+  product_table    product_table @relation(fields: [product_id], references: [product_id], onUpdate: Restrict, map: "FK_Product_id_cart")
+
+  @@index([product_id], map: "FK_Product_id_cart")
+}
+
+model product_table {
+  product_id      Int          @id @default(autoincrement())
+  product_image   String       @db.Text
+  product_name    String       @db.VarChar(255)
+  product_price   Int
+  strikeout_price Int?
+  cart_table      cart_table[]
+}

@@ -15,6 +15,9 @@ import { Distinct } from "../middleware/distinct";
 import { Search } from "../middleware/search";
 import {UpdateProductDetails} from "../middleware/updateproductdetails";
 import{Readstatus} from "../middleware/viewproductstatus";
+import { Products } from "../middleware/get_products";
+import { AddCart } from "../middleware/add_cart";
+
 
 const router = express.Router();
 router.post("/userregistration", async (req: Request, res: Response) => {
@@ -72,6 +75,14 @@ router.put("/updateproductdetails", async (req: Request, res: Response) => {
 
 router.get("/productstatus", async (req: Request, res: Response) => {
   Readstatus(req, res);
+});
+
+router.get("/getproducts", async (req: Request, res: Response) => {
+  Products(req, res);
+});
+
+router.post("/addtocart",async (req: Request, res: Response) => {
+  AddCart(req, res);
 });
 
 export { router };
