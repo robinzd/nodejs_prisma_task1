@@ -31,8 +31,7 @@ console.log(allUsers);
       Email_id: element.Email_id,
       product_id: element.orders_tbl[0].product_id,
       product_name: element.orders_tbl[0].product_name,
-      product_price: element.orders_tbl[0].Product_price,
-      product_quantity:element.orders_tbl[0].product_quantity,
+      product_price: element.orders_tbl[0].product_price,
       deliver_id: element.deliver_status[0].deliver_id,
       deliver_status: element.deliver_status[0].product_status,
     };

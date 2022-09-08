@@ -30,12 +30,11 @@ model customer_tbl {
 }
 
 model orders_tbl {
-  product_id       Int          @id @default(autoincrement())
-  product_name     String       @db.VarChar(255)
-  Product_price    Int
-  product_quantity Int
-  customer_id      Int
-  customer_tbl     customer_tbl @relation(fields: [customer_id], references: [ID], onUpdate: Restrict, map: "orders_tbl_ibfk_1")
+  product_id    Int          @id @default(autoincrement())
+  product_name  String       @db.VarChar(255)
+  product_price Int?
+  customer_id   Int
+  customer_tbl  customer_tbl @relation(fields: [customer_id], references: [ID], onUpdate: Restrict, map: "orders_tbl_ibfk_1")
 
   @@index([customer_id], map: "customer_id")
 }
