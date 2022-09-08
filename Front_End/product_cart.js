@@ -25,7 +25,7 @@ $(document).ready(function () {
           <ul
             class="d-flex align-items-center justify-content-center list-unstyled icons"
           >
-            <li class="icon mx-3"><span class="fa fa-plus"></span></li>
+            <a><li class="icon mx-3"><span class="fa fa-plus"></span></li></a>
           </ul>
         </div>
         <div class="tag bg-red">sale</div>
