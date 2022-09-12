@@ -77,6 +77,7 @@ $(document).ready(function () {
         alert("Already This Item Added To The Cart");
       }
     });
+    
   });
   // add to the cart //
 });
