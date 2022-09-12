@@ -13,12 +13,12 @@ import { IdGroupBy } from "../middleware/groupby";
 import { Count } from "../middleware/count";
 import { Distinct } from "../middleware/distinct";
 import { Search } from "../middleware/search";
-import {UpdateProductDetails} from "../middleware/updateproductdetails";
-import{Readstatus} from "../middleware/viewproductstatus";
+import { UpdateProductDetails } from "../middleware/updateproductdetails";
+import { Readstatus } from "../middleware/viewproductstatus";
 import { Products } from "../middleware/get_products";
 import { AddCart } from "../middleware/add_cart";
-
-
+import {GetCart} from "../middleware/get_cart";
+import {UpdateCart} from "../middleware/update_cart";
 const router = express.Router();
 router.post("/userregistration", async (req: Request, res: Response) => {
   UserRegistration(req, res);
@@ -81,8 +81,16 @@ router.get("/getproducts", async (req: Request, res: Response) => {
   Products(req, res);
 });
 
-router.post("/addtocart",async (req: Request, res: Response) => {
+router.post("/addtocart", async (req: Request, res: Response) => {
   AddCart(req, res);
+});
+
+router.get("/getcart", async (req: Request, res: Response) => {
+  GetCart(req, res);
+});
+
+router.put("/updatecart", async (req: Request, res: Response) => {
+  UpdateCart(req, res);
 });
 
 export { router };
