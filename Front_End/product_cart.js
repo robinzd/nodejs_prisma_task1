@@ -1,24 +1,27 @@
 $(document).ready(function () {
   // get products //
   var url = "http://localhost:2000/api//getcart";
+  var product_data;
   $.ajax({
     dataType: "json",
     url: url,
     success: function (datas) {
       console.log(datas);
       var cartproducts = "";
+      product_data=datas;
       datas.data.forEach((item) => {
         const {
+          id,
           product_id,
           product_name,
-          product_price_cart,
-          product_quantity_cart,
-          product_image,
           product_price,
+          product_quantity,
+          product_image,
+          product_original_price,
         } = item;
 
         cartproducts += `
-          <div class="card rounded-3 mb-4">
+         <div class="card rounded-3 mb-4">
           <div class="card-body p-4">
             <div
               class="row d-flex justify-content-between align-items-center"
@@ -41,30 +44,30 @@ $(document).ready(function () {
                   <i class="fa fa-minus"></i>
                 </button>
                 <input
-                  id="form1"
+                  id="form_${product_id}"
                   min="0"
                   name="quantity"
-                  value="${product_quantity_cart}"
+                  value="${product_quantity}"
                   type="number"
-                  class="form-control form-control-sm"
+                  class="form-control form-control-sm" 
                 />
                 <button
                   class="btn btn-link px-2"
                   onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
                 >
-                  <i class="fa fa-plus"></i>
+                <i class="fa fa-plus"></i>
                 </button>
               </div>
               <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                <h5 class="mb-0">₹${product_price_cart}</h5>
+                <h5 class="mb-0">₹${product_price}</h5>
               </div>
               <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-              <a data-id="${product_id}" data-price="${product_price}" data-quantity="${product_quantity_cart}" data-cartprice="${product_price_cart}" class="text-success edit" 
+              <a data-id="${product_id}" data-price="${product_original_price}" data-cartprice="${product_price}" class="text-success edit" 
                 ><i class="fa fa-edit fa-lg"></i
               ></a>
             </div>
             <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                <a href="#!" class="text-danger"
+                <a  data-id1="${id}" class="text-danger delete"
                   ><i class="fa fa-trash fa-lg"></i
                 ></a>
               </div>
@@ -82,7 +85,7 @@ $(document).ready(function () {
   $(document).on("click", ".edit", function () {
     var product_id = $(this).data("id");
     var product_price = $(this).data("price");
-    var quantity =$("#form1").val();
+    var quantity=$("#form_"+product_id).val();
     var final_price = quantity * product_price;
     var url1 = "http://localhost:2000/api//updatecart";
     var update_cart = JSON.stringify({
@@ -111,5 +114,42 @@ $(document).ready(function () {
       }
     });
   });
+  //  Update Cart //
+
+
+  //  delete products //
+  $(document).on("click", ".delete", function () {
+    var deleteid = $(this).data("id1");
+    console.log(deleteid);
+    var url3 = "http://localhost:2000/api//deleteproducts";
+    var delete_result = JSON.stringify({
+      id: deleteid,
+    });
+    console.log(delete_result);
+    $.ajax({
+      url: url3,
+      data: delete_result,
+      method: "DELETE",
+      timeout: 0,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      success: function (response) {
+        let deleterow = "";
+        for (const [key, value] of Object.entries(response)) {
+          deleterow += `${value}\n`;
+        }
+        confirm("Sure You Want To Delete This Product");
+        alert(deleterow);
+        location.reload(true);
+      },
+      error: function () {
+      alert("Something Went Wrong");
+      },
+    });
+  });
+  // delete products//
 });
-//  Update Cart
+
+
+

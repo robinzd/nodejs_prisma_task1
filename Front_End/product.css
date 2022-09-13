@@ -209,3 +209,8 @@
         justify-content: center
     }
 }
+
+/* batch designs */
+span.position-absolute.top-0.start-100.translate-middle.badge.rounded-pill.bg-danger{
+    font-size: 15px !important;
+}

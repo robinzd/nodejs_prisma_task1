@@ -71,7 +71,7 @@ $(document).ready(function () {
           string += `${value}\n`;
         }
         alert(string);
-        location.reload(true);
+        window.location.href = "./product_cart.html";
       },
       error:function(){
         alert("Already This Item Added To The Cart");
@@ -80,4 +80,18 @@ $(document).ready(function () {
     
   });
   // add to the cart //
+
+
+  var url4 = "http://localhost:2000/api//cartcount";
+  $.ajax({
+    dataType: "json",
+    url: url4,
+    success: function (datas4) {
+      console.log(datas4._count.product_id);
+     var result_count=datas4;
+     console.log(result_count);
+     $("#bagde").text(result_count);
+    },
+})
+  // get badge count //
 });

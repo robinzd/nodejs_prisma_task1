@@ -8,20 +8,20 @@ import { isGeneratorFunction } from "util/types";
 const prisma = new PrismaClient();
 export const GetCart = async (req: any, res: any) => {
   //req.body  //-------------> Has all request data
-const getprice = await prisma.product_table.findMany({
+const getprice = await prisma.cart_table.findMany({
    include:{
-    cart_table:true,
+    product_table:true,
   }
 })
 var result=getprice.map(function (e,i){
   var final_result={
-    product_id:e.product_id,
-    product_image:e.product_image,
-    product_name:e.product_name,
-    product_price:e.product_price,
-    product_id_cart:e.cart_table?.product_id,
-    product_price_cart:e.cart_table?.product_price_cart,
-    product_quantity_cart:e.cart_table?.product_quantity_cart,
+   id:e.id,
+   product_id:e.product_id,
+   product_image:e.product_image,
+   product_name:e.product_name,
+   product_price:e.product_price_cart,
+   product_quantity:e.product_quantity_cart,
+   product_original_price:e.product_table.product_price,
   }
   return final_result;
 })

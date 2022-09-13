@@ -19,6 +19,9 @@ import { Products } from "../middleware/get_products";
 import { AddCart } from "../middleware/add_cart";
 import {GetCart} from "../middleware/get_cart";
 import {UpdateCart} from "../middleware/update_cart";
+import {DeleteProducts} from "../middleware/delete_products";
+import { CartCount } from "../middleware/cart_count";
+
 const router = express.Router();
 router.post("/userregistration", async (req: Request, res: Response) => {
   UserRegistration(req, res);
@@ -91,6 +94,14 @@ router.get("/getcart", async (req: Request, res: Response) => {
 
 router.put("/updatecart", async (req: Request, res: Response) => {
   UpdateCart(req, res);
+});
+
+router.delete("/deleteproducts", async (req: Request, res: Response) => {
+  DeleteProducts(req, res);
+});
+
+router.get("/cartcount", async (req: Request, res: Response) => {
+  CartCount(req, res);
 });
 
 export { router };
