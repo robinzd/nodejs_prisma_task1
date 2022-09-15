@@ -21,6 +21,7 @@ import {GetCart} from "../middleware/get_cart";
 import {UpdateCart} from "../middleware/update_cart";
 import {DeleteProducts} from "../middleware/delete_products";
 import { CartCount } from "../middleware/cart_count";
+import { SaveLater } from "../middleware/save_later";
 
 const router = express.Router();
 router.post("/userregistration", async (req: Request, res: Response) => {
@@ -104,4 +105,8 @@ router.get("/cartcount", async (req: Request, res: Response) => {
   CartCount(req, res);
 });
 
-export { router };
+router.post("/savelater", async (req: Request, res: Response) => {
+  SaveLater(req, res);
+});
+
+export {router};

@@ -1,15 +1,13 @@
 $(document).ready(function () {
   // get products //
   var url = "http://localhost:2000/api//getcart";
-  var product_data;
+  var pro1;
   $.ajax({
     dataType: "json",
     url: url,
     success: function (datas) {
-      console.log(datas);
-      var cartproducts = "";
-      product_data=datas;
-      datas.data.forEach((item) => {
+    var cartproducts = "";
+   datas.data.forEach((item) => {
         const {
           id,
           product_id,
@@ -74,14 +72,18 @@ $(document).ready(function () {
             </div>
           </div>
         </div>
-    `;
-      });
-      $("#cart").append(cartproducts);
+      `;
+    //  var prices=product_price
+    //   pro1=prices;
+    //   console.log(pro1);
+    });
+     $("#cart").append(cartproducts);
     },
   });
+ 
+console.log(pro1);
 
-
-  // Update Cart
+// Update Cart
   $(document).on("click", ".edit", function () {
     var product_id = $(this).data("id");
     var product_price = $(this).data("price");
@@ -109,7 +111,7 @@ $(document).ready(function () {
         alert(string);
         location.reload(true);
       },
-      errro:function(response){
+      error:function(response){
         alert(response);
       }
     });
@@ -120,13 +122,11 @@ $(document).ready(function () {
   //  delete products //
   $(document).on("click", ".delete", function () {
     var deleteid = $(this).data("id1");
-    console.log(deleteid);
     var url3 = "http://localhost:2000/api//deleteproducts";
     var delete_result = JSON.stringify({
       id: deleteid,
     });
-    console.log(delete_result);
-    $.ajax({
+  $.ajax({
       url: url3,
       data: delete_result,
       method: "DELETE",

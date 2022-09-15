@@ -80,3 +80,12 @@ model product_table {
   strikeout_price Int?
   cart_table      cart_table?
 }
+
+model save_later_table {
+  id                    Int    @id @default(autoincrement())
+  product_id            Int
+  product_name          String @db.VarChar(255)
+  product_price_cart    Int
+  product_quantity_cart Int
+  product_image         String @db.Text
+}

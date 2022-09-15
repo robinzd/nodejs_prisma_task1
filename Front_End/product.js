@@ -34,12 +34,14 @@ $(document).ready(function () {
         <div class="title pt-4 pb-1">${product_name}</div>
         <div class="price"><s>₹${strikeout_price}</s>₹${product_price}</div>
       </div>
-      `;});
+      `;
+      });
 
       $("#products").append(result);
     },
   });
   //get products //
+
 
   // add to the cart //
   $(document).on("click", ".add", function () {
@@ -67,31 +69,33 @@ $(document).ready(function () {
       },
       success: function (response) {
         let string = "";
-        for (const [key, value] of Object.entries(response)){
+        for (const [key, value] of Object.entries(response)) {
           string += `${value}\n`;
         }
         alert(string);
-        window.location.href = "./product_cart.html";
+        location.reload(true);
       },
-      error:function(){
+      error: function () {
         alert("Already This Item Added To The Cart");
-      }
+      },
     });
-    
   });
   // add to the cart //
 
 
+  
+  // get cart count //
   var url4 = "http://localhost:2000/api//cartcount";
   $.ajax({
     dataType: "json",
     url: url4,
     success: function (datas4) {
-      console.log(datas4._count.product_id);
-     var result_count=datas4;
-     console.log(result_count);
-     $("#bagde").text(result_count);
+      let string1 = "";
+      for (const [key, value] of Object.entries(datas4)){
+        string1 += `${value}\n`;
+      }
+     $("#bagde").text(string1);
     },
-})
-  // get badge count //
+  });
+  // get cart count //
 });

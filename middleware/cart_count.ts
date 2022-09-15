@@ -9,10 +9,10 @@ const prisma = new PrismaClient();
 export const CartCount = async (req: any, res: any) => {
   //req.body  //-------------> Has all request data
   const cartcount = await prisma.cart_table.aggregate({
-   _count:{
+    _count: {
       product_id: true,
     },
-  })
- res
-  .status(200).json({Result:"Cart Count",data:cartcount});
+  });
+  var final_result = cartcount._count.product_id;
+  res.status(200).json({ data: final_result });
 };
