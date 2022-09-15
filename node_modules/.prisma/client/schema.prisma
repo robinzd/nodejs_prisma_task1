@@ -88,4 +88,5 @@ model save_later_table {
   product_price_cart    Int
   product_quantity_cart Int
   product_image         String @db.Text
+  product_price         Int
 }

@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
+
 img.img-fluid.rounded-3{
     width: 800px !important;
 }
@@ -8,4 +10,46 @@ img.img-fluid.rounded-3{
 
 .delete{
     cursor: pointer;
+}
+
+div#cart{
+    margin-right: 20%;
+}
+
+#checkout{
+    margin-top: -69%;
+    border:1px solid black;
+    border-radius: 20px;
+    margin-left: 85%;
+    text-align: center;
+    background-color:ghostwhite;
+    font-family: 'Poppins', sans-serif;
+}
+
+button{
+    margin-bottom: 20px;
+   
+}
+
+button.btn.btn-success{
+    border-radius: 10px;
+}
+
+button.btn.btn-success:hover{
+    background-color: black;
+    
+}
+
+
+.heading{
+    margin-top: 20px;
+}
+
+
+.save{
+    cursor: pointer;
+}
+
+#save{
+    margin-top: 40%;
 }

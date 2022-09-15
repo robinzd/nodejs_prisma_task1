@@ -22,6 +22,10 @@ import {UpdateCart} from "../middleware/update_cart";
 import {DeleteProducts} from "../middleware/delete_products";
 import { CartCount } from "../middleware/cart_count";
 import { SaveLater } from "../middleware/save_later";
+import { GetSaveLater } from "../middleware/get_savelater";
+import { UpdateSaveLater } from "../middleware/edit_savelater";
+import { SaveLaterToCart } from "../middleware/savelater_cart";
+import { DeleteSavelater } from "../middleware/delete_savelater";
 
 const router = express.Router();
 router.post("/userregistration", async (req: Request, res: Response) => {
@@ -109,4 +113,19 @@ router.post("/savelater", async (req: Request, res: Response) => {
   SaveLater(req, res);
 });
 
+router.get("/getsavelater", async (req: Request, res: Response) => {
+  GetSaveLater(req, res);
+});
+
+router.put("/updatesavelater", async (req: Request, res: Response) => {
+  UpdateSaveLater(req, res);
+});
+
+router.post("/savelatertocart", async (req: Request, res: Response) => {
+  SaveLaterToCart(req, res);
+});
+
+router.delete("/deletesavelater", async (req: Request, res: Response) => {
+  DeleteSavelater(req, res);
+});
 export {router};
