@@ -22,9 +22,10 @@ export const UpdateSaveLater = async (req: any, res: any) => {
         product_quantity_cart: parseInt(product_quantity),
       },
     });
+    var final=updatesavelater.product_price_cart
     res
       .status(200)
-      .json({Result: "Updated Successfully"});
+      .json({data:final});
   }
   else{
     res

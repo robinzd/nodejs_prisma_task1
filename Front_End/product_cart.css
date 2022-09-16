@@ -17,7 +17,7 @@ div#cart{
 }
 
 #checkout{
-    margin-top: -69%;
+    margin-top: -60%;
     border:1px solid black;
     border-radius: 20px;
     margin-left: 85%;
@@ -28,7 +28,6 @@ div#cart{
 
 button{
     margin-bottom: 20px;
-   
 }
 
 button.btn.btn-success{
@@ -52,4 +51,12 @@ button.btn.btn-success:hover{
 
 #save{
     margin-top: 40%;
+}
+
+.saves{
+    cursor: pointer;
+}
+
+#hearts{
+    color:red;
 }

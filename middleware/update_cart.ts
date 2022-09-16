@@ -11,7 +11,6 @@ export const UpdateCart = async (req: any, res: any) => {
   var product_id = req.body.product_id;
   var product_price = req.body.product_price_cart;
   var product_quantity = req.body.product_quantity_cart;
-  console.log(product_quantity);
   if(product_quantity > 0){
     const updatecart = await prisma.cart_table.update({
       where: {
@@ -22,9 +21,10 @@ export const UpdateCart = async (req: any, res: any) => {
         product_quantity_cart: parseInt(product_quantity),
       },
     });
+    var final=updatecart.product_price_cart
     res
       .status(200)
-      .json({Result: "Cart Updated Successfully"});
+      .json({data:final});
   }
   else{
     res

@@ -26,6 +26,7 @@ import { GetSaveLater } from "../middleware/get_savelater";
 import { UpdateSaveLater } from "../middleware/edit_savelater";
 import { SaveLaterToCart } from "../middleware/savelater_cart";
 import { DeleteSavelater } from "../middleware/delete_savelater";
+import { GetCartPrice } from "../middleware/get_fullamount";
 
 const router = express.Router();
 router.post("/userregistration", async (req: Request, res: Response) => {
@@ -127,5 +128,9 @@ router.post("/savelatertocart", async (req: Request, res: Response) => {
 
 router.delete("/deletesavelater", async (req: Request, res: Response) => {
   DeleteSavelater(req, res);
+});
+
+router.get("/getcartprice", async (req: Request, res: Response) => {
+GetCartPrice(req, res);
 });
 export {router};

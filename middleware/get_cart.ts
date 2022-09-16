@@ -25,7 +25,6 @@ var result=getprice.map(function (e,i){
   }
   return final_result;
 })
-console.log(result);
 res.status(200).json({ Result:"Cart Details",data:result});
 };
 
