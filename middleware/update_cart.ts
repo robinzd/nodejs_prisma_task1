@@ -21,14 +21,19 @@ export const UpdateCart = async (req: any, res: any) => {
         product_quantity_cart: parseInt(product_quantity),
       },
     });
-    var final=updatecart.product_price_cart
+    var final=updatecart.product_price_cart;
     res
       .status(200)
       .json({data:final});
   }
-  else{
+  else if(product_quantity < 1){
+    const update_delete_cart = await prisma.cart_table.delete({
+      where: {
+        product_id: parseInt(product_id),
+      },
+    });
     res
     .status(400)
-    .json({Result: "something Went Wrong"});
+    .json({Result: "Deleted Successfully"});
   }
 };

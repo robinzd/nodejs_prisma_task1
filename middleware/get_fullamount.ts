@@ -13,7 +13,11 @@ const getcartprice = await prisma.cart_table.findMany({
     product_price_cart:true,
    }
 })
-res.status(200).json({ Result:"Price Result",data:getcartprice});
+var total=0;
+var total_count=getcartprice.map(function(e,i){
+  total+=e.product_price_cart
+});
+res.status(200).json({data:total});
 };
 
 

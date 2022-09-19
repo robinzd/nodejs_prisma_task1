@@ -18,7 +18,7 @@ $(document).ready(function () {
         } = item;
 
         cartproducts += `
-         <div class="card rounded-3 mb-4">
+         <div class="card rounded-3 mb-4" id="products1">
           <div class="card-body p-4">
             <div
               class="row d-flex justify-content-between align-items-center"
@@ -49,7 +49,7 @@ $(document).ready(function () {
                   class="form-control form-control-sm" 
                 />
                 <button data-id="${product_id}" data-price="${product_original_price}" data-cartprice="${product_price}"
-                  class="btn btn-link px-2 edit"
+                  class="btn btn-link px-2 edit" 
                   onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
                 >
                 <i class="fa fa-plus"></i>
@@ -88,6 +88,7 @@ $(document).ready(function () {
   });
   // heart click change into red //
 
+
   // Update Cart
   $(document).on("click", ".edit", function () {
     var product_id = $(this).data("id");
@@ -114,16 +115,19 @@ $(document).ready(function () {
         for (const [key, value] of Object.entries(datas)) {
           results += `${value}\n`;
         }
-        $("#price_" + product_id).text(`₹${results}`);
+       $("#price_" + product_id).text(`₹${results}`);
+      
       },
-      error: function (response) {
-        alert(response);
+      error: function () {
+       $("#products1").remove();
       },
     });
   });
   //  Update Cart //
 
-  //  delete products //
+
+  
+//  delete products //
   $(document).on("click", ".delete", function () {
     var deleteid = $(this).data("id1");
     var url3 = "http://localhost:2000/api//deleteproducts";
@@ -143,9 +147,8 @@ $(document).ready(function () {
         for (const [key, value] of Object.entries(response)){
           deleterow += `${value}\n`;
         }
-        confirm("Sure You Want To Delete This Product");
-        alert(deleterow);
-        location.reload(true);
+        confirm("Sure You Want To Delete This Product")
+        alert(deleterow)
       },
       error: function () {
         alert("Something Went Wrong");
@@ -196,6 +199,7 @@ $(document).ready(function () {
   });
   //save for later logic//
 
+
   // delete in the cart table and save into the save later table //
   $(document).on("click", ".save", function () {
     var deleteid = $(this).data("id2");
@@ -233,7 +237,7 @@ $(document).ready(function () {
           product_price,
         } = items;
         saveproducts += `
-       <div class="card rounded-3 mb-4">
+       <div class="card rounded-3 mb-4" id="products2">
         <div class="card-body p-4">
           <div
             class="row d-flex justify-content-between align-items-center"
@@ -337,8 +341,8 @@ $(document).ready(function () {
         }
         $("#prices_" + product_editid).text(`₹${save_result}`);
       },
-      error: function (response) {
-        alert(response);
+      error: function () {
+        $("#products2").remove();
       },
     });
   });
@@ -464,7 +468,11 @@ $(document).ready(function () {
     dataType: "json",
     url: total_url,
     success: function (datas) {
-      console.log(datas);
+      let total_count = "";
+      for (const [key, value] of Object.entries(datas)) {
+        total_count  += `${value}\n`;
+      }
+      $("#total").text(`Total:₹${ total_count }`);
     },
   });
 });

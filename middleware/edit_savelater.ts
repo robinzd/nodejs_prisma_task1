@@ -27,9 +27,14 @@ export const UpdateSaveLater = async (req: any, res: any) => {
       .status(200)
       .json({data:final});
   }
-  else{
+  else if(product_quantity < 1){
+    const update_delete_savelater = await prisma.save_later_table.delete({
+      where: {
+        id: parseInt(id),
+      },
+    });
     res
     .status(400)
-    .json({Result: "something Went Wrong"});
+    .json({Result: "Deleted Successfully"});
   }
 };
