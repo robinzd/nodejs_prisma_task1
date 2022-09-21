@@ -24,5 +24,5 @@ export const SaveLater = async (req: any, res: any) => {
       product_price: parseInt(product_price),
     },
   });
-  res.status(200).json({ Result: "Product Added To The Save Later"});
+  res.status(200).json({Result: "Product Added To The Save Later",data:save_later});
 };

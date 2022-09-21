@@ -73,28 +73,41 @@ $(document).ready(function () {
           string += `${value}\n`;
         }
         alert(string);
-        location.reload(true);
+        // location.reload(true);
       },
       error: function () {
-        alert("Already This Item Added To The Cart");
+      alert("Product has Been Already Added");
       },
     });
   });
   // add to the cart //
 
-
-  
-  // get cart count //
+ // get cart count //
+  $(document).on("click", ".add", function () {
   var url4 = "http://localhost:2000/api//cartcount";
   $.ajax({
     dataType: "json",
     url: url4,
-    success: function (datas4) {
+  success: function (datas4) {
       let string1 = "";
       for (const [key, value] of Object.entries(datas4)){
         string1 += `${value}\n`;
       }
-     $("#bagde").text(string1);
+    $("#bagde").text(string1);
+    },
+  });
+})
+
+var url4 = "http://localhost:2000/api//cartcount";
+  $.ajax({
+    dataType: "json",
+    url: url4,
+  success: function (datas4) {
+      let string1 = "";
+      for (const [key, value] of Object.entries(datas4)){
+        string1 += `${value}\n`;
+      }
+    $("#bagde").text(string1);
     },
   });
   // get cart count //

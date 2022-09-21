@@ -88,7 +88,6 @@ $(document).ready(function () {
   });
   // heart click change into red //
 
-
   // Update Cart
   $(document).on("click", ".edit", function () {
     var product_id = $(this).data("id");
@@ -115,45 +114,37 @@ $(document).ready(function () {
         for (const [key, value] of Object.entries(datas)) {
           results += `${value}\n`;
         }
-       $("#price_" + product_id).text(`₹${results}`);
-      
+        $("#price_" + product_id).text(`₹${results}`);
       },
       error: function () {
-       $("#products1").remove();
+        $("#products1").remove();
       },
     });
   });
   //  Update Cart //
 
-
-  
-//  delete products //
+  //  delete products //
   $(document).on("click", ".delete", function () {
-    var deleteid = $(this).data("id1");
-    var url3 = "http://localhost:2000/api//deleteproducts";
-    var delete_result = JSON.stringify({
-      id: deleteid,
-    });
-    $.ajax({
-      url: url3,
-      data: delete_result,
-      method: "DELETE",
-      timeout: 0,
-      headers: {
-        "Content-Type": "application/json",
-      },
-      success: function (response){
-        let deleterow = "";
-        for (const [key, value] of Object.entries(response)){
-          deleterow += `${value}\n`;
-        }
-        confirm("Sure You Want To Delete This Product")
-        alert(deleterow)
-      },
-      error: function () {
-        alert("Something Went Wrong");
-      },
-    });
+    var confirmation = confirm("Do You Want To Really Delete This Product?");
+    if (confirmation == true) {
+      var deleteid = $(this).data("id1");
+      var url3 = "http://localhost:2000/api//deleteproducts";
+      var delete_result = JSON.stringify({
+        id: deleteid,
+      });
+      $.ajax({
+        url: url3,
+        data: delete_result,
+        method: "DELETE",
+        timeout: 0,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        success: function () {
+          $("#products1").remove();
+        },
+      });
+    }
   });
   // delete products//
 
@@ -162,10 +153,9 @@ $(document).ready(function () {
     var product_save_id = $(this).data("saveid");
     var product_save_name = $(this).data("savename");
     var product_saveprice = $(this).data("saveprice");
-    var product_savequantity = $("#form_"+product_save_id).val();
-    console.log(product_savequantity);
+    var product_savequantity = $("#form_" + product_save_id).val();
     var product_saveimage = $(this).data("saveimage");
-    var product_savecartprice = $(this).data("savecartprice");
+    var product_savecartprice = product_saveprice * product_savequantity;
     var save_url = "http://localhost:2000/api//savelater";
     var save_for_later = JSON.stringify({
       product_id: product_save_id,
@@ -176,6 +166,62 @@ $(document).ready(function () {
       product_quantity_cart: product_savequantity,
     });
     console.log(save_for_later);
+    var append_data = `
+    <div class="card rounded-3 mb-4" id="products2">
+     <div class="card-body p-4">
+       <div
+         class="row d-flex justify-content-between align-items-center"
+       >
+         <div class="col-md-2 col-lg-2 col-xl-2"  id="images">
+           <img
+             src="../images/${product_saveimage}"
+             class="img-fluid rounded-3"
+             alt=""
+         />
+         </div>
+         <div class="col-md-3 col-lg-3 col-xl-3">
+           <p class="lead fw-normal mb-2" id="names">${product_save_name}</p>
+          </div>
+         <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+           <button  data-prices="${product_saveprice}" data-cartprices="${product_savecartprice}"
+             class="btn btn-link px-2 edits"
+             onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
+           >
+           <i class="fa fa-minus"></i>
+           </button>
+           <input
+             id="form1"
+             min="0"
+             name="quantity"
+             value="${product_savequantity}"
+             type="number"
+             class="form-control form-control-sm" 
+           />
+           <button  data-prices="${product_saveprice}" data-cartprices="${product_savecartprice}"
+             class="btn btn-link px-2 edits"
+             onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
+           >
+           <i class="fa fa-plus"></i>
+           </button>
+         </div>
+         <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+           <h5 class="mb-0" id="prices">₹${product_savecartprice}</h5>
+         </div>
+         <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+         <a  data-savetoimage=${product_saveimage}  data-prices1="${product_saveprice}"  data-savetoname="${product_save_name}" data-savetoid="${product_save_id}" data-savetoquantity="${product_savequantity}" data-savetocartprice="${product_savecartprice}" id="hearts" class="saves"
+           ><i class="fa fa-heart fa-lg"></i
+         ></a>
+       </div>
+        <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+           <a   class="text-danger deletes"
+             ><i class="fa fa-trash fa-lg"></i
+           ></a>
+         </div>
+       </div>
+     </div>
+   </div>
+ `;$("#save").append(append_data);
+
     $.ajax({
       url: save_url,
       data: save_for_later,
@@ -185,12 +231,27 @@ $(document).ready(function () {
         "Content-Type": "application/json",
       },
       success: function (response) {
-        let save_later = "";
+        let results1 = "";
         for (const [key, value] of Object.entries(response)) {
-          save_later  += `${value}\n`;
+          results1 += `${value}\n`;
         }
-        alert(save_later);
-        location.reload(true);
+        alert(results1);
+        // location.reload(true);
+        // console.log(results1);
+        // console.log(response);
+        // var save_later = document.getElementById("products2");
+        // console.log(save_later);
+        // var name = response.data.product_name;
+        // var id = response.data.product_quantity_cart;
+        // console.log(id);
+        // var get_id = document.getElementsByClassName(
+        //   "form-control form-control-sm"
+        // );
+        // var get_name = document.getElementById("names");
+        // var get_final_name = (get_name.innerHTML = name);
+        // var get_final_id = (get_id.innerHTML = id);
+        // save_later.innerHTML = get_final_id.val();
+        // save_later.innerHTML = get_final_name;
       },
       error: function (response) {
         alert(response);
@@ -198,7 +259,6 @@ $(document).ready(function () {
     });
   });
   //save for later logic//
-
 
   // delete in the cart table and save into the save later table //
   $(document).on("click", ".save", function () {
@@ -217,7 +277,7 @@ $(document).ready(function () {
       },
     });
   });
-  // delete in the cart table and save into the save later table //
+  //delete in the cart table and save into the save later table//
 
   //get save later//
   var saveurl1 = "http://localhost:2000/api//getsavelater";
@@ -242,22 +302,22 @@ $(document).ready(function () {
           <div
             class="row d-flex justify-content-between align-items-center"
           >
-            <div class="col-md-2 col-lg-2 col-xl-2">
+            <div class="col-md-2 col-lg-2 col-xl-2"  id="images">
               <img
                 src="../images/${product_image}"
                 class="img-fluid rounded-3"
                 alt=""
-              />
+            />
             </div>
             <div class="col-md-3 col-lg-3 col-xl-3">
-              <p class="lead fw-normal mb-2">${product_name}</p>
+              <p class="lead fw-normal mb-2" id="names">${product_name}</p>
              </div>
             <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
               <button data-ids="${id}" data-prices="${product_price}" data-cartprices="${product_price_cart}"
                 class="btn btn-link px-2 edits"
                 onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
               >
-                <i class="fa fa-minus"></i>
+              <i class="fa fa-minus"></i>
               </button>
               <input
                 id="form1_${id}"
@@ -278,7 +338,7 @@ $(document).ready(function () {
               <h5 class="mb-0" id="prices_${id}">₹${product_price_cart}</h5>
             </div>
             <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-            <a data-deleteid="${id}" data-savetoimage=${product_image}  data-savetoname="${product_name}" data-savetoid="${product_id}" data-savetoquantity="${product_quantity_cart}" data-savetocartprice="${product_price_cart}" id="hearts" class="saves"
+            <a data-deleteid="${id}" data-savetoimage=${product_image}  data-prices1="${product_price}"  data-savetoname="${product_name}" data-savetoid="${product_id}" data-savetoquantity="${product_quantity_cart}" data-savetocartprice="${product_price_cart}" id="hearts" class="saves"
               ><i class="fa fa-heart fa-lg"></i
             ></a>
           </div>
@@ -297,7 +357,6 @@ $(document).ready(function () {
   });
   //get save later//
 
-
   //heart click change into black//
   click = true;
   $(document).on("click", ".saves", function () {
@@ -307,7 +366,6 @@ $(document).ready(function () {
     }
   });
   //heart click change into black //
-
 
   // Update Save Later//
   $(document).on("click", ".edits", function () {
@@ -336,7 +394,7 @@ $(document).ready(function () {
       },
       success: function (updatedata) {
         let save_result = "";
-        for (const [key, value] of Object.entries(updatedata)){
+        for (const [key, value] of Object.entries(updatedata)) {
           save_result += `${value}\n`;
         }
         $("#prices_" + product_editid).text(`₹${save_result}`);
@@ -348,15 +406,17 @@ $(document).ready(function () {
   });
   //Update Save Later//
 
-  
-//save to cart logic//
+  //save to cart logic//
   $(document).on("click", ".saves", function () {
-    var deletesid=$(this).data("deleteid");
+    var deletesid = $(this).data("deleteid");
     var product_to_id = $(this).data("savetoid");
+    var product_to_price1 = $(this).data("prices1");
+    console.log(product_to_price1);
     var product_to_name = $(this).data("savetoname");
-    var product_to_quantity = $("#form1_"+deletesid).val();
+    var product_to_quantity = $("#form1_" + deletesid).val();
     var product_to_image = $(this).data("savetoimage");
-    var product_to_cartprice = $(this).data("savetocartprice");
+    var product_to_cartprice = product_to_price1 * product_to_quantity;
+    console.log(product_to_cartprice);
     var save_to_url = "http://localhost:2000/api//savelatertocart";
     var save_to_cart = JSON.stringify({
       product_id: product_to_id,
@@ -389,7 +449,6 @@ $(document).ready(function () {
   });
   //save to cart logic//
 
-
   //delete from savelater logic//
   $(document).on("click", ".saves", function () {
     var deleteid = $(this).data("deleteid");
@@ -417,33 +476,27 @@ $(document).ready(function () {
 
   //delete from savelater  table logic//
   $(document).on("click", ".deletes", function () {
-    var deleteid1 = $(this).data("deleteid1");
-    console.log(deleteid1);
-    var delete1_url3 = "http://localhost:2000/api//deletesavelater";
-    var delete1_save_result = JSON.stringify({
-      id: deleteid1,
-    });
-    $.ajax({
-      url: delete1_url3,
-      data: delete1_save_result,
-      method: "DELETE",
-      timeout: 0,
-      headers: {
-        "Content-Type": "application/json",
-      },
-      success: function (response) {
-        let deleterow = "";
-        for (const [key, value] of Object.entries(response)) {
-          deleterow += `${value}\n`;
-        }
-        confirm("Sure You Want To Delete This Product");
-        alert(deleterow);
-        location.reload(true);
-      },
-      error: function () {
-        alert("Something Went Wrong");
-      },
-    });
+    var confirmation1 = confirm("Do You Want To Really Delete This Product?");
+    if (confirmation1 == true) {
+      var deleteid1 = $(this).data("deleteid1");
+      console.log(deleteid1);
+      var delete1_url3 = "http://localhost:2000/api//deletesavelater";
+      var delete1_save_result = JSON.stringify({
+        id: deleteid1,
+      });
+      $.ajax({
+        url: delete1_url3,
+        data: delete1_save_result,
+        method: "DELETE",
+        timeout: 0,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        success: function () {
+          $("#products2").remove();
+        },
+      });
+    }
   });
   //delete from savelater  table logic//
 
@@ -463,6 +516,21 @@ $(document).ready(function () {
   // get items count //
 
   //adding the total number//
+  $(document).on("click", ".edit", function () {
+    var total_url = "http://localhost:2000/api//getcartprice";
+    $.ajax({
+      dataType: "json",
+      url: total_url,
+      success: function (datas) {
+        let total_count = "";
+        for (const [key, value] of Object.entries(datas)) {
+          total_count += `${value}\n`;
+        }
+        $("#total").text(`Total:₹${total_count}`);
+      },
+    });
+  });
+
   var total_url = "http://localhost:2000/api//getcartprice";
   $.ajax({
     dataType: "json",
@@ -470,9 +538,9 @@ $(document).ready(function () {
     success: function (datas) {
       let total_count = "";
       for (const [key, value] of Object.entries(datas)) {
-        total_count  += `${value}\n`;
+        total_count += `${value}\n`;
       }
-      $("#total").text(`Total:₹${ total_count }`);
+      $("#total").text(`Total:₹${total_count}`);
     },
   });
 });

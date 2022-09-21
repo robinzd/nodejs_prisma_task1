@@ -60,3 +60,7 @@ button.btn.btn-success:hover{
 #hearts{
     color:red;
 }
+
+.col-md-1.col-lg-1.col-xl-1.text-end{
+    cursor: pointer;
+}
