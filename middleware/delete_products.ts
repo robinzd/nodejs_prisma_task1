@@ -8,17 +8,17 @@ import { isGeneratorFunction } from "util/types";
 const prisma = new PrismaClient();
 export const DeleteProducts = async (req: any, res: any) => {
   //     //req.body  //-------------> Has all request data
-  var id=req.body.id;
-  console.log(id);
+  var product_id=req.body.product_id;
+  console.log(product_id);
   const deleteproducts = await prisma.cart_table.delete({
     where: {
-      id:parseInt(id),
+      product_id:product_id,
     },
  })
 if(deleteproducts){
     res.status(200).json({Result: "Product Deleted Successfully"});
   }
   else{
-    res.status(400).json({ Result: "Something Went Wrong"});
+    res.status(400).json({Result: "Something Went Wrong"});
   }
 };

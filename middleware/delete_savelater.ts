@@ -8,11 +8,11 @@ import { isGeneratorFunction } from "util/types";
 const prisma = new PrismaClient();
 export const DeleteSavelater = async (req: any, res: any) => {
   //     //req.body  //-------------> Has all request data
-  var id=req.body.id;
-  console.log(id);
+  var product_id=req.body.product_id;
+  console.log(product_id);
   const deletesavelater = await prisma.save_later_table.delete({
     where: {
-      id:parseInt(id),
+      product_id:parseInt(product_id),
     },
  })
 if(deletesavelater){

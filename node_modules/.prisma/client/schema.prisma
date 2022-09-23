@@ -83,7 +83,7 @@ model product_table {
 
 model save_later_table {
   id                    Int    @id @default(autoincrement())
-  product_id            Int
+  product_id            Int    @unique(map: "product_id")
   product_name          String @db.VarChar(255)
   product_price_cart    Int
   product_quantity_cart Int

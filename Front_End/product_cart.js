@@ -8,7 +8,6 @@ $(document).ready(function () {
       var cartproducts = "";
       datas.data.forEach((item) => {
         const {
-          id,
           product_id,
           product_name,
           product_price,
@@ -59,12 +58,12 @@ $(document).ready(function () {
                 <h5 class="mb-0" id="price_${product_id}">₹${product_price}</h5>
               </div>
               <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-              <a   data-id2="${id}" data-saveimage=${product_image}  data-savename="${product_name}" data-saveid="${product_id}" data-savequantity="${product_quantity}" data-saveprice="${product_original_price}" data-savecartprice="${product_price}" id="heart" class="save"
+              <a   data-saveimage=${product_image}  data-savename="${product_name}" data-saveid="${product_id}" data-savequantity="${product_quantity}" data-saveprice="${product_original_price}" data-savecartprice="${product_price}" id="heart" class="save"
                 ><i class="fa fa-heart fa-lg"></i
               ></a>
             </div>
              <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                <a  data-id1="${id}" class="text-danger delete"
+                <a  data-id1="${product_id}" class="text-danger delete"
                   ><i class="fa fa-trash fa-lg"></i
                 ></a>
               </div>
@@ -78,15 +77,20 @@ $(document).ready(function () {
   });
   // get products in the cart //
 
+  //**********************************************************************************************************//
+
   // heart click change into red //
   clicked = true;
   $(document).on("click", ".save", function () {
     if (clicked) {
       $(this).css("color", "red");
-      clicked = false;
+      clicked = true;
+      console.log("hai");
     }
   });
   // heart click change into red //
+
+  //**********************************************************************************************************//
 
   // Update Cart
   $(document).on("click", ".edit", function () {
@@ -123,6 +127,8 @@ $(document).ready(function () {
   });
   //  Update Cart //
 
+  //**********************************************************************************************************//
+
   //  delete products //
   $(document).on("click", ".delete", function () {
     var confirmation = confirm("Do You Want To Really Delete This Product?");
@@ -130,7 +136,7 @@ $(document).ready(function () {
       var deleteid = $(this).data("id1");
       var url3 = "http://localhost:2000/api//deleteproducts";
       var delete_result = JSON.stringify({
-        id: deleteid,
+        product_id: deleteid,
       });
       $.ajax({
         url: url3,
@@ -148,14 +154,22 @@ $(document).ready(function () {
   });
   // delete products//
 
+  //**********************************************************************************************************//
+
   //save for later logic//
   $(document).on("click", ".save", function () {
     var product_save_id = $(this).data("saveid");
+    console.log(product_save_id);
     var product_save_name = $(this).data("savename");
+    console.log(product_save_name);
     var product_saveprice = $(this).data("saveprice");
+    console.log(product_saveprice);
     var product_savequantity = $("#form_" + product_save_id).val();
+    console.log(product_savequantity);
     var product_saveimage = $(this).data("saveimage");
+    console.log(product_saveimage);
     var product_savecartprice = product_saveprice * product_savequantity;
+    console.log(product_savecartprice);
     var save_url = "http://localhost:2000/api//savelater";
     var save_for_later = JSON.stringify({
       product_id: product_save_id,
@@ -166,62 +180,6 @@ $(document).ready(function () {
       product_quantity_cart: product_savequantity,
     });
     console.log(save_for_later);
-    var append_data = `
-    <div class="card rounded-3 mb-4" id="products2">
-     <div class="card-body p-4">
-       <div
-         class="row d-flex justify-content-between align-items-center"
-       >
-         <div class="col-md-2 col-lg-2 col-xl-2"  id="images">
-           <img
-             src="../images/${product_saveimage}"
-             class="img-fluid rounded-3"
-             alt=""
-         />
-         </div>
-         <div class="col-md-3 col-lg-3 col-xl-3">
-           <p class="lead fw-normal mb-2" id="names">${product_save_name}</p>
-          </div>
-         <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-           <button  data-prices="${product_saveprice}" data-cartprices="${product_savecartprice}"
-             class="btn btn-link px-2 edits"
-             onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
-           >
-           <i class="fa fa-minus"></i>
-           </button>
-           <input
-             id="form1"
-             min="0"
-             name="quantity"
-             value="${product_savequantity}"
-             type="number"
-             class="form-control form-control-sm" 
-           />
-           <button  data-prices="${product_saveprice}" data-cartprices="${product_savecartprice}"
-             class="btn btn-link px-2 edits"
-             onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
-           >
-           <i class="fa fa-plus"></i>
-           </button>
-         </div>
-         <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-           <h5 class="mb-0" id="prices">₹${product_savecartprice}</h5>
-         </div>
-         <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-         <a  data-savetoimage=${product_saveimage}  data-prices1="${product_saveprice}"  data-savetoname="${product_save_name}" data-savetoid="${product_save_id}" data-savetoquantity="${product_savequantity}" data-savetocartprice="${product_savecartprice}" id="hearts" class="saves"
-           ><i class="fa fa-heart fa-lg"></i
-         ></a>
-       </div>
-        <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-           <a   class="text-danger deletes"
-             ><i class="fa fa-trash fa-lg"></i
-           ></a>
-         </div>
-       </div>
-     </div>
-   </div>
- `;$("#save").append(append_data);
-
     $.ajax({
       url: save_url,
       data: save_for_later,
@@ -236,36 +194,79 @@ $(document).ready(function () {
           results1 += `${value}\n`;
         }
         alert(results1);
-        // location.reload(true);
-        // console.log(results1);
-        // console.log(response);
-        // var save_later = document.getElementById("products2");
-        // console.log(save_later);
-        // var name = response.data.product_name;
-        // var id = response.data.product_quantity_cart;
-        // console.log(id);
-        // var get_id = document.getElementsByClassName(
-        //   "form-control form-control-sm"
-        // );
-        // var get_name = document.getElementById("names");
-        // var get_final_name = (get_name.innerHTML = name);
-        // var get_final_id = (get_id.innerHTML = id);
-        // save_later.innerHTML = get_final_id.val();
-        // save_later.innerHTML = get_final_name;
+        var append_data = "";
+        append_data = `<div class="card rounded-3 mb-4" id="products2">
+        <div class="card-body p-4">
+          <div
+            class="row d-flex justify-content-between align-items-center"
+          >
+            <div class="col-md-2 col-lg-2 col-xl-2"  id="images">
+              <img
+                src="../images/${product_saveimage}"
+                class="img-fluid rounded-3"
+                alt=""
+            />
+            </div>
+            <div class="col-md-3 col-lg-3 col-xl-3">
+              <p class="lead fw-normal mb-2" id="names">${product_save_name}</p>
+             </div>
+            <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+              <button data-ids="${product_save_id}" data-prices="${product_saveprice}" data-cartprices="${product_savecartprice}"
+                class="btn btn-link px-2 edits"
+                onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
+              >
+              <i class="fa fa-minus"></i>
+              </button>
+              <input
+                id="form1_${product_save_id}"
+                min="0"
+                name="quantity"
+                value="${product_savequantity}"
+                type="number"
+                class="form-control form-control-sm" 
+              />
+              <button data-ids="${product_save_id}" data-prices="${product_saveprice}" data-cartprices="${product_savecartprice}"
+                class="btn btn-link px-2 edits"
+                onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
+              >
+              <i class="fa fa-plus"></i>
+              </button>
+            </div>
+            <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+              <h5 class="mb-0" id="prices_${product_save_id}">₹${product_savecartprice}</h5>
+            </div>
+            <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+            <a data-savetoimage=${product_saveimage}  data-prices1="${product_saveprice}"  data-savetoname="${product_save_name}" data-savetoid="${product_save_id}" data-savetoquantity="${product_savequantity}" data-savetocartprice="${product_savecartprice}" id="hearts" class="saves"
+              ><i class="fa fa-heart fa-lg"></i
+            ></a>
+          </div>
+           <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+              <a  data-deleteid1="${product_save_id}" class="text-danger deletes"
+                ><i class="fa fa-trash fa-lg"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+      $("#save").append(append_data);
       },
-      error: function (response) {
+      error: function (response){
         alert(response);
       },
     });
   });
   //save for later logic//
 
-  // delete in the cart table and save into the save later table //
+  //**********************************************************************************************************//
+
+  // delete in the cart table and save into the save later table//
   $(document).on("click", ".save", function () {
-    var deleteid = $(this).data("id2");
+    var deleteid = $(this).data("saveid");
+    console.log(deleteid);
     var url3 = "http://localhost:2000/api//deleteproducts";
     var delete_result = JSON.stringify({
-      id: deleteid,
+      product_id: deleteid,
     });
     $.ajax({
       url: url3,
@@ -275,9 +276,14 @@ $(document).ready(function () {
       headers: {
         "Content-Type": "application/json",
       },
+      success: function () {
+        $("#products1").remove();
+      },
     });
   });
   //delete in the cart table and save into the save later table//
+
+  //**********************************************************************************************************//
 
   //get save later//
   var saveurl1 = "http://localhost:2000/api//getsavelater";
@@ -285,10 +291,9 @@ $(document).ready(function () {
     dataType: "json",
     url: saveurl1,
     success: function (datas) {
-      var saveproducts = "";
+      savelaterproducts = "";
       datas.data.forEach((items) => {
         const {
-          id,
           product_id,
           product_name,
           product_price_cart,
@@ -296,7 +301,7 @@ $(document).ready(function () {
           product_image,
           product_price,
         } = items;
-        saveproducts += `
+        savelaterproducts += `
        <div class="card rounded-3 mb-4" id="products2">
         <div class="card-body p-4">
           <div
@@ -313,21 +318,21 @@ $(document).ready(function () {
               <p class="lead fw-normal mb-2" id="names">${product_name}</p>
              </div>
             <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-              <button data-ids="${id}" data-prices="${product_price}" data-cartprices="${product_price_cart}"
+              <button data-ids="${product_id}" data-prices="${product_price}" data-cartprices="${product_price_cart}"
                 class="btn btn-link px-2 edits"
                 onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
               >
               <i class="fa fa-minus"></i>
               </button>
               <input
-                id="form1_${id}"
+                id="form1_${product_id}"
                 min="0"
                 name="quantity"
                 value="${product_quantity_cart}"
                 type="number"
                 class="form-control form-control-sm" 
               />
-              <button data-ids="${id}" data-prices="${product_price}" data-cartprices="${product_price_cart}"
+              <button data-ids="${product_id}" data-prices="${product_price}" data-cartprices="${product_price_cart}"
                 class="btn btn-link px-2 edits"
                 onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
               >
@@ -335,15 +340,15 @@ $(document).ready(function () {
               </button>
             </div>
             <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-              <h5 class="mb-0" id="prices_${id}">₹${product_price_cart}</h5>
+              <h5 class="mb-0" id="prices_${product_id}">₹${product_price_cart}</h5>
             </div>
             <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-            <a data-deleteid="${id}" data-savetoimage=${product_image}  data-prices1="${product_price}"  data-savetoname="${product_name}" data-savetoid="${product_id}" data-savetoquantity="${product_quantity_cart}" data-savetocartprice="${product_price_cart}" id="hearts" class="saves"
+            <a data-savetoimage=${product_image}  data-prices1="${product_price}" data-savetoname="${product_name}" data-savetoid="${product_id}" data-savetoquantity="${product_quantity_cart}" data-savetocartprice="${product_price_cart}" id="hearts" class="saves"
               ><i class="fa fa-heart fa-lg"></i
             ></a>
           </div>
            <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-              <a  data-deleteid1="${id}" class="text-danger deletes"
+              <a  data-deleteid1="${product_id}" class="text-danger deletes"
                 ><i class="fa fa-trash fa-lg"></i
               ></a>
             </div>
@@ -352,20 +357,24 @@ $(document).ready(function () {
       </div>
     `;
       });
-      $("#save").append(saveproducts);
+      $("#save").append(savelaterproducts);
     },
   });
   //get save later//
+
+  //**********************************************************************************************************//
 
   //heart click change into black//
   click = true;
   $(document).on("click", ".saves", function () {
     if (click) {
       $(this).css("color", "black");
-      click = false;
+      click = true;
     }
   });
-  //heart click change into black //
+  //heart click change into black//
+
+  //**********************************************************************************************************//
 
   // Update Save Later//
   $(document).on("click", ".edits", function () {
@@ -379,7 +388,7 @@ $(document).ready(function () {
     console.log(final_editprice);
     var updateurl1 = "http://localhost:2000/api//updatesavelater";
     var update_savelater = JSON.stringify({
-      id: product_editid,
+      product_id: product_editid,
       product_price_cart: final_editprice,
       product_quantity_cart: product_editquantity,
     });
@@ -406,14 +415,15 @@ $(document).ready(function () {
   });
   //Update Save Later//
 
+  //**********************************************************************************************************//
+
   //save to cart logic//
   $(document).on("click", ".saves", function () {
-    var deletesid = $(this).data("deleteid");
     var product_to_id = $(this).data("savetoid");
     var product_to_price1 = $(this).data("prices1");
     console.log(product_to_price1);
     var product_to_name = $(this).data("savetoname");
-    var product_to_quantity = $("#form1_" + deletesid).val();
+    var product_to_quantity = $("#form1_" + product_to_id).val();
     var product_to_image = $(this).data("savetoimage");
     var product_to_cartprice = product_to_price1 * product_to_quantity;
     console.log(product_to_cartprice);
@@ -440,7 +450,62 @@ $(document).ready(function () {
           string += `${value}\n`;
         }
         alert(string);
-        location.reload(true);
+        var append_data2 = `
+        <div class="card rounded-3 mb-4" id="products1">
+         <div class="card-body p-4">
+           <div
+             class="row d-flex justify-content-between align-items-center"
+           >
+             <div class="col-md-2 col-lg-2 col-xl-2">
+               <img
+                 src="../images/${product_to_image}"
+                 class="img-fluid rounded-3"
+                 alt=""
+               />
+             </div>
+             <div class="col-md-3 col-lg-3 col-xl-3">
+               <p class="lead fw-normal mb-2">${product_to_name}</p>
+              </div>
+             <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+               <button data-id="${product_to_id}" data-price="${product_to_price1}" data-cartprice="${product_to_cartprice}"
+                 class="btn btn-link px-2 edit"
+                 onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
+               >
+                 <i class="fa fa-minus"></i>
+               </button>
+               <input
+                 id="form_${product_to_id}"
+                 min="0"
+                 name="quantity"
+                 value="${product_to_quantity}"
+                 type="number"
+                 class="form-control form-control-sm" 
+               />
+               <button data-id="${product_to_id}" data-price="${product_to_price1}" data-cartprice="${product_to_cartprice}"
+                 class="btn btn-link px-2 edit" 
+                 onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
+               >
+               <i class="fa fa-plus"></i>
+               </button>
+             </div>
+             <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+               <h5 class="mb-0" id="price_${product_to_id}">₹${product_to_cartprice}</h5>
+             </div>
+             <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+             <a   data-saveimage=${product_to_image}  data-savename="${product_to_name}" data-saveid="${product_to_id}" data-savequantity="${product_to_quantity}" data-saveprice="${product_to_price1}" data-savecartprice="${product_to_cartprice}" id="heart" class="save"
+               ><i class="fa fa-heart fa-lg"></i
+             ></a>
+           </div>
+            <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+               <a  data-id1="${product_to_id}" class="text-danger delete"
+                 ><i class="fa fa-trash fa-lg"></i
+               ></a>
+             </div>
+           </div>
+         </div>
+       </div>
+     `;
+        $("#cart").append(append_data2);
       },
       error: function (response) {
         alert(response);
@@ -449,12 +514,14 @@ $(document).ready(function () {
   });
   //save to cart logic//
 
+  //**********************************************************************************************************//
+
   //delete from savelater logic//
   $(document).on("click", ".saves", function () {
-    var deleteid = $(this).data("deleteid");
+    var deleteid = $(this).data("savetoid");
     var delete_url3 = "http://localhost:2000/api//deletesavelater";
     var delete_save_result = JSON.stringify({
-      id: deleteid,
+      product_id: deleteid,
     });
     $.ajax({
       url: delete_url3,
@@ -464,8 +531,8 @@ $(document).ready(function () {
       headers: {
         "Content-Type": "application/json",
       },
-      success: function (response) {
-        location.reload(true);
+      success: function () {
+        $("#products2").remove();
       },
       error: function () {
         alert("Something Went Wrong");
@@ -473,6 +540,8 @@ $(document).ready(function () {
     });
   });
   //delete from savelater logic//
+
+  //**********************************************************************************************************//
 
   //delete from savelater  table logic//
   $(document).on("click", ".deletes", function () {
@@ -482,7 +551,7 @@ $(document).ready(function () {
       console.log(deleteid1);
       var delete1_url3 = "http://localhost:2000/api//deletesavelater";
       var delete1_save_result = JSON.stringify({
-        id: deleteid1,
+        product_id: deleteid1,
       });
       $.ajax({
         url: delete1_url3,
@@ -500,7 +569,39 @@ $(document).ready(function () {
   });
   //delete from savelater  table logic//
 
+  //**********************************************************************************************************//
+
   // get items count //
+  $(document).on("click", ".save", function () {
+    var count_url = "http://localhost:2000/api//cartcount";
+    $.ajax({
+      dataType: "json",
+      url: count_url,
+      success: function (datas4) {
+        let count = "";
+        for (const [key, value] of Object.entries(datas4)) {
+          count += `${value}\n`;
+        }
+        $("#headings").text(`Items:${count}`);
+      },
+    });
+  });
+
+  $(document).on("click", ".saves", function () {
+    var count_url = "http://localhost:2000/api//cartcount";
+    $.ajax({
+      dataType: "json",
+      url: count_url,
+      success: function (datas4) {
+        let count = "";
+        for (const [key, value] of Object.entries(datas4)){
+          count += `${value}\n`;
+        }
+        $("#headings").text(`Items:${count}`);
+      },
+    });
+  });
+
   var count_url = "http://localhost:2000/api//cartcount";
   $.ajax({
     dataType: "json",
@@ -515,7 +616,40 @@ $(document).ready(function () {
   });
   // get items count //
 
+  //**********************************************************************************************************//
+
   //adding the total number//
+
+  $(document).on("click", ".save", function () {
+    var total_url = "http://localhost:2000/api//getcartprice";
+    $.ajax({
+      dataType: "json",
+      url: total_url,
+      success: function (datas) {
+        let total_count = "";
+        for (const [key, value] of Object.entries(datas)) {
+          total_count += `${value}\n`;
+        }
+        $("#total").text(`Total:₹${total_count}`);
+      },
+    });
+  });
+
+  $(document).on("click", ".saves", function () {
+    var total_url = "http://localhost:2000/api//getcartprice";
+    $.ajax({
+      dataType: "json",
+      url: total_url,
+      success: function (datas) {
+        let total_count = "";
+        for (const [key, value] of Object.entries(datas)) {
+          total_count += `${value}\n`;
+        }
+        $("#total").text(`Total:₹${total_count}`);
+      },
+    });
+  });
+
   $(document).on("click", ".edit", function () {
     var total_url = "http://localhost:2000/api//getcartprice";
     $.ajax({
@@ -545,3 +679,5 @@ $(document).ready(function () {
   });
 });
 //adding the total number//
+
+//**********************************************************************************************************//

@@ -8,14 +8,16 @@ import { isGeneratorFunction } from "util/types";
 const prisma = new PrismaClient();
 export const UpdateSaveLater = async (req: any, res: any) => {
   //req.body  //-------------> Has all request data
-  var id = req.body.id;
+  var product_id = req.body.product_id;
+  console.log(product_id);
   var product_price = req.body.product_price_cart;
+  console.log(product_price);
   var product_quantity = req.body.product_quantity_cart;
   console.log(product_quantity);
   if(product_quantity > 0){
     const updatesavelater = await prisma.save_later_table.update({
      where:{
-        id:id,
+      product_id:product_id,
      },
       data: {
         product_price_cart: parseInt(product_price),
@@ -30,7 +32,7 @@ export const UpdateSaveLater = async (req: any, res: any) => {
   else if(product_quantity < 1){
     const update_delete_savelater = await prisma.save_later_table.delete({
       where: {
-        id: parseInt(id),
+        product_id: parseInt(product_id),
       },
     });
     res
