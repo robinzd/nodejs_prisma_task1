@@ -90,3 +90,13 @@ model save_later_table {
   product_image         String @db.Text
   product_price         Int
 }
+
+model address_table {
+  id           Int    @id @default(autoincrement())
+  user_address String @db.VarChar(255)
+}
+
+model save_address_table {
+  id           Int    @id @default(autoincrement())
+  user_address String @db.VarChar(255)
+}

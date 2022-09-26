@@ -249,9 +249,9 @@ $(document).ready(function () {
         </div>
       </div>
     `;
-      $("#save").append(append_data);
+        $("#save").append(append_data);
       },
-      error: function (response){
+      error: function (response) {
         alert(response);
       },
     });
@@ -594,7 +594,7 @@ $(document).ready(function () {
       url: count_url,
       success: function (datas4) {
         let count = "";
-        for (const [key, value] of Object.entries(datas4)){
+        for (const [key, value] of Object.entries(datas4)) {
           count += `${value}\n`;
         }
         $("#headings").text(`Items:${count}`);
@@ -677,7 +677,104 @@ $(document).ready(function () {
       $("#total").text(`Total:₹${total_count}`);
     },
   });
-});
-//adding the total number//
 
-//**********************************************************************************************************//
+  //adding the total number//
+
+  //**********************************************************************************************************//
+
+  //adding address in the cart starting//
+  $(document).on("click", ".add", function (e) {
+    e.preventDefault();
+    var user_address = $("#address").val();
+    var address_url = "http://localhost:2000/api//addaddress";
+    if (user_address != "") {
+      var address_result = JSON.stringify({
+        user_address: user_address,
+      });
+      $.ajax({
+        url: address_url,
+        data: address_result,
+        method: "POST",
+        timeout: 0,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        success: function (response) {
+          let AddressString = "";
+          for (const [key, value] of Object.entries(response)) {
+            AddressString += `${value}\n`;
+          }
+          alert("Address Added");
+          var append = `<input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+       <label class="form-check-label" for="flexRadioDefault2">
+       ${user_address}`;
+          $("#check").append(append);
+        },
+        error: function () {
+          alert("Something Went Wrong");
+        },
+      });
+    } else {
+      alert("Please Fill The Field");
+    }
+  });
+  //adding address in the cart ending//
+
+  //*******************************************************************//
+
+  // get address //
+  var address_url1 = "http://localhost:2000/api//getaddress";
+  $.ajax({
+    dataType: "json",
+    url: address_url1,
+    success: function (datas) {
+      var useraddress = "";
+      datas.data.forEach((item) => {
+        const { id, user_address } = item;
+        useraddress += `
+      <input data-id=${id} data-address=${user_address} class="form-check-input checks" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+      <label class="form-check-label" for="flexRadioDefault2">
+        ${user_address}
+      </label><br>
+      `;
+      });
+      $("#check").append(useraddress);
+    },
+  });
+  //get address//
+
+  //******************************************************************//
+
+  // Append Address starting //
+  $(document).on("click", ".checks", function () {
+    var save_user_address = $(this).data("address");
+    var address_url1 = "http://localhost:2000/api//appendaddress";
+    var address_result1 = JSON.stringify({
+      user_address: save_user_address,
+    });
+    $.ajax({
+      url: address_url1,
+      data: address_result1,
+      method: "POST",
+      timeout: 0,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      success: function (response){
+        let AddressString1 = "";
+        for (const [key, value] of Object.entries(response)){
+          AddressString1 += `${value}\n`;
+        }
+        alert(AddressString1);
+        var append_address=`${save_user_address}`
+        $("#para").text(append_address);
+      },
+      error: function(){
+        alert("Something Went Wrong");
+      },
+    });
+  });
+});
+// Append address Ending //
+//***********************************************************************************************************//
+

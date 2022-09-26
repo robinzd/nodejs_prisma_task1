@@ -64,3 +64,7 @@ button.btn.btn-success:hover{
 .col-md-1.col-lg-1.col-xl-1.text-end{
     cursor: pointer;
 }
+
+div#check{
+    margin-left:20px;
+}

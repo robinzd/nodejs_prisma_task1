@@ -13,7 +13,7 @@ const getprice = await prisma.cart_table.findMany({
     product_table:true,
   }
 })
-var result=getprice.map(function (e,i){
+var result=getprice.map(function(e,i){
   var final_result={
    id:e.id,
    product_id:e.product_id,

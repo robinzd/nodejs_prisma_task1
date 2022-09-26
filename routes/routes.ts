@@ -17,9 +17,9 @@ import { UpdateProductDetails } from "../middleware/updateproductdetails";
 import { Readstatus } from "../middleware/viewproductstatus";
 import { Products } from "../middleware/get_products";
 import { AddCart } from "../middleware/add_cart";
-import {GetCart} from "../middleware/get_cart";
-import {UpdateCart} from "../middleware/update_cart";
-import {DeleteProducts} from "../middleware/delete_products";
+import { GetCart } from "../middleware/get_cart";
+import { UpdateCart } from "../middleware/update_cart";
+import { DeleteProducts } from "../middleware/delete_products";
 import { CartCount } from "../middleware/cart_count";
 import { SaveLater } from "../middleware/save_later";
 import { GetSaveLater } from "../middleware/get_savelater";
@@ -27,6 +27,9 @@ import { UpdateSaveLater } from "../middleware/edit_savelater";
 import { SaveLaterToCart } from "../middleware/savelater_cart";
 import { DeleteSavelater } from "../middleware/delete_savelater";
 import { GetCartPrice } from "../middleware/get_fullamount";
+import { AddAddress } from "../middleware/add_address";
+import { GetAddress } from "../middleware/get_address";
+import { AppendAddress } from "../middleware/append_address";
 
 
 const router = express.Router();
@@ -132,8 +135,22 @@ router.delete("/deletesavelater", async (req: Request, res: Response) => {
 });
 
 router.get("/getcartprice", async (req: Request, res: Response) => {
-GetCartPrice(req, res);
+  GetCartPrice(req, res);
 });
 
+router.post("/addaddress", async (req: Request, res: Response) => {
+  AddAddress(req, res);
+});
 
-export {router};
+router.get("/getaddress", async (req: Request, res: Response) => {
+GetAddress(req, res);
+});
+
+router.post("/appendaddress", async (req: Request, res: Response) => {
+  AppendAddress(req, res);
+  });
+
+
+
+
+export{router};
