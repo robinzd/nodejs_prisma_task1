@@ -42,11 +42,13 @@
     <section class="h-100">
       <div class="container h-100 py-5">
         <div id="model">
-          <button type="button" class="btn btn-success btn-sm"   data-bs-toggle="modal"
+          <button type="button" class="btn btn-success btn-sm open"   data-bs-toggle="modal"
           data-bs-target="#exampleModal">
-            Small button
+            Change Address
           </button>
           <p id="para"></p>
+          <p id="para1"></p>
+          <p id="para2"></p>
         
         </div>
         <div
@@ -94,32 +96,40 @@
     >
       <div class="modal-dialog">
         <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Address</h5>
-          </div>
-          <div class="modal-body">
+          <div class="modal-header" id="header">
+            <h5 class="modal-title" id="exampleModalLabel"></h5>
+        <button type="button" class="btn btn-success btn-sm add1"
+          >
+          Add Address
+          </button>
+        </div>
+          <div class="modal-body" id="modals">
         <form id="address1">
               <div class="mb-3">
                 <label for="recipient-name" class="col-form-label"
-                  >Enter Address:</label
+                  >Enter House:</label
                 >
                 <input type="text" id="address" class="form-control" id="recipient-name"/>
               </div>
+              <div class="mb-3">
+                <label for="recipient-name" class="col-form-label"
+                  >Enter Street:</label
+                >
+                <input type="text" id="street" class="form-control" id="recipient-name"/>
+              </div>
+              <div class="mb-3">
+                <label for="recipient-name" class="col-form-label"
+                  >Enter Pincode:</label
+                >
+                <input type="text" id="pincode" class="form-control" id="recipient-name"/>
+              </div>
+              <div class="modal-footer">
+                <!-- <button  class="btn btn-primary update">Update Address</button> -->
+                <button type="Submit" class="btn btn-primary add">Save Address</button>
+                </div>
             </div>
          <div class="form-check" id="check">
-           
-        
         </div>
-          <div class="modal-footer">
-          <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-            Select Address
-            </button>
-          <button type="Submit" class="btn btn-primary add">Add Address</button>
-          </div>
         </form>
         </div>
       </div>

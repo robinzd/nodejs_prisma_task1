@@ -11,5 +11,11 @@ export const GetAddress = async (req: any, res: any) => {
  let get_address: any = await prisma.address_table.findMany({
    
   });
-  res.status(200).json({ Result: "Adress Details",data:get_address});
+ let data3 = {
+    datasadd: JSON.stringify(get_address, (_, v) =>
+      typeof v === "bigint" ? v.toString() : v
+    ),
+  };
+  data3 = JSON.parse(data3.datasadd);
+  res.status(200).json({ Result:"Adress Details",data:data3});
 };

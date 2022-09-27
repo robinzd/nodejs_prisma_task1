@@ -92,11 +92,15 @@ model save_later_table {
 }
 
 model address_table {
-  id           Int    @id @default(autoincrement())
-  user_address String @db.VarChar(255)
+  id           Int     @id @default(autoincrement())
+  user_address String  @db.VarChar(255)
+  user_street  String? @db.VarChar(255)
+  user_pincode BigInt?
 }
 
 model save_address_table {
-  id           Int    @id @default(autoincrement())
-  user_address String @db.VarChar(255)
+  id           Int     @id @default(autoincrement())
+  user_address String  @db.VarChar(255)
+  user_street  String? @db.VarChar(255)
+  user_pincode BigInt?
 }

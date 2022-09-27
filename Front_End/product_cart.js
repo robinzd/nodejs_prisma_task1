@@ -642,7 +642,7 @@ $(document).ready(function () {
       url: total_url,
       success: function (datas) {
         let total_count = "";
-        for (const [key, value] of Object.entries(datas)) {
+        for (const [key, value] of Object.entries(datas)){
           total_count += `${value}\n`;
         }
         $("#total").text(`Total:₹${total_count}`);
@@ -671,7 +671,7 @@ $(document).ready(function () {
     url: total_url,
     success: function (datas) {
       let total_count = "";
-      for (const [key, value] of Object.entries(datas)) {
+      for (const [key, value] of Object.entries(datas)){
         total_count += `${value}\n`;
       }
       $("#total").text(`Total:₹${total_count}`);
@@ -686,10 +686,14 @@ $(document).ready(function () {
   $(document).on("click", ".add", function (e) {
     e.preventDefault();
     var user_address = $("#address").val();
+    var user_street=$("#street").val();
+    var user_pincode=$("#pincode").val();
     var address_url = "http://localhost:2000/api//addaddress";
     if (user_address != "") {
       var address_result = JSON.stringify({
         user_address: user_address,
+        user_street:user_street,
+        user_pincode:user_pincode,
       });
       $.ajax({
         url: address_url,
@@ -707,7 +711,7 @@ $(document).ready(function () {
           alert("Address Added");
           var append = `<input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
        <label class="form-check-label" for="flexRadioDefault2">
-       ${user_address}`;
+       ${user_address},<br>${user_street},<br>pincode-${user_pincode}.`;
           $("#check").append(append);
         },
         error: function () {
@@ -729,12 +733,12 @@ $(document).ready(function () {
     url: address_url1,
     success: function (datas) {
       var useraddress = "";
-      datas.data.forEach((item) => {
-        const { id, user_address } = item;
+      datas.data.forEach((item)=>{
+        const { id, user_address,user_street,user_pincode} = item;
         useraddress += `
-      <input data-id=${id} data-address=${user_address} class="form-check-input checks" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+      <input data-address="${user_address}" data-street="${user_street}" data-pincode="${user_pincode}" class="form-check-input checks" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
       <label class="form-check-label" for="flexRadioDefault2">
-        ${user_address}
+      ${user_address},<br>${user_street},<br>Pincode-${user_pincode}.
       </label><br>
       `;
       });
@@ -748,9 +752,14 @@ $(document).ready(function () {
   // Append Address starting //
   $(document).on("click", ".checks", function () {
     var save_user_address = $(this).data("address");
+    console.log(save_user_address);
+    var save_user_street = $(this).data("street");
+    var save_user_pincode = $(this).data("pincode");
     var address_url1 = "http://localhost:2000/api//appendaddress";
     var address_result1 = JSON.stringify({
       user_address: save_user_address,
+      user_street:save_user_street,
+      user_pincode:save_user_pincode,
     });
     $.ajax({
       url: address_url1,
@@ -766,8 +775,12 @@ $(document).ready(function () {
           AddressString1 += `${value}\n`;
         }
         alert(AddressString1);
-        var append_address=`${save_user_address}`
+        var append_address=`${save_user_address},`
+        var append_address1=`${save_user_street},`
+        var append_address2=`${save_user_pincode}.`
         $("#para").text(append_address);
+        $("#para1").text(append_address1);
+        $("#para2").text(`pincode-${append_address2}`);
       },
       error: function(){
         alert("Something Went Wrong");
@@ -778,3 +791,39 @@ $(document).ready(function () {
 // Append address Ending //
 //***********************************************************************************************************//
 
+// Add Clicked Div Wannt To Close and also name wants to change Starts//
+$(document).on("click", ".add1", function () {
+$("#modals").show();
+$("#check").hide();
+if ($(this).hasClass('add1')) {
+  $(this).html('Show Address').toggleClass('add2');
+}
+})
+// Add Clicked Div Wannt To Close and also name wants to change  ends//
+
+//*********************************************************************************************************//
+
+// Show Address Clicked want To Show The Div Starts//
+$(document).on("click", ".add2", function () {
+  $("#check").show();
+  $("#modals").hide();
+  $(this).html('Add Address').toggleClass('#add2');
+})
+// Show Address Clicked want To Show The Div ends//
+
+// **********************************************************************************************************//
+
+// update Address Clicked want To Show The Div starts//
+// $(document).on("click", ".update", function (e) {
+//   e.preventDefault();
+//   $("#modals").hide();
+//   $("#check").show();
+// })
+// update Address Clicked want To Show The Div starts//
+
+// *************************************************************************************************************//
+
+$(document).on("click", ".open", function () {
+  $("#modals").hide();
+  $("#check").show();
+})
