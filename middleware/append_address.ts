@@ -26,7 +26,7 @@ if(final_count > 0){
       user_pincode:parseInt(pincode),
     },
   });
-  res.status(200).json({Result:"Details Updated"});
+  res.status(200).json({Result:"Address Updated"});
 }else{
   let save_adddress: any = await prisma.save_address_table.create({
     data: {
@@ -35,6 +35,6 @@ if(final_count > 0){
       user_pincode:parseInt(pincode),
     },
   });
-  res.status(200).json({Result:"Details Added"});
+  res.status(200).json({Result:"Address Updated"});
 }
 };

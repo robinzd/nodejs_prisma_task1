@@ -37,7 +37,7 @@ $(document).ready(function () {
                   class="btn btn-link px-2 edit"
                   onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
                 >
-                  <i class="fa fa-minus"></i>
+                <i class="fa fa-minus"></i>
                 </button>
                 <input
                   id="form_${product_id}"
@@ -76,9 +76,7 @@ $(document).ready(function () {
     },
   });
   // get products in the cart //
-
   //**********************************************************************************************************//
-
   // heart click change into red //
   clicked = true;
   $(document).on("click", ".save", function () {
@@ -89,9 +87,7 @@ $(document).ready(function () {
     }
   });
   // heart click change into red //
-
   //**********************************************************************************************************//
-
   // Update Cart
   $(document).on("click", ".edit", function () {
     var product_id = $(this).data("id");
@@ -126,9 +122,7 @@ $(document).ready(function () {
     });
   });
   //  Update Cart //
-
   //**********************************************************************************************************//
-
   //  delete products //
   $(document).on("click", ".delete", function () {
     var confirmation = confirm("Do You Want To Really Delete This Product?");
@@ -153,9 +147,7 @@ $(document).ready(function () {
     }
   });
   // delete products//
-
   //**********************************************************************************************************//
-
   //save for later logic//
   $(document).on("click", ".save", function () {
     var product_save_id = $(this).data("saveid");
@@ -257,9 +249,7 @@ $(document).ready(function () {
     });
   });
   //save for later logic//
-
   //**********************************************************************************************************//
-
   // delete in the cart table and save into the save later table//
   $(document).on("click", ".save", function () {
     var deleteid = $(this).data("saveid");
@@ -282,9 +272,7 @@ $(document).ready(function () {
     });
   });
   //delete in the cart table and save into the save later table//
-
   //**********************************************************************************************************//
-
   //get save later//
   var saveurl1 = "http://localhost:2000/api//getsavelater";
   $.ajax({
@@ -361,9 +349,7 @@ $(document).ready(function () {
     },
   });
   //get save later//
-
   //**********************************************************************************************************//
-
   //heart click change into black//
   click = true;
   $(document).on("click", ".saves", function () {
@@ -373,9 +359,7 @@ $(document).ready(function () {
     }
   });
   //heart click change into black//
-
   //**********************************************************************************************************//
-
   // Update Save Later//
   $(document).on("click", ".edits", function () {
     var product_editid = $(this).data("ids");
@@ -414,9 +398,7 @@ $(document).ready(function () {
     });
   });
   //Update Save Later//
-
   //**********************************************************************************************************//
-
   //save to cart logic//
   $(document).on("click", ".saves", function () {
     var product_to_id = $(this).data("savetoid");
@@ -513,9 +495,7 @@ $(document).ready(function () {
     });
   });
   //save to cart logic//
-
   //**********************************************************************************************************//
-
   //delete from savelater logic//
   $(document).on("click", ".saves", function () {
     var deleteid = $(this).data("savetoid");
@@ -540,9 +520,7 @@ $(document).ready(function () {
     });
   });
   //delete from savelater logic//
-
   //**********************************************************************************************************//
-
   //delete from savelater  table logic//
   $(document).on("click", ".deletes", function () {
     var confirmation1 = confirm("Do You Want To Really Delete This Product?");
@@ -567,10 +545,8 @@ $(document).ready(function () {
       });
     }
   });
-  //delete from savelater  table logic//
-
+  //delete from savelater table logic//
   //**********************************************************************************************************//
-
   // get items count //
   $(document).on("click", ".save", function () {
     var count_url = "http://localhost:2000/api//cartcount";
@@ -615,11 +591,8 @@ $(document).ready(function () {
     },
   });
   // get items count //
-
   //**********************************************************************************************************//
-
   //adding the total number//
-
   $(document).on("click", ".save", function () {
     var total_url = "http://localhost:2000/api//getcartprice";
     $.ajax({
@@ -642,7 +615,7 @@ $(document).ready(function () {
       url: total_url,
       success: function (datas) {
         let total_count = "";
-        for (const [key, value] of Object.entries(datas)){
+        for (const [key, value] of Object.entries(datas)) {
           total_count += `${value}\n`;
         }
         $("#total").text(`Total:₹${total_count}`);
@@ -671,29 +644,26 @@ $(document).ready(function () {
     url: total_url,
     success: function (datas) {
       let total_count = "";
-      for (const [key, value] of Object.entries(datas)){
+      for (const [key, value] of Object.entries(datas)) {
         total_count += `${value}\n`;
       }
       $("#total").text(`Total:₹${total_count}`);
     },
   });
-
   //adding the total number//
-
   //**********************************************************************************************************//
-
   //adding address in the cart starting//
   $(document).on("click", ".add", function (e) {
     e.preventDefault();
     var user_address = $("#address").val();
-    var user_street=$("#street").val();
-    var user_pincode=$("#pincode").val();
+    var user_street = $("#street").val();
+    var user_pincode = $("#pincode").val();
     var address_url = "http://localhost:2000/api//addaddress";
     if (user_address != "") {
       var address_result = JSON.stringify({
         user_address: user_address,
-        user_street:user_street,
-        user_pincode:user_pincode,
+        user_street: user_street,
+        user_pincode: user_pincode,
       });
       $.ajax({
         url: address_url,
@@ -713,6 +683,7 @@ $(document).ready(function () {
        <label class="form-check-label" for="flexRadioDefault2">
        ${user_address},<br>${user_street},<br>pincode-${user_pincode}.`;
           $("#check").append(append);
+          location.reload(true);
         },
         error: function () {
           alert("Something Went Wrong");
@@ -723,9 +694,7 @@ $(document).ready(function () {
     }
   });
   //adding address in the cart ending//
-
   //*******************************************************************//
-
   // get address //
   var address_url1 = "http://localhost:2000/api//getaddress";
   $.ajax({
@@ -733,12 +702,12 @@ $(document).ready(function () {
     url: address_url1,
     success: function (datas) {
       var useraddress = "";
-      datas.data.forEach((item)=>{
-        const { id, user_address,user_street,user_pincode} = item;
+      datas.data.forEach((item) => {
+        const { user_address, user_street, user_pincode } = item;
         useraddress += `
       <input data-address="${user_address}" data-street="${user_street}" data-pincode="${user_pincode}" class="form-check-input checks" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
       <label class="form-check-label" for="flexRadioDefault2">
-      ${user_address},<br>${user_street},<br>Pincode-${user_pincode}.
+      ${user_address},<br>${user_street},<br>Pincode-${user_pincode}.<hr>
       </label><br>
       `;
       });
@@ -746,20 +715,17 @@ $(document).ready(function () {
     },
   });
   //get address//
-
   //******************************************************************//
-
   // Append Address starting //
   $(document).on("click", ".checks", function () {
     var save_user_address = $(this).data("address");
-    console.log(save_user_address);
     var save_user_street = $(this).data("street");
     var save_user_pincode = $(this).data("pincode");
     var address_url1 = "http://localhost:2000/api//appendaddress";
     var address_result1 = JSON.stringify({
       user_address: save_user_address,
-      user_street:save_user_street,
-      user_pincode:save_user_pincode,
+      user_street: save_user_street,
+      user_pincode: save_user_pincode,
     });
     $.ajax({
       url: address_url1,
@@ -769,20 +735,20 @@ $(document).ready(function () {
       headers: {
         "Content-Type": "application/json",
       },
-      success: function (response){
+      success: function (response) {
         let AddressString1 = "";
-        for (const [key, value] of Object.entries(response)){
+        for (const [key, value] of Object.entries(response)) {
           AddressString1 += `${value}\n`;
         }
         alert(AddressString1);
-        var append_address=`${save_user_address},`
-        var append_address1=`${save_user_street},`
-        var append_address2=`${save_user_pincode}.`
+        var append_address = `${save_user_address},`;
+        var append_address1 = `${save_user_street},`;
+        var append_address2 = `${save_user_pincode}.`;
         $("#para").text(append_address);
         $("#para1").text(append_address1);
         $("#para2").text(`pincode-${append_address2}`);
       },
-      error: function(){
+      error: function () {
         alert("Something Went Wrong");
       },
     });
@@ -790,40 +756,54 @@ $(document).ready(function () {
 });
 // Append address Ending //
 //***********************************************************************************************************//
-
 // Add Clicked Div Wannt To Close and also name wants to change Starts//
 $(document).on("click", ".add1", function () {
-$("#modals").show();
-$("#check").hide();
-if ($(this).hasClass('add1')) {
-  $(this).html('Show Address').toggleClass('add2');
-}
-})
-// Add Clicked Div Wannt To Close and also name wants to change  ends//
-
+  $("#modals").show();
+  $("#updated").hide();
+  $("#check").hide();
+  if ($(this).hasClass("add1")) {
+    $(this).html("Show Address").toggleClass("add2");
+  }
+});
+// Add Clicked Div Wannt To Close and also name wants to change ends//
 //*********************************************************************************************************//
-
 // Show Address Clicked want To Show The Div Starts//
 $(document).on("click", ".add2", function () {
+  $("#updated").show();
   $("#check").show();
   $("#modals").hide();
-  $(this).html('Add Address').toggleClass('#add2');
-})
+  $(this).html("Add Address").toggleClass("#add2");
+});
 // Show Address Clicked want To Show The Div ends//
-
 // **********************************************************************************************************//
-
-// update Address Clicked want To Show The Div starts//
-// $(document).on("click", ".update", function (e) {
-//   e.preventDefault();
-//   $("#modals").hide();
-//   $("#check").show();
-// })
-// update Address Clicked want To Show The Div starts//
-
-// *************************************************************************************************************//
-
 $(document).on("click", ".open", function () {
   $("#modals").hide();
   $("#check").show();
-})
+});
+//**************************************************************************************************************//
+//get the address from the save address table//
+var address_url1 = "http://localhost:2000/api//getsaveaddress";
+$.ajax({
+  dataType: "json",
+  url: address_url1,
+  success: function (datas) {
+    var savedaddress = "";
+    datas.data.forEach((item) => {
+      const { user_address, user_street, user_pincode } = item;
+      savedaddress += `
+          <p id="para">${user_address},</p>
+          <p id="para1">${user_street},</p>
+          <p id="para2">pincode-${user_pincode}.</p>
+      `;
+    });
+    $("#model").append(savedaddress);
+  },
+});
+//get the address from the save address table//
+// ***************************************************************************************************//
+// To Stop The Refreshing The Update Button starts//
+$(document).on("click", ".update", function (e) {
+  e.preventDefault();
+});
+// To Stop The Refreshing The Update Button ends//
+//***************************************************************************************************//

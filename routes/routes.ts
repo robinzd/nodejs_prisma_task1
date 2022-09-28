@@ -30,7 +30,7 @@ import { GetCartPrice } from "../middleware/get_fullamount";
 import { AddAddress } from "../middleware/add_address";
 import { GetAddress } from "../middleware/get_address";
 import { AppendAddress } from "../middleware/append_address";
-
+import { GetSaveAddress } from "../middleware/get_save_address";
 
 const router = express.Router();
 router.post("/userregistration", async (req: Request, res: Response) => {
@@ -143,14 +143,15 @@ router.post("/addaddress", async (req: Request, res: Response) => {
 });
 
 router.get("/getaddress", async (req: Request, res: Response) => {
-GetAddress(req, res);
+  GetAddress(req, res);
 });
 
 router.post("/appendaddress", async (req: Request, res: Response) => {
   AppendAddress(req, res);
-  });
+});
 
+router.get("/getsaveaddress", async (req: Request, res: Response) => {
+  GetSaveAddress(req, res);
+});
 
-
-
-export{router};
+export { router };
