@@ -624,13 +624,13 @@ $(document).ready(function () {
   });
 
   $(document).on("click", ".edit", function () {
-    var total_url = "http://localhost:2000/api//getcartprice";
-    $.ajax({
+   var total_url = "http://localhost:2000/api//getcartprice";
+   $.ajax({
       dataType: "json",
       url: total_url,
-      success: function (datas) {
+    success: function (datas){
         let total_count = "";
-        for (const [key, value] of Object.entries(datas)) {
+        for (const [key, value] of Object.entries(datas)){
           total_count += `${value}\n`;
         }
         $("#total").text(`Total:₹${total_count}`);
@@ -639,17 +639,18 @@ $(document).ready(function () {
   });
 
   var total_url = "http://localhost:2000/api//getcartprice";
-  $.ajax({
-    dataType: "json",
-    url: total_url,
-    success: function (datas) {
-      let total_count = "";
-      for (const [key, value] of Object.entries(datas)) {
-        total_count += `${value}\n`;
-      }
-      $("#total").text(`Total:₹${total_count}`);
-    },
-  });
+    $.ajax({
+      dataType: "json",
+      url: total_url,
+    success: function (datas){
+        let total_count = "";
+        for (const [key, value] of Object.entries(datas)){
+          total_count += `${value}\n`;
+        }
+        $("#total").text(`Total:₹${total_count}`);
+      },
+    });
+ 
   //adding the total number//
   //**********************************************************************************************************//
   //adding address in the cart starting//
@@ -703,7 +704,7 @@ $(document).ready(function () {
     success: function (datas) {
       var useraddress = "";
       datas.data.forEach((item) => {
-        const { user_address, user_street, user_pincode } = item;
+        const {user_address, user_street, user_pincode} = item;
         useraddress += `
       <input data-address="${user_address}" data-street="${user_street}" data-pincode="${user_pincode}" class="form-check-input checks" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
       <label class="form-check-label" for="flexRadioDefault2">

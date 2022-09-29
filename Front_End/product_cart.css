@@ -67,4 +67,6 @@ button.btn.btn-success:hover{
 
 div#check{
     margin-left:20px;
+    overflow-y: scroll !important; 
+    height:300px !important;
 }

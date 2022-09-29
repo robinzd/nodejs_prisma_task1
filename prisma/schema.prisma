@@ -104,3 +104,8 @@ model save_address_table {
   user_street  String? @db.VarChar(255)
   user_pincode BigInt?
 }
+
+model save_cart_totalprice {
+  id                   Int @id @default(autoincrement())
+  save_cart_totalprice Int
+}
