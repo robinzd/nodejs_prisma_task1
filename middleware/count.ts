@@ -14,7 +14,7 @@ import {
     const usersWithCount = await prisma.customer_tbl.findMany({
         include: {
           _count: {
-            select: { orders_tbl: true },
+            select: {orders_tbl:true},
           },
         },
       });

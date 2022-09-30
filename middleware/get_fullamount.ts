@@ -8,12 +8,17 @@ import { isGeneratorFunction } from "util/types";
 const prisma = new PrismaClient();
 export const GetCartPrice = async (req: any, res: any) => {
   //req.body  //-------------> Has all request data
-  var message_me = req.body.message;
+  var product_id =req.body.product_id;
+  console.log(product_id);
   const getcartprice = await prisma.cart_table.findMany({
+    where: {
+      product_id:product_id,
+    },
     select: {
       product_price_cart: true,
     },
   });
+  console.log(getcartprice);
   var total = 0;
   var total_count = getcartprice.map(function (e, i) {
     total += e.product_price_cart;
@@ -27,14 +32,14 @@ export const GetCartPrice = async (req: any, res: any) => {
   var final_count = get_count._count.save_cart_totalprice;
   if (final_count == 0) {
     const create_cartprice = await prisma.save_cart_totalprice.create({
-      data:{
+      data: {
         save_cart_totalprice: total,
       },
     });
   } else {
     let update: any = await prisma.save_cart_totalprice.updateMany({
-      data:{
-        save_cart_totalprice: total,
+      data: {
+        save_cart_totalprice:total,
       },
     });
   }

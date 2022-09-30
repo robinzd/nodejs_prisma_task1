@@ -109,3 +109,8 @@ model save_cart_totalprice {
   id                   Int @id @default(autoincrement())
   save_cart_totalprice Int
 }
+
+model credit_table {
+  id             Int @id @default(autoincrement())
+  credit_balance Int
+}

@@ -32,6 +32,8 @@ import { GetAddress } from "../middleware/get_address";
 import { AppendAddress } from "../middleware/append_address";
 import { GetSaveAddress } from "../middleware/get_save_address";
 import { GetCartFinalPrice } from "../middleware/get_finalprice";
+import { GetCreditBalace } from "../middleware/credit_balace"; 
+import { GetCredit } from "../middleware/get_credit_amount";
 
 
 const router = express.Router();
@@ -159,5 +161,16 @@ router.get("/getsaveaddress", async (req: Request, res: Response) => {
 router.get("/getfinalcartprice", async (req: Request, res: Response) => {
   GetCartFinalPrice(req, res);
 });
+
+
+router.get("/creditbalance", async (req: Request, res: Response) => {
+  GetCreditBalace(req, res);
+});
+
+router.get("/creditamount", async (req: Request, res: Response) => {
+  GetCredit(req, res);
+});
+
+
 
 export { router };
