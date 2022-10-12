@@ -4,7 +4,7 @@ $(document).ready(function () {
   $.ajax({
     dataType: "json",
     url: url,
-    success: function (datas){
+    success: function (datas) {
       var cartproducts = "";
       datas.data.forEach((item) => {
         const {
@@ -193,6 +193,7 @@ $(document).ready(function () {
             class="row d-flex justify-content-between align-items-center"
           >
             <div class="col-md-2 col-lg-2 col-xl-2"  id="images">
+
               <img
                 src="../images/${product_saveimage}"
                 class="img-fluid rounded-3"
@@ -447,7 +448,7 @@ $(document).ready(function () {
              </div>
              <div class="col-md-3 col-lg-3 col-xl-3">
                <p class="lead fw-normal mb-2">${product_to_name}</p>
-              </div>
+            </div>
              <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
                <button data-id="${product_to_id}" data-price="${product_to_price1}" data-cartprice="${product_to_cartprice}"
                  class="btn btn-link px-2 edit"
@@ -553,9 +554,9 @@ $(document).ready(function () {
     $.ajax({
       dataType: "json",
       url: count_url,
-      success: function(datas4){
+      success: function (datas4) {
         let count = "";
-        for (const [key, value] of Object.entries(datas4)){
+        for (const [key, value] of Object.entries(datas4)) {
           count += `${value}\n`;
         }
         $("#headings").text(`Items:${count}`);
@@ -570,14 +571,13 @@ $(document).ready(function () {
       url: count_url,
       success: function (datas4) {
         let count = "";
-        for (const [key, value] of Object.entries(datas4)){
+        for (const [key, value] of Object.entries(datas4)) {
           count += `${value}\n`;
         }
         $("#headings").text(`Items:${count}`);
       },
     });
   });
-
   var count_url = "http://localhost:2000/api//cartcount";
   $.ajax({
     dataType: "json",
@@ -615,7 +615,7 @@ $(document).ready(function () {
       url: total_url,
       success: function (datas) {
         let total_count = "";
-        for (const [key, value] of Object.entries(datas)){
+        for (const [key, value] of Object.entries(datas)) {
           total_count += `${value}\n`;
         }
         $("#total").html(`Total:₹${total_count}`);
@@ -623,6 +623,20 @@ $(document).ready(function () {
     });
   });
 
+  $(document).on("click", ".delete", function () {
+    var total_url = "http://localhost:2000/api//getcartprice";
+    $.ajax({
+      dataType: "json",
+      url: total_url,
+      success: function (datas) {
+        let total_count = "";
+        for (const [key, value] of Object.entries(datas)) {
+          total_count += `${value}\n`;
+        }
+        $("#total").html(`Total:₹${total_count}`);
+      },
+    });
+  });
   $(document).on("click", ".edit", function () {
     var search_product_id = $(this).data("id");
     console.log(search_product_id);
@@ -645,14 +659,13 @@ $(document).ready(function () {
       },
     });
   });
-
   var total_url = "http://localhost:2000/api//getcartprice";
   $.ajax({
     dataType: "json",
     url: total_url,
-    success: function (datas){
+    success: function (datas) {
       let total_count = "";
-      for (const [key, value] of Object.entries(datas)){
+      for (const [key, value] of Object.entries(datas)) {
         total_count += `${value}\n`;
       }
       $("#total").html(`Total:₹${total_count}`);
@@ -684,7 +697,7 @@ $(document).ready(function () {
         },
         success: function (response) {
           let AddressString = "";
-          for (const [key, value] of Object.entries(response)){
+          for (const [key, value] of Object.entries(response)) {
             AddressString += `${value}\n`;
           }
           alert("Address Added");
@@ -709,7 +722,7 @@ $(document).ready(function () {
   $.ajax({
     dataType: "json",
     url: address_url1,
-    success: function (datas){
+    success: function (datas) {
       var useraddress = "";
       datas.data.forEach((item) => {
         const { user_address, user_street, user_pincode } = item;
@@ -823,38 +836,47 @@ $(document).on("click", ".edit", function () {
     dataType: "json",
     url: credit_url,
     success: function (response) {
-      var result_credit=response.data1[0].credit_balance;
-      var result_price=response.price[0].save_cart_totalprice;
-      var final_result=result_credit-result_price;
+      var result_credit = response.data1[0].credit_balance;
+      var result_price = response.price[0].save_cart_totalprice;
+      var final_result = result_credit - result_price;
       $("#credit").text(`Balance Amount:₹${final_result}`);
     },
   });
 });
-
-var credit_url = "http://localhost:2000/api//creditbalance";
+$(document).on("click", ".delete", function () {
+  var credit_url = "http://localhost:2000/api//creditbalance";
   $.ajax({
     dataType: "json",
     url: credit_url,
-    success: function (response){
-      var result_credit=response.data1[0].credit_balance;
-      console.log(result_credit);
-      var result_price=response.price[0].save_cart_totalprice;
-      console.log(result_price);
-      var final_result=result_credit-result_price;
+    success: function (response) {
+      var result_credit = response.data1[0].credit_balance;
+      var result_price = response.price[0].save_cart_totalprice;
+      var final_result = result_credit - result_price;
       $("#credit").text(`Balance Amount:₹${final_result}`);
     },
   });
-
+});
+var credit_url = "http://localhost:2000/api//creditbalance";
+$.ajax({
+  dataType: "json",
+  url: credit_url,
+  success: function (response) {
+    var result_credit = response.data1[0].credit_balance;
+    var result_price = response.price[0].save_cart_totalprice;
+    var final_result = result_credit - result_price;
+    $("#credit").text(`Balance Amount:₹${final_result}`);
+  },
+});
 //To calculate the credit balance Ends//
 // ****************************************************************************************************//
 // Get Full Amount starts //
 var credit_url = "http://localhost:2000/api//creditamount";
-  $.ajax({
-    dataType: "json",
-    url: credit_url,
-    success: function (response){
-      var result_creditamount=response.data[0].credit_balance;
-      $("#amount").text(`Credited amount:₹${result_creditamount}`);
-    },
-  });
+$.ajax({
+  dataType: "json",
+  url: credit_url,
+  success: function (response) {
+    var result_creditamount = response.data[0].credit_balance;
+    $("#amount").text(`Credited amount:₹${result_creditamount}`);
+  },
+});
 // Get Full Amount Ends //
