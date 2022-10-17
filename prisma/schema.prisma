@@ -114,3 +114,91 @@ model credit_table {
   id             Int @id @default(autoincrement())
   credit_balance Int
 }
+
+model teachers_list {
+  ID            Int    @id @default(autoincrement())
+  teachers_name String @db.VarChar(255)
+}
+
+model questions_and_teachers_list {
+  id                 Int    @id @default(autoincrement())
+  teachers_name      String @db.VarChar(255)
+  feedback_questions String @db.VarChar(2000)
+}
+
+model selected_teachers {
+  selected_id        Int                  @id @default(autoincrement())
+  teachers_name      String               @db.VarChar(255)
+  selected1_question selected1_question[]
+  selected2_question selected2_question[]
+  selected3_question selected3_question[]
+  selected4_question selected4_question[]
+}
+
+model feedback_question_1 {
+  ID         Int     @id @default(autoincrement())
+  question_1 String  @db.VarChar(255)
+  answer_1   String  @db.VarChar(255)
+  answer_2   String? @db.VarChar(255)
+}
+
+model feedback_question_2 {
+  ID         Int     @id @default(autoincrement())
+  question_2 String  @db.VarChar(255)
+  answer_1   String  @db.VarChar(255)
+  answer_2   String? @db.VarChar(255)
+}
+
+model feedback_question_3 {
+  ID         Int     @id @default(autoincrement())
+  question_3 String  @db.VarChar(255)
+  answer_1   String  @db.VarChar(255)
+  answer_2   String? @db.VarChar(255)
+}
+
+model feedback_question_4 {
+  ID         Int     @id @default(autoincrement())
+  question_4 String  @db.VarChar(255)
+  answer_1   String  @db.VarChar(255)
+  answer_2   String? @db.VarChar(255)
+}
+
+model selected1_question {
+  ID                Int               @id @default(autoincrement())
+  question_1        String            @db.VarChar(255)
+  answer            String            @db.VarChar(255)
+  selected_id       Int
+  selected_teachers selected_teachers @relation(fields: [selected_id], references: [selected_id], onUpdate: Restrict, map: "selected1_question_ibfk_1")
+
+  @@index([selected_id], map: "selected_id")
+}
+
+model selected2_question {
+  ID                Int               @id @default(autoincrement())
+  question_2        String            @db.VarChar(255)
+  answer            String            @db.VarChar(255)
+  selected_id       Int
+  selected_teachers selected_teachers @relation(fields: [selected_id], references: [selected_id], onUpdate: Restrict, map: "selected2_question_ibfk_1")
+
+  @@index([selected_id], map: "selected_id")
+}
+
+model selected3_question {
+  ID                Int               @id @default(autoincrement())
+  question_3        String            @db.VarChar(255)
+  answer            String            @db.VarChar(255)
+  selected_id       Int
+  selected_teachers selected_teachers @relation(fields: [selected_id], references: [selected_id], onUpdate: Restrict, map: "selected3_question_ibfk_1")
+
+  @@index([selected_id], map: "selected_id")
+}
+
+model selected4_question {
+  ID                Int               @id @default(autoincrement())
+  question_4        String            @db.VarChar(255)
+  answer            String            @db.VarChar(255)
+  selected_id       Int
+  selected_teachers selected_teachers @relation(fields: [selected_id], references: [selected_id], onUpdate: Restrict, map: "selected4_question_ibfk_1")
+
+  @@index([selected_id], map: "selected_id")
+}

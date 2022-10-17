@@ -37,8 +37,9 @@ console.log(allUsers);
     };
   return result;
   });
-
   res
     .status(200)
     .json({ Result: "Product Details For All The Users", data: final_result});
 };
+
+

@@ -34,7 +34,16 @@ import { GetSaveAddress } from "../middleware/get_save_address";
 import { GetCartFinalPrice } from "../middleware/get_finalprice";
 import { GetCreditBalace } from "../middleware/credit_balace"; 
 import { GetCredit } from "../middleware/get_credit_amount";
-
+import { GetTeachers } from "../middleware/get_student_feedback";
+import { SaveSelectedTeachers } from "../middleware/selected_teachers";
+import { GetQusetion1 } from "../middleware/question_1";
+import { SelectedQuestion1 } from "../middleware/selected_question1";
+import { GetQusetion2 } from "../middleware/question2";
+import { SelectedQuestion2 } from "../middleware/selected_question2";
+import { GetQusetion3 } from "../middleware/question3";
+import { SelectedQuestion3 } from "../middleware/selected_question3";
+import { GetQusetion4 } from "../middleware/question4";
+import { SelectedQuestion4 } from "../middleware/selected_question4";
 
 const router = express.Router();
 router.post("/userregistration", async (req: Request, res: Response) => {
@@ -171,6 +180,44 @@ router.get("/creditamount", async (req: Request, res: Response) => {
   GetCredit(req, res);
 });
 
+router.get("/getteachers", async (req: Request, res: Response) => {
+  GetTeachers(req, res);
+});
 
+router.post("/saveteacher", async (req: Request, res: Response) => {
+  SaveSelectedTeachers(req, res);
+});
 
-export { router };
+router.get("/getquestion1", async (req: Request, res: Response) => {
+  GetQusetion1(req, res);
+});
+
+router.post("/selectedquestion1", async (req: Request, res: Response) => {
+  SelectedQuestion1(req, res);
+});
+
+router.get("/getquestion2", async (req: Request, res: Response) => {
+  GetQusetion2(req, res);
+});
+
+router.post("/selectedquestion2", async (req: Request, res: Response) => {
+  SelectedQuestion2(req, res);
+});
+
+router.get("/getquestion3", async (req: Request, res: Response) => {
+  GetQusetion3(req, res);
+});
+
+router.post("/selectedquestion3", async (req: Request, res: Response) => {
+  SelectedQuestion3(req, res);
+});
+
+router.get("/getquestion4", async (req: Request, res: Response) => {
+  GetQusetion4(req, res);
+});
+
+router.post("/selectedquestion4", async (req: Request, res: Response) => {
+  SelectedQuestion4(req, res);
+});
+
+export {router};
