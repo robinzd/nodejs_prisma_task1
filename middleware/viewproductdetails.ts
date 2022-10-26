@@ -39,7 +39,7 @@ console.log(allUsers);
   });
   res
     .status(200)
-    .json({ Result: "Product Details For All The Users", data: final_result});
+    .json({ Result: "Product Details For All The Users",data:final_result});
 };
 
 

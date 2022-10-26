@@ -13,3 +13,7 @@
  #flexRadioDefault{
  margin-left: 20px;
 } 
+
+#question1{
+    visibility: hidden;
+}
