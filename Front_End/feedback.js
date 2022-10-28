@@ -54,7 +54,7 @@ $(document).ready(function () {
       console.log(datas);
       var question_1_result = "";
       datas.data1.forEach((items) => {
-        const { question_1, answer_1, answer_2 } = items;
+        const { question_1, answer_1, answer_2} = items;
         question_1_result += `
         <div class="form-check" id="radiobtn">
         <h4>${question_1}?</h4><br>
@@ -203,7 +203,7 @@ $(document).ready(function () {
       console.log(datas5);
       var question_4_result = "";
       datas5.data1.forEach((items5) => {
-        const { question_4, answer_1, answer_2 } = items5;
+        const { question_4, answer_1, answer_2} = items5;
         question_4_result += `
         <div class="form-check" id="radiobtn">
         <h4>${question_4}?</h4><br>
