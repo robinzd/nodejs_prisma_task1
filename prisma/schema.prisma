@@ -166,3 +166,8 @@ model feedback_list {
   question_4            String @db.VarChar(255)
   answer_4              String @db.VarChar(255)
 }
+
+model profile_picture {
+  ID            Int   @id @default(autoincrement())
+  cropped_image Bytes
+}

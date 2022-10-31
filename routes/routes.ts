@@ -41,6 +41,7 @@ import { GetQusetion3 } from "../middleware/question3";
 import { GetQusetion4 } from "../middleware/question4";
 import { FeedbackList } from "../middleware/final_feedback_list";
 import { GetFeedbackList } from "../middleware/get_feedbacklist";
+import { UploadImage } from "../middleware/upload_picture";
 
 const router = express.Router();
 router.post("/userregistration", async (req: Request, res: Response) => {
@@ -203,6 +204,10 @@ router.post("/getfeedback", async (req: Request, res: Response) => {
 
 router.get("/feedbacklists", async (req: Request, res: Response) => {
   GetFeedbackList(req, res);
+});
+
+router.post("/uploadimage", async (req: Request, res: Response) => {
+  UploadImage(req, res);
 });
 
 export {router};
