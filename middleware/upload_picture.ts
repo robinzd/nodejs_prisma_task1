@@ -1,4 +1,4 @@
-import { PrismaClient, profile_picture } from "@prisma/client";
+import { PrismaClient, profile_picture} from "@prisma/client";
 import { idText, visitFunctionBody } from "typescript";
 import { isGeneratorFunction } from "util/types";
 import { buffer } from 'stream/consumers'
@@ -7,18 +7,30 @@ import { buffer } from 'stream/consumers'
 // import { GetDate } from '../utils/date-helper'
 // import { ApiRequestLog, ApiResponseLog } from '../utils/api-helper'
 const prisma = new PrismaClient();
-export const UploadImage = async (req: any, res: any) => {
+export const UploadImage = async (req: any, res: any)=>{
   //req.body  //-------------> Has all request data
-  console.log(req.body);
-  var owner_signature:any=Buffer.from(req.body.final_image).toString();
-  console.log( typeof owner_signature);
-  console.log(owner_signature);
+  var owner_signature:any=Buffer.from(req.body.cropped_image)
+  let get_count: any = await prisma.profile_picture.aggregate({
+    _count:{
+     cropped_image:true
+    }
+   });
+ var final_count=get_count._count.cropped_image;
+ if(final_count < 1){
   const cropped_image = await prisma.profile_picture.create({
-    data: {
+    data:{
       cropped_image:owner_signature,
     },
   });
-  console.log(cropped_image);
-  res.status(200).json({Result:cropped_image});
-};
+   res.status(200).json({Result:"Image Uploaded Succesfully"});
+}
+else{
+  const update_cropped_image = await prisma.profile_picture.updateMany({
+    data:{
+      cropped_image:owner_signature,
+    },
+  });
+   res.status(200).json({Result:"Image Updated Succesfully"});
+}
+}
 
