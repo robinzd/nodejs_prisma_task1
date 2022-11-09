@@ -47,3 +47,12 @@
     transform: translate(-50%, -50%);
     text-align: center;
   }
+
+  #snapic{
+    margin-top: 40px !important;
+  }
+
+  div#button{
+    margin-left: 41%;
+    margin-top: 20px;
+  }

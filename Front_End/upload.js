@@ -7,24 +7,28 @@ $(document).ready(function () {
 
   $("#upload_image").change(function (event) {
     var files = event.target.files;
-
+    console.log(files);
     var done = function (url) {
       image.src = url;
       $modal.modal("show");
     };
-
-    if (files && files.length > 0) {
+console.log(image);
+  if (files && files.length > 0) {
       reader = new FileReader();
-      reader.onload = function (event) {
+      console.log(reader);
+      reader.onload = function(event){
         done(reader.result);
       };
       reader.readAsDataURL(files[0]);
+      Promise.all([reader]).then(()=>{
+        console.log(reader);
+      });
     }
   });
 
   $modal
     .on("shown.bs.modal", function () {
-      cropper = new Cropper(image, {
+      cropper = new Cropper(image,{
         aspectRatio: 1,
         viewMode: 3,
         preview: ".preview",
@@ -41,7 +45,7 @@ $(document).ready(function () {
       height: 400,
     });
 
-    canvas.toBlob(function (blob) {
+    canvas.toBlob(function (blob){
       url = URL.createObjectURL(blob);
       var upload_url = "http://localhost:2000/api//uploadimage";
       var reader = new FileReader();
@@ -58,10 +62,10 @@ $(document).ready(function () {
           headers: {
             "Content-Type": "application/json",
           },
-          success: function () {
+          success: function(){
             $modal.modal("hide");
           },
-          error: function () {
+          error: function(){
             alert("Something Went Wrong");
           },
         });

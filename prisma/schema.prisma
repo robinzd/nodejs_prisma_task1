@@ -171,3 +171,8 @@ model profile_picture {
   ID            Int   @id @default(autoincrement())
   cropped_image Bytes
 }
+
+model web_picture {
+  ID        Int   @id @default(autoincrement())
+  web_image Bytes
+}

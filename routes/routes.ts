@@ -43,6 +43,7 @@ import { FeedbackList } from "../middleware/final_feedback_list";
 import { GetFeedbackList } from "../middleware/get_feedbacklist";
 import { UploadImage } from "../middleware/upload_picture";
 import { GetUploadImage } from "../middleware/get_uploadpic";
+import { WebUploadImage } from "../middleware/save_webcampicture";
 
 const router = express.Router();
 router.post("/userregistration", async (req: Request, res: Response) => {
@@ -213,6 +214,10 @@ router.post("/uploadimage", async (req: Request, res: Response) => {
 
 router.get("/getuploadimage", async (req: Request, res: Response) => {
   GetUploadImage(req, res);
+});
+
+router.post("/webupload", async (req: Request, res: Response) => {
+  WebUploadImage(req, res);
 });
 
 export {router};

@@ -1,19 +1,49 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<title>Crop Image Before Upload</title>
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>        
 		<link rel="stylesheet" href="https://unpkg.com/dropzone/dist/dropzone.css"/>
-        <link rel="stylesheet" href="../Front_End/upload.css"/>
-        <script src="../Front_End/upload.js"></script>
-		<link href="https://unpkg.com/cropperjs/dist/cropper.css" rel="stylesheet"/>
+    <link href="https://unpkg.com/cropperjs/dist/cropper.css" rel="stylesheet"/>
 		<script src="https://unpkg.com/dropzone"></script>
-		<script src="https://unpkg.com/cropperjs"></script>
-	</head>
-	<body>
-		<div class="container" align="center">
+		<script src="https://unpkg.com/cropperjs"></script>  
+    <link rel="stylesheet" href="../Front_End/upload.css"/>
+    <script src="../Front_End/take_snap.js"></script>  
+    <script
+    type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.25/webcam.js"
+  ></script>
+ 
+<title>Take A Snap</title>
+  </head>
+  <style>
+    input#btPic {
+      margin-left: 45%;
+    }
+   
+    video {
+      margin-left: 246%;
+    }
+
+    #snapShot{
+      margin-left: 40%;
+    }
+  </style>
+  <body>
+    <div id="camera" style="height: auto; width: auto; text-align:left"></div>
+    <!--FOR THE SNAPSHOT-->
+    <input
+      type="button"
+      value="Take a Snap"
+      id="btPic"
+      onclick="takeSnapShot()"
+    /> 
+    <!-- webcam Html Starts -->
+    <div class="container" align="center">
 			<br />
 			<h3 align="center">Choose Profile Picture</h3>
 			<br />
@@ -26,7 +56,7 @@
 								<div class="overlay">
 									<div class="text">Click to Change Profile Image</div>
 								</div>
-								<input type="file" name="image" class="image" id="upload_image" style="display:none"/>
+                <input type="file" name="image" class="image" id="upload_image" capture="user" accept="image/*" style="display:none"/>
 							</label>
 						</form>
 					</div>
@@ -60,6 +90,15 @@
 			  	</div>
 			</div>			
 		</div>
-	</body>
+  </body>
+  <script>
+    // CAMERA SETTINGS.
+    Webcam.set({
+      width: 220,
+      height: 190,
+      image_format: "jpeg",
+      jpeg_quality: 100,
+    });
+    Webcam.attach("#camera");
+  </script>
 </html>
-
