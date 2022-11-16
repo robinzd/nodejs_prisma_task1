@@ -176,3 +176,15 @@ model web_picture {
   ID        Int   @id @default(autoincrement())
   web_image Bytes
 }
+
+model table_sorting {
+  ID             Int    @id @default(autoincrement())
+  user_name      String @db.VarChar(255)
+  contact_number BigInt
+  Address        String @db.VarChar(255)
+}
+
+model sorting_column {
+  ID            Int    @id @default(autoincrement())
+  filter_column String @db.VarChar(255)
+}

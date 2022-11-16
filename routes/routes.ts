@@ -44,6 +44,12 @@ import { GetFeedbackList } from "../middleware/get_feedbacklist";
 import { UploadImage } from "../middleware/upload_picture";
 import { GetUploadImage } from "../middleware/get_uploadpic";
 import { WebUploadImage } from "../middleware/save_webcampicture";
+import { GetTableDetails } from "../middleware/get_sorting_table";
+import { SortBy } from "../middleware/sortby_id";
+import { SortByName } from "../middleware/sort_by_name";
+import { SortByNumber } from "../middleware/sort_by_number";
+import { SortByAddress } from "../middleware/sort_by_address";
+import { GetSortingColumn } from "../middleware/get_sorting_column";
 
 const router = express.Router();
 router.post("/userregistration", async (req: Request, res: Response) => {
@@ -218,6 +224,30 @@ router.get("/getuploadimage", async (req: Request, res: Response) => {
 
 router.post("/webupload", async (req: Request, res: Response) => {
   WebUploadImage(req, res);
+});
+
+router.get("/gettablesorting", async (req: Request, res: Response) => {
+  GetTableDetails(req, res);
+});
+
+router.post("/getsortbyasceanddesc", async (req: Request, res: Response) => {
+  SortBy(req, res);
+});
+
+router.post("/getsortbynameasceanddesc", async (req: Request, res: Response) => {
+  SortByName(req, res);
+});
+
+router.post("/getsortbynumberasceanddesc", async (req: Request, res: Response) => {
+  SortByNumber(req, res);
+});
+
+router.post("/getsortbyaddressasceanddesc", async (req: Request, res: Response) => {
+  SortByAddress(req, res);
+});
+
+router.get("/getsortingcolumn", async (req: Request, res: Response) => {
+  GetSortingColumn(req, res);
 });
 
 export {router};
