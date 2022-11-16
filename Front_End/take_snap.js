@@ -1,14 +1,8 @@
 $(document).ready(function () {
   var image_result = "";
-  // var $modal = $("#modal");
-  // var image = document.getElementById("sample_image");
-  // var cropper;
   takeSnapShot = function () {
     Webcam.snap(function (data_uri) {
-      // var image = new Image();
-      // image.src = data_uri;
-      // document.body.appendChild(image);
-      document.getElementById('snapshot').innerHTML = 
+    document.getElementById('snapshot').innerHTML = 
       '<img src="'+data_uri+'"/>';
       $("#snapshot").append(`<button type="button" class="btn btn-primary save">Save</button>`);
       image_result = data_uri;
@@ -37,33 +31,4 @@ $(document).ready(function () {
       },
     });
   });
-  // $("#upload_image").change(function (event) {
-  //   var files = event.target.files;
-  //   console.log(files);
-  //   var done = function (url) {
-  //     image.src = url;
-  //     $modal.modal("show");
-  //   };
-  //   console.log(image);
-  //   if (files && files.length > 0) {
-  //     reader = new FileReader();
-  //     reader.onload = function (event) {
-  //       done(reader.result);
-  //     };
-  //     var reading = reader.readAsDataURL(data_uri);
-  //     console.log(reading);
-  //   }
-  // });
-  // $modal
-  //   .on("shown.bs.modal", function () {
-  //     cropper = new Cropper(image, {
-  //       aspectRatio: 1,
-  //       viewMode: 3,
-  //       preview: ".preview",
-  //     });
-  //   })
-  //   .on("hidden.bs.modal", function () {
-  //     cropper.destroy();
-  //     cropper = null;
-  //   });
-  });
+});

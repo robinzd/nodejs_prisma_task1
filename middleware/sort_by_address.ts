@@ -10,9 +10,7 @@ const prisma = new PrismaClient();
 export const SortByAddress = async (req: any, res: any) => {
   //req.body  //-------------> Has all request data
   var asce = req.body.ascen;
-  console.log(asce);
   var desc = req.body.descn;
-  console.log(desc);
   if (desc == 1) {
     const sortby_address_desc = await prisma.table_sorting.findMany({
       orderBy: {
@@ -25,7 +23,6 @@ export const SortByAddress = async (req: any, res: any) => {
       ),
     };
     get_sortby_address_desc = JSON.parse(get_sortby_address_desc.datasadd);
-    console.log(get_sortby_address_desc);
     res.status(200).json({ Result: "Image details", data: get_sortby_address_desc });
   }
   else if (asce == 0) {
@@ -40,9 +37,8 @@ export const SortByAddress = async (req: any, res: any) => {
         ),
       };
       get_sortby_address_asce = JSON.parse(get_sortby_address_asce.datasadd);
-      console.log(get_sortby_address_asce);
       res
         .status(200)
         .json({Result:"Image details",data:get_sortby_address_asce});
-    }
+     }
   };

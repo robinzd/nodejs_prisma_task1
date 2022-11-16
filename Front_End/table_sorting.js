@@ -30,12 +30,10 @@ $(document).ready(function () {
   // Ascending Order Logic For Id Starts//
   $(document).on("click", ".sortingup", function () {
     var id_up=$(this).data("up");
-   console.log(id_up)
     var url1 = "http://localhost:2000/api//getsortbyasceanddesc";
     var table_result_0 = JSON.stringify({
       ascen:id_up
     });
-    console.log(table_result_0)
     $.ajax({
       url: url1,
       data: table_result_0,
@@ -68,12 +66,10 @@ $(document).ready(function () {
   //Desending Order Logic For Id Starts//
   $(document).on("click", ".sortingdown", function () {
     var id_down=$(this).data("down");
-   console.log(id_down)
     var url1 = "http://localhost:2000/api//getsortbyasceanddesc";
     var table_result_1 = JSON.stringify({
       descn:id_down
     });
-    console.log(table_result_1)
     $.ajax({
       url: url1,
       data: table_result_1,
@@ -83,8 +79,7 @@ $(document).ready(function () {
         "Content-Type": "application/json",
       },
       success: function (datas2) {
-        console.log(datas2)
-        var desc_result = "";
+      var desc_result = "";
         datas2.data.forEach((items) => {
           const {ID, user_name, contact_number, Address} = items;
           desc_result += `
@@ -106,13 +101,11 @@ $(document).ready(function () {
    //Ascending Order Logic For Name Starts// 
    $(document).on("click", ".sortingnameup", function () {
     var name_up=$(this).data("nameup");
-   console.log(name_up)
     var url1 = "http://localhost:2000/api//getsortbynameasceanddesc";
     var table_nameup = JSON.stringify({
       ascen:name_up
     });
-    console.log(table_nameup)
-    $.ajax({
+  $.ajax({
       url: url1,
       data: table_nameup,
       method: "POST",
@@ -121,8 +114,7 @@ $(document).ready(function () {
         "Content-Type": "application/json",
       },
       success: function (datas2) {
-        console.log(datas2)
-        var aesc_name_result = "";
+      var aesc_name_result = "";
         datas2.data.forEach((items) => {
           const {ID, user_name, contact_number, Address} = items;
           aesc_name_result += `
@@ -144,13 +136,11 @@ $(document).ready(function () {
   //descending Order Logic For Name Starts// 
   $(document).on("click", ".sortingnamedown", function () {
     var name_down=$(this).data("namedown");
-   console.log(name_down)
     var url1 = "http://localhost:2000/api//getsortbynameasceanddesc";
     var table_namedown = JSON.stringify({
       descn:name_down
     });
-    console.log(table_namedown)
-    $.ajax({
+  $.ajax({
       url: url1,
       data: table_namedown,
       method: "POST",
@@ -159,8 +149,7 @@ $(document).ready(function () {
         "Content-Type": "application/json",
       },
       success: function (datas2) {
-        console.log(datas2)
-        var aesc_name_result = "";
+      var aesc_name_result = "";
         datas2.data.forEach((items) => {
           const {ID, user_name, contact_number, Address} = items;
           aesc_name_result += `
@@ -182,13 +171,11 @@ $(document).ready(function () {
   //Ascending Order Logic For Number Starts// 
    $(document).on("click", ".sortingcontactup", function () {
     var contact_up=$(this).data("contactup");
-   console.log(contact_up)
     var url1 = "http://localhost:2000/api//getsortbynumberasceanddesc";
     var table_contactup = JSON.stringify({
       ascen:contact_up
     });
-    console.log(table_contactup)
-    $.ajax({
+  $.ajax({
       url: url1,
       data: table_contactup,
       method: "POST",
@@ -197,8 +184,7 @@ $(document).ready(function () {
         "Content-Type": "application/json",
       },
       success: function (datas2) {
-        console.log(datas2)
-        var aesc_contact_result = "";
+      var aesc_contact_result = "";
         datas2.data.forEach((items) => {
           const {ID, user_name, contact_number, Address} = items;
           aesc_contact_result += `
@@ -219,14 +205,12 @@ $(document).ready(function () {
 
   //Descending Order Logic For Number Starts// 
   $(document).on("click", ".sortingcontactdown", function () {
-    var contact_down=$(this).data("contactdown");
-   console.log(contact_down)
-    var url1 = "http://localhost:2000/api//getsortbynumberasceanddesc";
+  var contact_down=$(this).data("contactdown");
+   var url1 = "http://localhost:2000/api//getsortbynumberasceanddesc";
     var table_contactdown = JSON.stringify({
       descn:contact_down
     });
-    console.log(table_contactdown)
-    $.ajax({
+  $.ajax({
       url: url1,
       data: table_contactdown,
       method: "POST",
@@ -235,8 +219,7 @@ $(document).ready(function () {
         "Content-Type": "application/json",
       },
       success: function (datas2) {
-        console.log(datas2)
-        var desc_contact_result = "";
+      var desc_contact_result = "";
         datas2.data.forEach((items) => {
           const {ID, user_name, contact_number, Address} = items;
           desc_contact_result += `
@@ -258,13 +241,11 @@ $(document).ready(function () {
   //Ascending Order Logic For Address Starts// 
   $(document).on("click", ".sortingaddressup", function () {
     var address_up=$(this).data("addressup");
-   console.log(address_up)
     var url1 = "http://localhost:2000/api//getsortbyaddressasceanddesc";
     var table_addressup = JSON.stringify({
       ascen:address_up
     });
-    console.log(table_addressup)
-    $.ajax({
+  $.ajax({
       url: url1,
       data: table_addressup,
       method: "POST",
@@ -273,8 +254,7 @@ $(document).ready(function () {
         "Content-Type": "application/json",
       },
       success: function (datas2) {
-        console.log(datas2)
-        var aesc_address_result = "";
+      var aesc_address_result = "";
         datas2.data.forEach((items) => {
           const {ID, user_name, contact_number, Address} = items;
           aesc_address_result += `
@@ -296,12 +276,10 @@ $(document).ready(function () {
 //Descending Order Logic For Address Starts// 
 $(document).on("click", ".sortingaddressdown", function () {
   var address_down=$(this).data("addressdown");
- console.log(address_down)
   var url1 = "http://localhost:2000/api//getsortbyaddressasceanddesc";
   var table_addressdown = JSON.stringify({
     descn:address_down
   });
-  console.log(table_addressdown)
   $.ajax({
     url: url1,
     data: table_addressdown,
@@ -311,8 +289,7 @@ $(document).on("click", ".sortingaddressdown", function () {
       "Content-Type": "application/json",
     },
     success: function (datas2) {
-      console.log(datas2)
-      var desc_address_result = "";
+    var desc_address_result = "";
       datas2.data.forEach((items) => {
         const {ID, user_name, contact_number, Address} = items;
         desc_address_result += `
@@ -342,7 +319,7 @@ $.ajax({
         const {filter_column} = item;
         result += `
         <div class="form-check">
-        <input class="form-check-input" type="radio" name="flexRadioDefault" value="${filter_column}" id="flexRadioDefault1">
+        <input class="form-check-input radiobuttons" type="radio" name="checkingradio" value="${filter_column}" id="flexRadioDefault1">
         <label class="form-check-label" for="flexRadioDefault1">
         ${filter_column}
         </label>
@@ -350,7 +327,45 @@ $.ajax({
       `;
       });
       $("#radiobuttons").append(result)
+      $("#insert").append(`<div class="input-group-text searchbutton" id="btnGroupAddon"><i class="fa-solid fa-magnifying-glass"></i></div>`)
     },
   });
 //Get Search By Filter Column Logic Ends//
+
+$(document).on("click", ".searchbutton", function () {
+  var selected_tag = $("input:radio[name=checkingradio]:checked").val();
+  var searchtag = $("#searchtag").val();
+  var search_url = "http://localhost:2000/api//getsearchtag";
+  var search_tag_table = JSON.stringify({
+    sortingcolumn:selected_tag,
+    inputvalue:searchtag
+  });
+$.ajax({
+    url: search_url,
+    data: search_tag_table,
+    method: "POST",
+    timeout: 0,
+    headers: {
+      "Content-Type": "application/json",
+    },
+    success: function (datas) {
+    var search_result = "";
+      datas.data.forEach((items) => {
+        const {ID, user_name, contact_number, Address} = items;
+        search_result += `
+        <tr>
+        <td>${ID}</td>
+        <td>${user_name}</td>
+        <td>${contact_number}</td>
+        <td>${Address}</td>
+        </tr>
+      `;
+      });
+     $("#tablesorting").html(search_result);
+    },
+    error:function (){
+      alert("No Result Found");
+    }
+  });
+});
 });

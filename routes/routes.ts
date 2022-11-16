@@ -50,6 +50,7 @@ import { SortByName } from "../middleware/sort_by_name";
 import { SortByNumber } from "../middleware/sort_by_number";
 import { SortByAddress } from "../middleware/sort_by_address";
 import { GetSortingColumn } from "../middleware/get_sorting_column";
+import { GetSearchTag } from "../middleware/searching_tag";
 
 const router = express.Router();
 router.post("/userregistration", async (req: Request, res: Response) => {
@@ -248,6 +249,10 @@ router.post("/getsortbyaddressasceanddesc", async (req: Request, res: Response) 
 
 router.get("/getsortingcolumn", async (req: Request, res: Response) => {
   GetSortingColumn(req, res);
+});
+
+router.post("/getsearchtag", async (req: Request, res: Response) => {
+  GetSearchTag(req, res);
 });
 
 export {router};

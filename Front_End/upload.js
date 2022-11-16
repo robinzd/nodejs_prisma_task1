@@ -63,6 +63,8 @@ console.log(image);
             "Content-Type": "application/json",
           },
           success: function(){
+            alert("Picture Changed Successfully");
+            location.reload(true);
             $modal.modal("hide");
           },
           error: function(){
