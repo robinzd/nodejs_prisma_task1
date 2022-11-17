@@ -132,7 +132,7 @@ $(document).ready(function () {
     var update_address = $("#u_address").val();
     var update_status = $("#u_status").val();
     var url2 = "http://localhost:2000/api//UserUpdate";
-    if (update_contact.length > 10) {
+    if (update_contact.length > 10 || update_contact.length < 10) {
       alert("Invalid Contact Number");
     }
     else if (

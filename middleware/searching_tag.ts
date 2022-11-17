@@ -38,11 +38,11 @@ else if(radio_button == "contact_number"){
     },
   });
   let get_search_numbertag = {
-    datasadd: JSON.stringify(get_number_searchtag, (_, v) =>
+    datasadd: JSON.stringify(get_number_searchtag,(_, v) =>
       typeof v === "bigint" ? v.toString() : v
     ),
   };
   get_search_numbertag = JSON.parse(get_search_numbertag.datasadd);
   res.status(200).json({Result:"Details",data:get_search_numbertag});
-};
+}
 };

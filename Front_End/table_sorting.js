@@ -5,6 +5,7 @@ $(document).ready(function () {
     dataType: "json",
     url: url,
     success: function (datas) {
+      var row_counts = datas.data.length;
       var result = "";
       datas.data.forEach((item) => {
         const { ID, user_name, contact_number, Address } = item;
@@ -14,6 +15,9 @@ $(document).ready(function () {
         <td>${user_name}</td>
         <td>${contact_number}</td>
         <td>${Address}</td>
+        <td><img src="https://mdbcdn.b-cdn.net/img/new/avatars/8.webp" class="rounded-circle mb-3"
+        alt="Avatar" /></td>
+        <td><a data-bs-toggle="modal" data-id="${ID}" data-bs-target="#exampleModal1" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a></td>
         </tr>
         ${count++}
         `;
@@ -24,15 +28,16 @@ $(document).ready(function () {
         );
       } else {
         $("#tablesorting").append(result);
+        $("#para").html(`Records Shown:${row_counts} Rows`);
       }
     },
   });
   // Ascending Order Logic For Id Starts//
   $(document).on("click", ".sortingup", function () {
-    var id_up=$(this).data("up");
+    var id_up = $(this).data("up");
     var url1 = "http://localhost:2000/api//getsortbyasceanddesc";
     var table_result_0 = JSON.stringify({
-      ascen:id_up
+      ascen: id_up,
     });
     $.ajax({
       url: url1,
@@ -43,21 +48,25 @@ $(document).ready(function () {
         "Content-Type": "application/json",
       },
       success: function (datas2) {
-        console.log(datas2)
+        var id_row_count = datas2.data.length;
         var asec_result = "";
         datas2.data.forEach((items) => {
-          const {ID, user_name, contact_number, Address} = items;
+          const { ID, user_name, contact_number, Address } = items;
           asec_result += `
            <tr>
           <td>${ID}</td>
           <td>${user_name}</td>
           <td>${contact_number}</td>
           <td>${Address}</td>
-          </tr>
-          ${count++}
+          <td><img src="https://mdbcdn.b-cdn.net/img/new/avatars/8.webp" class="rounded-circle mb-3"
+        alt="Avatar" /></td>
+          <td><a data-bs-toggle="modal" data-id="${ID}" data-bs-target="#exampleModal1" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a></td>
+        </tr>
+        ${count++}
           `;
         });
-       $("#tablesorting").html(asec_result);
+        $("#tablesorting").html(asec_result);
+        $("#para").html(`Records Shown:${id_row_count} Rows`);
       },
     });
   });
@@ -65,10 +74,10 @@ $(document).ready(function () {
 
   //Desending Order Logic For Id Starts//
   $(document).on("click", ".sortingdown", function () {
-    var id_down=$(this).data("down");
+    var id_down = $(this).data("down");
     var url1 = "http://localhost:2000/api//getsortbyasceanddesc";
     var table_result_1 = JSON.stringify({
-      descn:id_down
+      descn: id_down,
     });
     $.ajax({
       url: url1,
@@ -79,33 +88,38 @@ $(document).ready(function () {
         "Content-Type": "application/json",
       },
       success: function (datas2) {
-      var desc_result = "";
+        var id_row_counts = datas2.data.length;
+        var desc_result = "";
         datas2.data.forEach((items) => {
-          const {ID, user_name, contact_number, Address} = items;
+          const { ID, user_name, contact_number, Address } = items;
           desc_result += `
            <tr>
           <td>${ID}</td>
           <td>${user_name}</td>
           <td>${contact_number}</td>
           <td>${Address}</td>
+          <td><img src="https://mdbcdn.b-cdn.net/img/new/avatars/8.webp" class="rounded-circle mb-3"
+        alt="Avatar" /></td>
+          <td><a data-bs-toggle="modal" data-id="${ID}" data-bs-target="#exampleModal1" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a></td>
           </tr>
           ${count++}
           `;
         });
-       $("#tablesorting").html(desc_result);
+        $("#tablesorting").html(desc_result);
+        $("#para").html(`Records Shown:${id_row_counts} Rows`);
       },
     });
   });
-  //Desending Order Logic For Id Ends// 
+  //Desending Order Logic For Id Ends//
 
-   //Ascending Order Logic For Name Starts// 
-   $(document).on("click", ".sortingnameup", function () {
-    var name_up=$(this).data("nameup");
+  //Ascending Order Logic For Name Starts//
+  $(document).on("click", ".sortingnameup", function () {
+    var name_up = $(this).data("nameup");
     var url1 = "http://localhost:2000/api//getsortbynameasceanddesc";
     var table_nameup = JSON.stringify({
-      ascen:name_up
+      ascen: name_up,
     });
-  $.ajax({
+    $.ajax({
       url: url1,
       data: table_nameup,
       method: "POST",
@@ -114,33 +128,38 @@ $(document).ready(function () {
         "Content-Type": "application/json",
       },
       success: function (datas2) {
-      var aesc_name_result = "";
+        var name_row_count = datas2.data.length;
+        var aesc_name_result = "";
         datas2.data.forEach((items) => {
-          const {ID, user_name, contact_number, Address} = items;
+          const { ID, user_name, contact_number, Address } = items;
           aesc_name_result += `
            <tr>
           <td>${ID}</td>
           <td>${user_name}</td>
           <td>${contact_number}</td>
           <td>${Address}</td>
+          <td><img src="https://mdbcdn.b-cdn.net/img/new/avatars/8.webp" class="rounded-circle mb-3"
+        alt="Avatar" /></td>
+          <td><a data-bs-toggle="modal" data-id="${ID}" data-bs-target="#exampleModal1" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a></td>
           </tr>
           ${count++}
           `;
         });
-       $("#tablesorting").html(aesc_name_result);
+        $("#tablesorting").html(aesc_name_result);
+        $("#para").html(`Records Shown:${name_row_count} Rows`);
       },
     });
   });
-  //Ascending Order Logic For Name Ends// 
+  //Ascending Order Logic For Name Ends//
 
-  //descending Order Logic For Name Starts// 
+  //descending Order Logic For Name Starts//
   $(document).on("click", ".sortingnamedown", function () {
-    var name_down=$(this).data("namedown");
+    var name_down = $(this).data("namedown");
     var url1 = "http://localhost:2000/api//getsortbynameasceanddesc";
     var table_namedown = JSON.stringify({
-      descn:name_down
+      descn: name_down,
     });
-  $.ajax({
+    $.ajax({
       url: url1,
       data: table_namedown,
       method: "POST",
@@ -149,33 +168,38 @@ $(document).ready(function () {
         "Content-Type": "application/json",
       },
       success: function (datas2) {
-      var aesc_name_result = "";
+        var name_row_counts = datas2.data.length;
+        var aesc_name_result = "";
         datas2.data.forEach((items) => {
-          const {ID, user_name, contact_number, Address} = items;
+          const { ID, user_name, contact_number, Address } = items;
           aesc_name_result += `
            <tr>
           <td>${ID}</td>
           <td>${user_name}</td>
           <td>${contact_number}</td>
           <td>${Address}</td>
+          <td><img src="https://mdbcdn.b-cdn.net/img/new/avatars/8.webp" class="rounded-circle mb-3"
+        alt="Avatar" /></td>
+          <td><a data-bs-toggle="modal" data-id="${ID}" data-bs-target="#exampleModal1" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a></td>
           </tr>
           ${count++}
           `;
         });
-       $("#tablesorting").html(aesc_name_result);
+        $("#tablesorting").html(aesc_name_result);
+        $("#para").html(`Records Shown:${name_row_counts} Rows`);
       },
     });
   });
-  //descending Order Logic For Name Ends// 
+  //descending Order Logic For Name Ends//
 
-  //Ascending Order Logic For Number Starts// 
-   $(document).on("click", ".sortingcontactup", function () {
-    var contact_up=$(this).data("contactup");
+  //Ascending Order Logic For Number Starts//
+  $(document).on("click", ".sortingcontactup", function () {
+    var contact_up = $(this).data("contactup");
     var url1 = "http://localhost:2000/api//getsortbynumberasceanddesc";
     var table_contactup = JSON.stringify({
-      ascen:contact_up
+      ascen: contact_up,
     });
-  $.ajax({
+    $.ajax({
       url: url1,
       data: table_contactup,
       method: "POST",
@@ -184,33 +208,38 @@ $(document).ready(function () {
         "Content-Type": "application/json",
       },
       success: function (datas2) {
-      var aesc_contact_result = "";
+        var number_row_count = datas2.data.length;
+        var aesc_contact_result = "";
         datas2.data.forEach((items) => {
-          const {ID, user_name, contact_number, Address} = items;
+          const { ID, user_name, contact_number, Address } = items;
           aesc_contact_result += `
            <tr>
           <td>${ID}</td>
           <td>${user_name}</td>
           <td>${contact_number}</td>
           <td>${Address}</td>
+          <td><img src="https://mdbcdn.b-cdn.net/img/new/avatars/8.webp" class="rounded-circle mb-3"
+        alt="Avatar" /></td>
+          <td><a data-bs-toggle="modal" data-id="${ID}" data-bs-target="#exampleModal1" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a></td>
           </tr>
           ${count++}
           `;
         });
-       $("#tablesorting").html(aesc_contact_result);
+        $("#tablesorting").html(aesc_contact_result);
+        $("#para").html(`Records Shown:${number_row_count} Rows`);
       },
     });
   });
-  //Ascending Order Logic For Number Ends// 
+  //Ascending Order Logic For Number Ends//
 
-  //Descending Order Logic For Number Starts// 
+  //Descending Order Logic For Number Starts//
   $(document).on("click", ".sortingcontactdown", function () {
-  var contact_down=$(this).data("contactdown");
-   var url1 = "http://localhost:2000/api//getsortbynumberasceanddesc";
+    var contact_down = $(this).data("contactdown");
+    var url1 = "http://localhost:2000/api//getsortbynumberasceanddesc";
     var table_contactdown = JSON.stringify({
-      descn:contact_down
+      descn: contact_down,
     });
-  $.ajax({
+    $.ajax({
       url: url1,
       data: table_contactdown,
       method: "POST",
@@ -219,33 +248,38 @@ $(document).ready(function () {
         "Content-Type": "application/json",
       },
       success: function (datas2) {
-      var desc_contact_result = "";
+        var nmuber_row_counts = datas2.data.length;
+        var desc_contact_result = "";
         datas2.data.forEach((items) => {
-          const {ID, user_name, contact_number, Address} = items;
+          const { ID, user_name, contact_number, Address } = items;
           desc_contact_result += `
            <tr>
           <td>${ID}</td>
           <td>${user_name}</td>
           <td>${contact_number}</td>
           <td>${Address}</td>
+          <td><img src="https://mdbcdn.b-cdn.net/img/new/avatars/8.webp" class="rounded-circle mb-3"
+        alt="Avatar" /></td>
+          <td><a data-bs-toggle="modal" data-id="${ID}" data-bs-target="#exampleModal1" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a></td>
           </tr>
           ${count++}
           `;
         });
-       $("#tablesorting").html(desc_contact_result);
+        $("#tablesorting").html(desc_contact_result);
+        $("#para").html(`Records Shown:${nmuber_row_counts} Rows`);
       },
     });
   });
-  //Descending Order Logic For Number Ends// 
+  //Descending Order Logic For Number Ends//
 
-  //Ascending Order Logic For Address Starts// 
+  //Ascending Order Logic For Address Starts//
   $(document).on("click", ".sortingaddressup", function () {
-    var address_up=$(this).data("addressup");
+    var address_up = $(this).data("addressup");
     var url1 = "http://localhost:2000/api//getsortbyaddressasceanddesc";
     var table_addressup = JSON.stringify({
-      ascen:address_up
+      ascen: address_up,
     });
-  $.ajax({
+    $.ajax({
       url: url1,
       data: table_addressup,
       method: "POST",
@@ -254,69 +288,79 @@ $(document).ready(function () {
         "Content-Type": "application/json",
       },
       success: function (datas2) {
-      var aesc_address_result = "";
+        var address_row_count = datas2.data.length;
+        var aesc_address_result = "";
         datas2.data.forEach((items) => {
-          const {ID, user_name, contact_number, Address} = items;
+          const { ID, user_name, contact_number, Address } = items;
           aesc_address_result += `
            <tr>
           <td>${ID}</td>
           <td>${user_name}</td>
           <td>${contact_number}</td>
           <td>${Address}</td>
+          <td><img src="https://mdbcdn.b-cdn.net/img/new/avatars/8.webp" class="rounded-circle mb-3"
+        alt="Avatar" /></td>
+          <td><a data-bs-toggle="modal" data-id="${ID}" data-bs-target="#exampleModal1" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a></td>
           </tr>
           ${count++}
           `;
         });
-       $("#tablesorting").html(aesc_address_result);
+        $("#tablesorting").html(aesc_address_result);
+        $("#para").html(`Records Shown:${address_row_count} Rows`);
       },
     });
   });
- //Ascending Order Logic For Address Ends// 
+  //Ascending Order Logic For Address Ends//
 
-//Descending Order Logic For Address Starts// 
-$(document).on("click", ".sortingaddressdown", function () {
-  var address_down=$(this).data("addressdown");
-  var url1 = "http://localhost:2000/api//getsortbyaddressasceanddesc";
-  var table_addressdown = JSON.stringify({
-    descn:address_down
-  });
-  $.ajax({
-    url: url1,
-    data: table_addressdown,
-    method: "POST",
-    timeout: 0,
-    headers: {
-      "Content-Type": "application/json",
-    },
-    success: function (datas2) {
-    var desc_address_result = "";
-      datas2.data.forEach((items) => {
-        const {ID, user_name, contact_number, Address} = items;
-        desc_address_result += `
+  //Descending Order Logic For Address Starts//
+  $(document).on("click", ".sortingaddressdown", function () {
+    var address_down = $(this).data("addressdown");
+    var url1 = "http://localhost:2000/api//getsortbyaddressasceanddesc";
+    var table_addressdown = JSON.stringify({
+      descn: address_down,
+    });
+    $.ajax({
+      url: url1,
+      data: table_addressdown,
+      method: "POST",
+      timeout: 0,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      success: function (datas2) {
+        var address_row_counts = datas2.data.length;
+        var desc_address_result = "";
+        datas2.data.forEach((items) => {
+          const { ID, user_name, contact_number, Address } = items;
+          desc_address_result += `
         <tr>
         <td>${ID}</td>
         <td>${user_name}</td>
         <td>${contact_number}</td>
         <td>${Address}</td>
+        <td><img src="https://mdbcdn.b-cdn.net/img/new/avatars/8.webp" class="rounded-circle mb-3"
+        alt="Avatar" /></td>
+        <td><a data-bs-toggle="modal" data-id="${ID}" data-bs-target="#exampleModal1" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a></td>
         </tr>
         ${count++}
         `;
-      });
-     $("#tablesorting").html(desc_address_result);
-    },
+        });
+        $("#tablesorting").html(desc_address_result);
+        $("#para").html(`Records Shown:${address_row_counts} Rows`);
+      },
+    });
   });
-});
-//Descending Order Logic For Address Ends// 
+  //Descending Order Logic For Address Ends//
 
-//Get Search By Filter Column Logic Started//
-var url = "http://localhost:2000/api//getsortingcolumn";
-$.ajax({
+  //Get Search By Filter Column Logic Started//
+  var url = "http://localhost:2000/api//getsortingcolumn";
+  $.ajax({
     dataType: "json",
     url: url,
     success: function (datas) {
       var result = "";
       datas.data.forEach((item) => {
-        const {filter_column} = item;
+        const { filter_column } = item;
         result += `
         <div class="form-check">
         <input class="form-check-input radiobuttons" type="radio" name="checkingradio" value="${filter_column}" id="flexRadioDefault1">
@@ -326,46 +370,105 @@ $.ajax({
       </div>
       `;
       });
-      $("#radiobuttons").append(result)
-      $("#insert").append(`<div class="input-group-text searchbutton" id="btnGroupAddon"><i class="fa-solid fa-magnifying-glass"></i></div>`)
+      $("#radiobuttons").append(result);
+      $("#insert").append(
+        `<div class="input-group-text searchbutton" id="btnGroupAddon"><i class="fa-solid fa-magnifying-glass"></i></div>`
+      );
     },
   });
-//Get Search By Filter Column Logic Ends//
+  //Get Search By Filter Column Logic Ends//
 
-$(document).on("click", ".searchbutton", function () {
-  var selected_tag = $("input:radio[name=checkingradio]:checked").val();
-  var searchtag = $("#searchtag").val();
-  var search_url = "http://localhost:2000/api//getsearchtag";
-  var search_tag_table = JSON.stringify({
-    sortingcolumn:selected_tag,
-    inputvalue:searchtag
+  // Get The Selected Radio Button Logic starts //
+  $(document).on("click", ".radiobuttons", function () {
+    var select_tag = $("input:radio[name=checkingradio]:checked").val();
+    $("#dropdownMenuButton2").html(select_tag);
   });
-$.ajax({
-    url: search_url,
-    data: search_tag_table,
-    method: "POST",
-    timeout: 0,
-    headers: {
-      "Content-Type": "application/json",
-    },
-    success: function (datas) {
-    var search_result = "";
-      datas.data.forEach((items) => {
-        const {ID, user_name, contact_number, Address} = items;
-        search_result += `
-        <tr>
+  // Get The Selected Radio Button Logic Ends //
+
+  // Search By Filter And Getting The Result Logic Starts //
+  $(document).on("click", ".searchbutton", function () {
+    var searchtag = $("#searchtag").val();
+    var resulted = searchtag.split("");
+    var final_result = resulted.length;
+    if (final_result == 0) {
+      var url = "http://localhost:2000/api//gettablesorting";
+      var count = 1;
+      $.ajax({
+        dataType: "json",
+        url: url,
+        success: function (datas) {
+          var row_counts = datas.data.length;
+          var result = "";
+          datas.data.forEach((item) => {
+            const { ID, user_name, contact_number, Address } = item;
+            result += `
+         <tr>
         <td>${ID}</td>
         <td>${user_name}</td>
         <td>${contact_number}</td>
         <td>${Address}</td>
+        <td><img src="https://mdbcdn.b-cdn.net/img/new/avatars/8.webp" class="rounded-circle mb-3"
+        alt="Avatar" /></td>
+        <td><a data-bs-toggle="modal" data-id="${ID}" data-bs-target="#exampleModal1" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a></td>
         </tr>
-      `;
+        ${count++}
+        `;
+          });
+          if (result.length == 0) {
+            $("#tablesorting").html(
+              '<tr class="norecords"><td colspan="8">No Records Found</td></tr>'
+            );
+          } else {
+            $("#tablesorting").html(result);
+            $("#para").html(`Records Shown:${row_counts} Rows`);
+          }
+        },
       });
-     $("#tablesorting").html(search_result);
-    },
-    error:function (){
-      alert("No Result Found");
+    } else {
+      var selected_tag = $("input:radio[name=checkingradio]:checked").val();
+      var searchtag = $("#searchtag").val();
+      var search_url = "http://localhost:2000/api//getsearchtag";
+      var search_tag_table = JSON.stringify({
+        sortingcolumn: selected_tag,
+        inputvalue: searchtag,
+      });
+      $.ajax({
+        url: search_url,
+        data: search_tag_table,
+        method: "POST",
+        timeout: 0,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        success: function (datas) {
+          var count = datas.data.length;
+          var search_result = "";
+          datas.data.forEach((items) => {
+            const { ID, user_name, contact_number, Address } = items;
+            search_result += `
+      <tr>
+      <td>${ID}</td>
+      <td>${user_name}</td>
+      <td>${contact_number}</td>
+      <td>${Address}</td>
+      <td><img src="https://mdbcdn.b-cdn.net/img/new/avatars/8.webp" class="rounded-circle mb-3"
+        alt="Avatar" /></td>
+      <td><a data-bs-toggle="modal" data-id="${ID}" data-bs-target="#exampleModal1" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a></td>
+      </tr>
+    `;
+          });
+          $("#tablesorting").html(search_result);
+          if (count > 1) {
+            $("#para").html(`Result:${count}Rows`);
+          } else {
+            $("#para").html(`Result:${count}Row`);
+          }
+        },
+        error: function () {
+          alert("Result Not Found");
+        },
+      });
     }
   });
-});
+  //Search By Filter And Getting The Result Logic Ends//
 });

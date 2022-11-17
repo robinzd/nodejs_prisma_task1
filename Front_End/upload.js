@@ -75,7 +75,7 @@ console.log(image);
     });
   });
 
-  // get products //
+  // get Image Logic Starts //
     console.log("hai");
     var url = "http://localhost:2000/api//getuploadimage";
     $.ajax({
@@ -90,4 +90,5 @@ console.log(image);
         );
       },
     });
+  // get Image Logic Starts //
   });

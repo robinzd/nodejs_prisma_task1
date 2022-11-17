@@ -130,7 +130,7 @@ select.form-select{
 }
 
 .form-check{
-  text-align: center !important;
+ margin-left: 15px !important;
 }
 
 input.form-control{
@@ -139,5 +139,18 @@ margin-left: 10% !important;
 
 div#btnGroupAddon{
   cursor: pointer !important;
+}
+
+#para{
+  margin-left: 49%;
+  color:darkgray;
+}
+
+i.material-icons {
+  cursor: pointer;
+}
+
+img.rounded-circle.mb-3{
+  width: 60px !important;
 }
 
