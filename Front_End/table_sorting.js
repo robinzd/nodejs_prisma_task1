@@ -1,4 +1,11 @@
 $(document).ready(function () {
+  var $modal = $("#modal");
+
+  console.log("hai");
+
+  var image = document.getElementById("sample_image");
+
+  var cropper;
   var url = "http://localhost:2000/api//gettablesorting";
   var count = 1;
   $.ajax({
@@ -8,7 +15,7 @@ $(document).ready(function () {
       var row_counts = datas.data.length;
       var result = "";
       datas.data.forEach((item) => {
-        const { ID, user_name, contact_number, Address } = item;
+        const { ID, user_name, contact_number, Address } = item;  
         result += `
          <tr>
         <td>${ID}</td>
@@ -17,7 +24,10 @@ $(document).ready(function () {
         <td>${Address}</td>
         <td><img src="https://mdbcdn.b-cdn.net/img/new/avatars/8.webp" class="rounded-circle mb-3"
         alt="Avatar" /></td>
-        <td><a data-bs-toggle="modal" data-id="${ID}" data-bs-target="#exampleModal1" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a></td>
+        <td><a data-bs-toggle="modal" data-id=${ID} data-bs-target="#exampleModal" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+        <a href="upload.html?id=${btoa(ID)}" class="upload" title="Upload Picture" data-toggle="tooltip"><i class="fa-solid fa-upload"></i></a></td>
+        </form>
+        </form>
         </tr>
         ${count++}
         `;
@@ -32,7 +42,8 @@ $(document).ready(function () {
       }
     },
   });
-  // Ascending Order Logic For Id Starts//
+ 
+ // Ascending Order Logic For Id Starts//
   $(document).on("click", ".sortingup", function () {
     var id_up = $(this).data("up");
     var url1 = "http://localhost:2000/api//getsortbyasceanddesc";
@@ -60,7 +71,7 @@ $(document).ready(function () {
           <td>${Address}</td>
           <td><img src="https://mdbcdn.b-cdn.net/img/new/avatars/8.webp" class="rounded-circle mb-3"
         alt="Avatar" /></td>
-          <td><a data-bs-toggle="modal" data-id="${ID}" data-bs-target="#exampleModal1" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a></td>
+          <td><a data-bs-toggle="modal" data-id="${ID}" data-bs-target="#exampleModal" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a></td>
         </tr>
         ${count++}
           `;
@@ -100,7 +111,7 @@ $(document).ready(function () {
           <td>${Address}</td>
           <td><img src="https://mdbcdn.b-cdn.net/img/new/avatars/8.webp" class="rounded-circle mb-3"
         alt="Avatar" /></td>
-          <td><a data-bs-toggle="modal" data-id="${ID}" data-bs-target="#exampleModal1" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a></td>
+          <td><a data-bs-toggle="modal" data-id="${ID}" data-bs-target="#exampleModal" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a></td>
           </tr>
           ${count++}
           `;
@@ -140,7 +151,7 @@ $(document).ready(function () {
           <td>${Address}</td>
           <td><img src="https://mdbcdn.b-cdn.net/img/new/avatars/8.webp" class="rounded-circle mb-3"
         alt="Avatar" /></td>
-          <td><a data-bs-toggle="modal" data-id="${ID}" data-bs-target="#exampleModal1" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a></td>
+          <td><a data-bs-toggle="modal" data-id="${ID}" data-bs-target="#exampleModal" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a></td>
           </tr>
           ${count++}
           `;
@@ -180,7 +191,7 @@ $(document).ready(function () {
           <td>${Address}</td>
           <td><img src="https://mdbcdn.b-cdn.net/img/new/avatars/8.webp" class="rounded-circle mb-3"
         alt="Avatar" /></td>
-          <td><a data-bs-toggle="modal" data-id="${ID}" data-bs-target="#exampleModal1" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a></td>
+          <td><a data-bs-toggle="modal" data-id="${ID}" data-bs-target="#exampleModal" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a></td>
           </tr>
           ${count++}
           `;
@@ -220,7 +231,7 @@ $(document).ready(function () {
           <td>${Address}</td>
           <td><img src="https://mdbcdn.b-cdn.net/img/new/avatars/8.webp" class="rounded-circle mb-3"
         alt="Avatar" /></td>
-          <td><a data-bs-toggle="modal" data-id="${ID}" data-bs-target="#exampleModal1" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a></td>
+          <td><a data-bs-toggle="modal" data-id="${ID}" data-bs-target="#exampleModal" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a></td>
           </tr>
           ${count++}
           `;
@@ -260,7 +271,7 @@ $(document).ready(function () {
           <td>${Address}</td>
           <td><img src="https://mdbcdn.b-cdn.net/img/new/avatars/8.webp" class="rounded-circle mb-3"
         alt="Avatar" /></td>
-          <td><a data-bs-toggle="modal" data-id="${ID}" data-bs-target="#exampleModal1" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a></td>
+          <td><a data-bs-toggle="modal" data-id="${ID}" data-bs-target="#exampleModal" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a></td>
           </tr>
           ${count++}
           `;
@@ -300,7 +311,7 @@ $(document).ready(function () {
           <td>${Address}</td>
           <td><img src="https://mdbcdn.b-cdn.net/img/new/avatars/8.webp" class="rounded-circle mb-3"
         alt="Avatar" /></td>
-          <td><a data-bs-toggle="modal" data-id="${ID}" data-bs-target="#exampleModal1" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a></td>
+          <td><a data-bs-toggle="modal" data-id="${ID}" data-bs-target="#exampleModal" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a></td>
           </tr>
           ${count++}
           `;
@@ -340,7 +351,7 @@ $(document).ready(function () {
         <td>${Address}</td>
         <td><img src="https://mdbcdn.b-cdn.net/img/new/avatars/8.webp" class="rounded-circle mb-3"
         alt="Avatar" /></td>
-        <td><a data-bs-toggle="modal" data-id="${ID}" data-bs-target="#exampleModal1" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a></td>
+        <td><a data-bs-toggle="modal" data-id="${ID}" data-bs-target="#exampleModal" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a></td>
         </tr>
         ${count++}
         `;
@@ -408,8 +419,8 @@ $(document).ready(function () {
         <td>${contact_number}</td>
         <td>${Address}</td>
         <td><img src="https://mdbcdn.b-cdn.net/img/new/avatars/8.webp" class="rounded-circle mb-3"
-        alt="Avatar" /></td>
-        <td><a data-bs-toggle="modal" data-id="${ID}" data-bs-target="#exampleModal1" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a></td>
+        alt="Avatar" id="normalpic" /></td>
+        <td><a data-bs-toggle="modal" data-id="${ID}" data-bs-target="#exampleModal" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a></td>
         </tr>
         ${count++}
         `;
@@ -453,7 +464,7 @@ $(document).ready(function () {
       <td>${Address}</td>
       <td><img src="https://mdbcdn.b-cdn.net/img/new/avatars/8.webp" class="rounded-circle mb-3"
         alt="Avatar" /></td>
-      <td><a data-bs-toggle="modal" data-id="${ID}" data-bs-target="#exampleModal1" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a></td>
+      <td><a data-bs-toggle="modal" data-id="${ID}" data-bs-target="#exampleModal" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a></td>
       </tr>
     `;
           });

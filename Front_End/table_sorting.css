@@ -152,5 +152,13 @@ i.material-icons {
 
 img.rounded-circle.mb-3{
   width: 60px !important;
+  margin-left: 30% !important;
 }
+
+i.fa-solid.fa-upload{
+  color: #ffc107;
+  cursor: pointer;
+}
+
+
 

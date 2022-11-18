@@ -56,3 +56,11 @@
     margin-left: 41%;
     margin-top: 20px;
   }
+
+  img#uploaded_image{
+    width: 70%;
+  }
+
+  .d-grid.gap-2.col-6.mx-auto{
+    margin-top: 50px;
+  }
