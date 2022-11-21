@@ -220,7 +220,7 @@ router.post("/uploadimage", async (req: Request, res: Response) => {
   UploadImage(req, res);
 });
 
-router.get("/getuploadimage", async (req: Request, res: Response) => {
+router.post("/getuploadimage", async (req: Request, res: Response) => {
   GetUploadImage(req, res);
 });
 
@@ -256,7 +256,7 @@ router.post("/getsearchtag", async (req: Request, res: Response) => {
   GetSearchTag(req, res);
 });
 
-router.post("/getsearchtag", async (req: Request, res: Response) => {
+router.post("/updatedetails", async (req: Request, res: Response) => {
   UpdateTableDetails(req, res);
 })
 

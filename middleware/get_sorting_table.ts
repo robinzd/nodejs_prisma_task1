@@ -9,15 +9,32 @@ import { buffer } from 'stream/consumers'
 const prisma = new PrismaClient();
 export const GetTableDetails = async (req: any, res: any)=>{
   //req.body  //-------------> Has all request data
- const get_table_details = await prisma.table_sorting.findMany({
-    
+ const get_table_details= await prisma.table_sorting.findFirst({
+    select:{
+      profile_pic:true,
+    }
   });
+
+  const get_table_details1= await prisma.table_sorting.findMany({
+        select:{
+          ID:true,
+          user_name:true,
+          contact_number:true,
+          Address:true
+        }
+  });
+
+  if (get_table_details?.profile_pic) {
+    var final_result: any = Buffer.from(
+      get_table_details.profile_pic
+    ).toString();
+  }
   let get_table = {
-    datasadd: JSON.stringify(get_table_details, (_, v) =>
+    datasadd: JSON.stringify(get_table_details1,(_, v) =>
       typeof v === "bigint" ? v.toString() : v
     ),
   };
-  get_table = JSON.parse(get_table.datasadd);
-  console.log(get_table);
-  res.status(200).json({Result:"Image details",data:get_table});
+get_table = JSON.parse(get_table.datasadd);
+ console.log(get_table);
+ res.status(200).json({Result:"Image details",data:get_table,data1:final_result});
 };

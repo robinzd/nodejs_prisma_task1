@@ -9,9 +9,11 @@ import { buffer } from "stream/consumers";
 const prisma = new PrismaClient();
 export const UpdateTableDetails = async (req: any, res: any) => {
   var sortid = req.body.ID;
+  console.log(sortid);
   var username = req.body.user_name;
   var contactnumber = req.body.contact_number;
   var profilepic:any=Buffer.from(req.body.profile_pic);
+  console.log(profilepic);
   var user_address=req.body.Address;
   //req.body  //-------------> Has all request data
   if (profilepic) {
@@ -23,7 +25,15 @@ export const UpdateTableDetails = async (req: any, res: any) => {
         profile_pic:profilepic
       },
     });
-    res.status(200).json({Result:"Image details", data: update_profile_pic});
+    let update_pic = {
+      datasadd: JSON.stringify(update_profile_pic, (_, v) =>
+        typeof v === "bigint" ? v.toString() : v
+      ),
+    };
+    update_pic = JSON.parse(update_pic.datasadd);
+    console.log(update_pic);
+    console.log("hai");
+    res.status(200).json({Result:"Image details",data:update_pic});
   } else {
     const update_table_details = await prisma.table_sorting.update({
       where: {

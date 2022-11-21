@@ -15,14 +15,14 @@ $(document).ready(function () {
       var row_counts = datas.data.length;
       var result = "";
       datas.data.forEach((item) => {
-        const { ID, user_name, contact_number, Address } = item;  
+        const { ID, user_name, contact_number, Address,profile_pic } = item;  
         result += `
          <tr>
         <td>${ID}</td>
         <td>${user_name}</td>
         <td>${contact_number}</td>
         <td>${Address}</td>
-        <td><img src="https://mdbcdn.b-cdn.net/img/new/avatars/8.webp" class="rounded-circle mb-3"
+        <td><img src="${profile_pic}" class="rounded-circle mb-3"
         alt="Avatar" /></td>
         <td><a data-bs-toggle="modal" data-id=${ID} data-bs-target="#exampleModal" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
         <a href="upload.html?id=${btoa(ID)}" class="upload" title="Upload Picture" data-toggle="tooltip"><i class="fa-solid fa-upload"></i></a></td>
