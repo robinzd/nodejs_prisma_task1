@@ -95,7 +95,7 @@ $(document).ready(function () {
       $("#photo").append(
         `<img src=${datajpg} id="uploaded_image" class="img-responsive img-circle"/>`
       );
-      $("#takesnapbutton").html(`<a href="webcam.html?id=${btoa(decode_id)}" class="btn btn-primary" type="button"><i class="fa-solid fa-camera"></i>Take A Snap</a>`)
+    $("#takesnapbutton").html(`<a href="webcam.html?id=${btoa(decode_id)}" class="btn btn-primary" type="button"><i class="fa-solid fa-camera"></i>Take A Snap</a>`)
     },
   });
   // get Image Logic Starts //

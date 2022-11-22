@@ -17,9 +17,16 @@
 
 #cropimage {
     overflow: hidden;
-    width: 640px;
-    height: 480px;
+    width: 640;
+    height: 480;
+    
 }
+
+img#imageprev{
+    margin-left: -20px !important;
+}
+
+
 
 #webCameraArea {
     width: 100% !important;
@@ -40,8 +47,6 @@
         overflow: hidden;
         width: 100%;
     }
-
-    
 
     #webCameraArea video {
         width: 100% !important;
@@ -110,3 +115,16 @@
 .container{
     margin-top: 15%;
 }
+
+.preview {
+    overflow: hidden;
+    width: 160px; 
+    height: 160px;
+    margin: 10px;
+    border: 1px solid red;
+    margin-left: 25px;
+}
+
+
+
+

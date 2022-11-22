@@ -21,6 +21,11 @@ $(document).ready(function () {
     webCamModal.modal("hide");
   });
 
+
+  $("#close").on("click", function () {
+    cropModal.modal("hide");
+  });
+
   function configure() {
     Webcam.set({
       width: 640,
@@ -56,7 +61,6 @@ $(document).ready(function () {
 
   // CROP IMAGE AFTER UPLOAD
   var cropper;
-
   function cropImage() {
     var image = document.querySelector("#imageprev");
     // $(image).on("load", () => {
