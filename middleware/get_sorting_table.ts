@@ -16,6 +16,8 @@ export const GetTableDetails = async (req: any, res: any)=>{
   });
   var result:any=get_table_details1[0].profile_pic
   console.log(result)
+  var final_result:any= Buffer.from(result).toString();
+  console.log(final_result);
   // if (get_table_details1?.profile_pic) {
   //   var final_result: any = Buffer.from(
   //     get_table_details1.profile_pic
