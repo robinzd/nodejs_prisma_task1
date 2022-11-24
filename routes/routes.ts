@@ -52,6 +52,7 @@ import { SortByAddress } from "../middleware/sort_by_address";
 import { GetSortingColumn } from "../middleware/get_sorting_column";
 import { GetSearchTag } from "../middleware/searching_tag";
 import { UpdateTableDetails } from "../middleware/update_sorting_table";
+import { GetProfilePicture } from "../middleware/get_web_and_upload";
 
 const router = express.Router();
 router.post("/userregistration", async (req: Request, res: Response) => {
@@ -258,6 +259,10 @@ router.post("/getsearchtag", async (req: Request, res: Response) => {
 
 router.post("/updatedetails", async (req: Request, res: Response) => {
   UpdateTableDetails(req, res);
+})
+
+router.get("/getprofilepic", async (req: Request, res: Response) => {
+  GetProfilePicture(req, res);
 })
 
 export {router};

@@ -2,6 +2,8 @@ import { PrismaClient,table_sorting} from "@prisma/client";
 import { idText, visitFunctionBody } from "typescript";
 import { isGeneratorFunction } from "util/types";
 import { buffer } from 'stream/consumers'
+import { AnyARecord } from "dns";
+import e from "express";
 // import Crypto from 'crypto-js'
 // import { jwtManager } from '../utils/tokens-helper'
 // import { GetDate } from '../utils/date-helper'
@@ -10,19 +12,17 @@ const prisma = new PrismaClient();
 export const GetTableDetails = async (req: any, res: any)=>{
   //req.body  //-------------> Has all request data
  const get_table_details1= await prisma.table_sorting.findMany({
-        select:{
-          ID:true,
-          user_name:true,
-          contact_number:true,
-          Address:true
-        }
+        
   });
-  let get_table = {
-    datasadd: JSON.stringify(get_table_details1,(_, v) =>
-      typeof v === "bigint" ? v.toString() : v
-    ),
-  };
-get_table = JSON.parse(get_table.datasadd);
- console.log(get_table);
- res.status(200).json({Result:"Image details",data:get_table});
+  var result:any=get_table_details1[0].profile_pic
+  console.log(result)
+  // if (get_table_details1?.profile_pic) {
+  //   var final_result: any = Buffer.from(
+  //     get_table_details1.profile_pic
+  //   ).toString();
+  // }
+let get_table = JSON.parse(JSON.stringify(get_table_details1,(_, v) =>
+typeof v === "bigint" ? v.toString() : v
+));
+res.status(200).json({Result:"Image details",data:get_table});
 };

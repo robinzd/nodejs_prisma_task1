@@ -58,7 +58,7 @@ $(document).ready(function () {
           method: "POST",
           data: JSON.stringify({
             ID: decode_id,
-            profile_pic:base64data,
+            profile_pic: base64data,
           }),
           headers: {
             "Content-Type": "application/json",
@@ -95,8 +95,10 @@ $(document).ready(function () {
       $("#photo").append(
         `<img src=${datajpg} id="uploaded_image" class="img-responsive img-circle"/>`
       );
-    $("#takesnapbutton").html(`<a href="webcam.html?id=${btoa(decode_id)}" class="btn btn-primary" type="button"><i class="fa-solid fa-camera"></i>Take A Snap</a>`)
+      $("#takesnapbutton").html(
+        `<a href="webcam.html?id="${btoa(decode_id )}" class="btn btn-primary" type="button" id="takesnap"><i class="fa-solid fa-camera"></i>Take A Snap</a>`
+      );
     },
   });
-  // get Image Logic Starts //
+  // get Image Logic Ends //
 });
