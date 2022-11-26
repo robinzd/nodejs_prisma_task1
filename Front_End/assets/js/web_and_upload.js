@@ -33,7 +33,7 @@ $(document).ready(function () {
       }
     }
   });
-// Webcamera
+  // Webcamera
   const webCamModal = $("#webCamModal");
   $("#openWebCamModal").on("click", function (event) {
     event.preventDefault();
@@ -53,12 +53,12 @@ $(document).ready(function () {
     });
     Webcam.attach("#webCameraArea");
   }
- function take_snapshot() {
+  function take_snapshot() {
     Webcam.snap(function (data_uri) {
       webCamModal.modal("hide");
       cropModal.modal({
         backdrop: "static",
-    });
+      });
       cropArea.html('<img id="imageprev" src="' + data_uri + '"/>');
       cropImage();
     });
@@ -67,13 +67,15 @@ $(document).ready(function () {
   webCamModal.on("show.bs.modal", function () {
     configure();
   });
- //
+  //
   webCamModal.on("hide.bs.modal", function () {
     Webcam.reset();
-    cropModal.modal("show");
+    $(document).on("click", ".snap", function () {
+      cropModal.modal("show");
+    });
     cropArea.html('<img id="imageprev" src=""/>');
   });
- // CROP IMAGE AFTER UPLOAD
+  // CROP IMAGE AFTER UPLOAD
   var cropper;
   function cropImage() {
     var image = document.querySelector("#imageprev");
@@ -101,7 +103,6 @@ $(document).ready(function () {
               left: (containerData.width - newCropBoxWidth) / 2,
               width: newCropBoxWidth,
             });
-
           }
         },
       });
@@ -116,9 +117,9 @@ $(document).ready(function () {
       cropper.reset();
     });
   }
-// crop modal close logic when close button clicked//
+  // crop modal close logic when close button clicked//
 
-//crop upload and crop web pic logic starts//
+  //crop upload and crop web pic logic starts//
   $(document).on("click", "#saveAvatar", function (event) {
     // const t = $(this);
     event.preventDefault();
@@ -175,7 +176,7 @@ $(document).ready(function () {
     });
   });
   //crop upload and crop web pic logic ends //
- // get Image Logic Starts //
+  // get Image Logic Starts //
   console.log("hai");
   var url = "http://localhost:2000/api//getprofilepic";
   $.ajax({
