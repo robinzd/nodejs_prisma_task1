@@ -10,18 +10,25 @@ const prisma = new PrismaClient();
 export const GetUploadImage = async (req: any, res: any) => {
   //req.body  //-------------> Has all request data
   var id = req.body.ID;
-  const get_upload_image = await prisma.table_sorting.findFirst({
-    where: {
-      ID: parseInt(id),
-    },
-    select: {
-      profile_pic: true,
-    },
+  const get_upload_image = await prisma.table_sorting.findMany({
+   where:{
+    ID:parseInt(id)
+   }
   });
-  if (get_upload_image?.profile_pic) {
-    var final_result: any = Buffer.from(
-      get_upload_image.profile_pic
-    ).toString();
-  }
- res.status(200).json({ Result: "Image details", data: final_result});
+   var final_result=get_upload_image.map(function(e){
+   var result={
+    user_name:e.user_name,
+    contact_number:e.contact_number,
+    address:e.Address,
+    profile_pic:e.profile_pic && Buffer.from(e.profile_pic).toString()
+  };
+  return result;
+  });
+  let get_table = JSON.parse(
+    JSON.stringify(final_result, (_, v) =>
+      typeof v === "bigint" ? v.toString() : v
+    )
+  );
+  console.log(get_table);
+res.status(200).json({ Result: "user details", data: get_table});
 };

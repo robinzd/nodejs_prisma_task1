@@ -1,5 +1,5 @@
 $(document).ready(function () {
- var url = "http://localhost:2000/api//gettablesorting";
+  var url = "http://localhost:2000/api//gettablesorting";
   var count = 1;
   $.ajax({
     dataType: "json",
@@ -8,14 +8,16 @@ $(document).ready(function () {
       var row_counts = datas.data.length;
       var result = "";
       datas.data.forEach((item) => {
-        const { ID, user_name, contact_number, Address} = item;
+        const { ID, user_name, contact_number, Address, profile_pic } = item;
         result += `
          <tr>
         <td>${ID}</td>
         <td>${user_name}</td>
         <td>${contact_number}</td>
         <td>${Address}</td>
-       <td><a data-bs-toggle="modal" data-id=${ID} data-bs-target="#exampleModal" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+        <td><img src="${profile_pic}" class="rounded-circle" style="width: 50px;"
+        alt="Avatar" /></td>
+       <td>
         <a href="upload.html?id=${btoa(
           ID
         )}" class="upload" title="Upload Picture" data-toggle="tooltip"><i class="fa-solid fa-upload"></i></a></td>
@@ -34,6 +36,9 @@ $(document).ready(function () {
         $("#para").html(`Records Shown:${row_counts} Rows`);
       }
     },
+    complete: function () {
+      $("#loader").hide();
+    },
   });
 
   // Ascending Order Logic For Id Starts//
@@ -51,18 +56,25 @@ $(document).ready(function () {
       headers: {
         "Content-Type": "application/json",
       },
+      beforeSend: function () {
+        $("#tablesorting").hide();
+        $("#loader").show();
+        $("#para").hide();
+      },
       success: function (datas2) {
         var id_row_count = datas2.data.length;
         var asec_result = "";
         datas2.data.forEach((items) => {
-          const { ID, user_name, contact_number, Address } = items;
+          const { ID, user_name, contact_number, Address, profile_pic } = items;
           asec_result += `
            <tr>
           <td>${ID}</td>
           <td>${user_name}</td>
           <td>${contact_number}</td>
           <td>${Address}</td>
-          <td><a data-bs-toggle="modal" data-id="${ID}" data-bs-target="#exampleModal" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+          <td><img src="${profile_pic}" class="rounded-circle" style="width: 50px;"
+          alt="Avatar" /></td>
+          <td>
           <a href="upload.html?id=${btoa(
             ID
           )}" class="upload" title="Upload Picture" data-toggle="tooltip"><i class="fa-solid fa-upload"></i></a></td>
@@ -71,7 +83,12 @@ $(document).ready(function () {
           `;
         });
         $("#tablesorting").html(asec_result);
+        $("#tablesorting").show();
         $("#para").html(`Records Shown:${id_row_count} Rows`);
+        $("#para").show();
+      },
+      complete: function () {
+        $("#loader").hide();
       },
     });
   });
@@ -84,6 +101,7 @@ $(document).ready(function () {
     var table_result_1 = JSON.stringify({
       descn: id_down,
     });
+    console.log(table_result_1);
     $.ajax({
       url: url1,
       data: table_result_1,
@@ -92,19 +110,25 @@ $(document).ready(function () {
       headers: {
         "Content-Type": "application/json",
       },
+      beforeSend: function () {
+        $("#tablesorting").hide();
+        $("#loader").show();
+        $("#para").hide();
+      },
       success: function (datas2) {
         var id_row_counts = datas2.data.length;
         var desc_result = "";
         datas2.data.forEach((items) => {
-          const { ID, user_name, contact_number, Address } = items;
+          const { ID, user_name, contact_number, Address, profile_pic } = items;
           desc_result += `
            <tr>
           <td>${ID}</td>
           <td>${user_name}</td>
           <td>${contact_number}</td>
           <td>${Address}</td>
-        
-          <td><a data-bs-toggle="modal" data-id="${ID}" data-bs-target="#exampleModal" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+          <td><img src="${profile_pic}" class="rounded-circle" style="width:50px;"
+          alt="Avatar" /></td>
+          <td>
           <a href="upload.html?id=${btoa(
             ID
           )}" class="upload" title="Upload Picture" data-toggle="tooltip"><i class="fa-solid fa-upload"></i></a></td>
@@ -113,7 +137,12 @@ $(document).ready(function () {
           `;
         });
         $("#tablesorting").html(desc_result);
+        $("#tablesorting").show();
         $("#para").html(`Records Shown:${id_row_counts} Rows`);
+        $("#para").show();
+      },
+      complete: function () {
+        $("#loader").hide();
       },
     });
   });
@@ -134,19 +163,25 @@ $(document).ready(function () {
       headers: {
         "Content-Type": "application/json",
       },
+      beforeSend: function () {
+        $("#tablesorting").hide();
+        $("#loader").show();
+        $("#para").hide();
+      },
       success: function (datas2) {
         var name_row_count = datas2.data.length;
         var aesc_name_result = "";
         datas2.data.forEach((items) => {
-          const { ID, user_name, contact_number, Address } = items;
+          const { ID, user_name, contact_number, Address, profile_pic } = items;
           aesc_name_result += `
            <tr>
           <td>${ID}</td>
           <td>${user_name}</td>
           <td>${contact_number}</td>
           <td>${Address}</td>
-        
-          <td><a data-bs-toggle="modal" data-id="${ID}" data-bs-target="#exampleModal" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+          <td><img src="${profile_pic}" class="rounded-circle" style="width: 50px;"
+        alt="Avatar" /></td>
+        <td>
           <a href="upload.html?id=${btoa(
             ID
           )}" class="upload" title="Upload Picture" data-toggle="tooltip"><i class="fa-solid fa-upload"></i></a></td>
@@ -155,7 +190,12 @@ $(document).ready(function () {
           `;
         });
         $("#tablesorting").html(aesc_name_result);
+        $("#tablesorting").show();
         $("#para").html(`Records Shown:${name_row_count} Rows`);
+        $("#para").show();
+      },
+      complete: function () {
+        $("#loader").hide();
       },
     });
   });
@@ -176,18 +216,25 @@ $(document).ready(function () {
       headers: {
         "Content-Type": "application/json",
       },
+      beforeSend: function () {
+        $("#tablesorting").hide();
+        $("#loader").show();
+        $("#para").hide();
+      },
       success: function (datas2) {
         var name_row_counts = datas2.data.length;
         var aesc_name_result = "";
         datas2.data.forEach((items) => {
-          const { ID, user_name, contact_number, Address } = items;
+          const { ID, user_name, contact_number, Address, profile_pic } = items;
           aesc_name_result += `
            <tr>
           <td>${ID}</td>
           <td>${user_name}</td>
           <td>${contact_number}</td>
           <td>${Address}</td>
-        <td><a data-bs-toggle="modal" data-id="${ID}" data-bs-target="#exampleModal" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+          <td><img src="${profile_pic}" class="rounded-circle" style="width: 50px;"
+          alt="Avatar" /></td>
+          <td>
         <a href="upload.html?id=${btoa(
           ID
         )}" class="upload" title="Upload Picture" data-toggle="tooltip"><i class="fa-solid fa-upload"></i></a></td>
@@ -196,7 +243,12 @@ $(document).ready(function () {
           `;
         });
         $("#tablesorting").html(aesc_name_result);
+        $("#tablesorting").show();
         $("#para").html(`Records Shown:${name_row_counts} Rows`);
+        $("#para").show();
+      },
+      complete: function () {
+        $("#loader").hide();
       },
     });
   });
@@ -217,18 +269,25 @@ $(document).ready(function () {
       headers: {
         "Content-Type": "application/json",
       },
+      beforeSend: function () {
+        $("#tablesorting").hide();
+        $("#loader").show();
+        $("#para").hide();
+      },
       success: function (datas2) {
         var number_row_count = datas2.data.length;
         var aesc_contact_result = "";
         datas2.data.forEach((items) => {
-          const { ID, user_name, contact_number, Address } = items;
+          const { ID, user_name, contact_number, Address, profile_pic } = items;
           aesc_contact_result += `
            <tr>
           <td>${ID}</td>
           <td>${user_name}</td>
           <td>${contact_number}</td>
           <td>${Address}</td>
-          <td><a data-bs-toggle="modal" data-id="${ID}" data-bs-target="#exampleModal" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+          <td><img src="${profile_pic}" class="rounded-circle" style="width: 50px;"
+          alt="Avatar" /></td>
+          <td>
           <a href="upload.html?id=${btoa(
             ID
           )}" class="upload" title="Upload Picture" data-toggle="tooltip"><i class="fa-solid fa-upload"></i></a></td>
@@ -237,7 +296,12 @@ $(document).ready(function () {
           `;
         });
         $("#tablesorting").html(aesc_contact_result);
+        $("#tablesorting").show();
         $("#para").html(`Records Shown:${number_row_count} Rows`);
+        $("#para").show();
+      },
+      complete: function () {
+        $("#loader").hide();
       },
     });
   });
@@ -258,19 +322,25 @@ $(document).ready(function () {
       headers: {
         "Content-Type": "application/json",
       },
+      beforeSend: function () {
+        $("#tablesorting").hide();
+        $("#loader").show();
+        $("#para").hide();
+      },
       success: function (datas2) {
         var nmuber_row_counts = datas2.data.length;
         var desc_contact_result = "";
         datas2.data.forEach((items) => {
-          const { ID, user_name, contact_number, Address } = items;
+          const { ID, user_name, contact_number, Address, profile_pic } = items;
           desc_contact_result += `
            <tr>
           <td>${ID}</td>
           <td>${user_name}</td>
           <td>${contact_number}</td>
           <td>${Address}</td>
-        
-          <td><a data-bs-toggle="modal" data-id="${ID}" data-bs-target="#exampleModal" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+          <td><img src="${profile_pic}" class="rounded-circle" style="width: 50px;"
+          alt="Avatar" /></td>
+          <td>
           <a href="upload.html?id=${btoa(
             ID
           )}" class="upload" title="Upload Picture" data-toggle="tooltip"><i class="fa-solid fa-upload"></i></a></td>
@@ -279,7 +349,12 @@ $(document).ready(function () {
           `;
         });
         $("#tablesorting").html(desc_contact_result);
+        $("#tablesorting").show();
         $("#para").html(`Records Shown:${nmuber_row_counts} Rows`);
+        $("#para").show();
+      },
+      complete: function () {
+        $("#loader").hide();
       },
     });
   });
@@ -300,19 +375,25 @@ $(document).ready(function () {
       headers: {
         "Content-Type": "application/json",
       },
+      beforeSend: function () {
+        $("#tablesorting").hide();
+        $("#loader").show();
+        $("#para").hide();
+      },
       success: function (datas2) {
         var address_row_count = datas2.data.length;
         var aesc_address_result = "";
         datas2.data.forEach((items) => {
-          const { ID, user_name, contact_number, Address } = items;
+          const { ID, user_name, contact_number, Address, profile_pic } = items;
           aesc_address_result += `
            <tr>
           <td>${ID}</td>
           <td>${user_name}</td>
           <td>${contact_number}</td>
           <td>${Address}</td>
-        
-          <td><a data-bs-toggle="modal" data-id="${ID}" data-bs-target="#exampleModal" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+          <td><img src="${profile_pic}" class="rounded-circle" style="width: 50px;"
+          alt="Avatar" /></td>
+          <td>
           <a href="upload.html?id=${btoa(
             ID
           )}" class="upload" title="Upload Picture" data-toggle="tooltip"><i class="fa-solid fa-upload"></i></a></td>
@@ -321,7 +402,12 @@ $(document).ready(function () {
           `;
         });
         $("#tablesorting").html(aesc_address_result);
+        $("#tablesorting").show();
         $("#para").html(`Records Shown:${address_row_count} Rows`);
+        $("#para").show();
+      },
+      complete: function () {
+        $("#loader").hide();
       },
     });
   });
@@ -342,19 +428,25 @@ $(document).ready(function () {
       headers: {
         "Content-Type": "application/json",
       },
+      beforeSend: function () {
+        $("#tablesorting").hide();
+        $("#loader").show();
+        $("#para").hide();
+      },
       success: function (datas2) {
         var address_row_counts = datas2.data.length;
         var desc_address_result = "";
         datas2.data.forEach((items) => {
-          const { ID, user_name, contact_number, Address } = items;
+          const { ID, user_name, contact_number, Address, profile_pic } = items;
           desc_address_result += `
         <tr>
         <td>${ID}</td>
         <td>${user_name}</td>
         <td>${contact_number}</td>
         <td>${Address}</td>
-      
-        <td><a data-bs-toggle="modal" data-id="${ID}" data-bs-target="#exampleModal" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+        <td><img src="${profile_pic}" class="rounded-circle" style="width: 50px;"
+        alt="Avatar" /></td>
+        <td>
         <a href="upload.html?id=${btoa(
           ID
         )}" class="upload" title="Upload Picture" data-toggle="tooltip"><i class="fa-solid fa-upload"></i></a></td>
@@ -363,7 +455,12 @@ $(document).ready(function () {
         `;
         });
         $("#tablesorting").html(desc_address_result);
+        $("#tablesorting").show();
         $("#para").html(`Records Shown:${address_row_counts} Rows`);
+        $("#para").show();
+      },
+      complete: function () {
+        $("#loader").hide();
       },
     });
   });
@@ -413,18 +510,26 @@ $(document).ready(function () {
       $.ajax({
         dataType: "json",
         url: url,
+        beforeSend: function () {
+          $("#tablesorting").hide();
+          $("#loader").show();
+          $("#para").hide();
+        },
         success: function (datas) {
           var row_counts = datas.data.length;
           var result = "";
           datas.data.forEach((item) => {
-            const { ID, user_name, contact_number, Address } = item;
+            const { ID, user_name, contact_number, Address, profile_pic } =
+              item;
             result += `
          <tr>
         <td>${ID}</td>
         <td>${user_name}</td>
         <td>${contact_number}</td>
         <td>${Address}</td>
-        <td><a data-bs-toggle="modal" data-id="${ID}" data-bs-target="#exampleModal" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+        <td><img src="${profile_pic}" class="rounded-circle" style="width: 50px;"
+        alt="Avatar" /></td>
+        <td>
         <a href="upload.html?id=${btoa(
           ID
         )}" class="upload" title="Upload Picture" data-toggle="tooltip"><i class="fa-solid fa-upload"></i></a></td>
@@ -438,8 +543,13 @@ $(document).ready(function () {
             );
           } else {
             $("#tablesorting").html(result);
+            $("#tablesorting").show();
             $("#para").html(`Records Shown:${row_counts} Rows`);
+            $("#para").show();
           }
+        },
+        complete: function () {
+          $("#loader").hide();
         },
       });
     } else {
@@ -458,18 +568,26 @@ $(document).ready(function () {
         headers: {
           "Content-Type": "application/json",
         },
+        beforeSend: function () {
+          $("#tablesorting").hide();
+          $("#loader").show();
+          $("#para").hide();
+        },
         success: function (datas) {
           var count = datas.data.length;
           var search_result = "";
           datas.data.forEach((items) => {
-            const { ID, user_name, contact_number, Address } = items;
+            const { ID, user_name, contact_number, Address, profile_pic } =
+              items;
             search_result += `
       <tr>
       <td>${ID}</td>
       <td>${user_name}</td>
       <td>${contact_number}</td>
       <td>${Address}</td>
-      <td><a data-bs-toggle="modal" data-id="${ID}" data-bs-target="#exampleModal" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+      <td><img src="${profile_pic}" class="rounded-circle" style="width: 50px;"
+      alt="Avatar" /></td>
+      <td>
       <a href="upload.html?id=${btoa(
         ID
       )}" class="upload" title="Upload Picture" data-toggle="tooltip"><i class="fa-solid fa-upload"></i></a></td>
@@ -477,11 +595,17 @@ $(document).ready(function () {
     `;
           });
           $("#tablesorting").html(search_result);
+          $("#tablesorting").show();
           if (count > 1) {
             $("#para").html(`Result:${count}Rows`);
+            $("#para").show();
           } else {
             $("#para").html(`Result:${count}Row`);
+            $("#para").show();
           }
+        },
+        complete: function () {
+          $("#loader").hide();
         },
         error: function () {
           alert("Result Not Found");

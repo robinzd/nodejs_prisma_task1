@@ -23,8 +23,19 @@ export const GetSearchTag = async (req: any, res: any) => {
       ],
     },
   });
+  var search_final_result = get_searchtag1.map(function (e) {
+    var search_result = {
+      ID: e.ID,
+      user_name: e.user_name,
+      contact_number: e.contact_number,
+      Address: e.Address,
+      profile_pic: e.profile_pic && Buffer.from(e.profile_pic).toString(),
+    };
+    return search_result;
+  });
+  
   let get_search_tag = {
-    datasadd: JSON.stringify(get_searchtag1, (_, v) =>
+    datasadd: JSON.stringify(search_final_result, (_, v) =>
       typeof v === "bigint" ? v.toString() : v
     ),
   };
@@ -37,8 +48,18 @@ else if(radio_button == "contact_number"){
      contact_number:parseInt(input_box)
     },
   });
+  var search_final_result1 = get_number_searchtag.map(function (e) {
+    var search_result1 = {
+      ID: e.ID,
+      user_name: e.user_name,
+      contact_number: e.contact_number,
+      Address: e.Address,
+      profile_pic: e.profile_pic && Buffer.from(e.profile_pic).toString(),
+    };
+    return search_result1;
+  });
   let get_search_numbertag = {
-    datasadd: JSON.stringify(get_number_searchtag,(_, v) =>
+    datasadd: JSON.stringify(search_final_result1,(_, v) =>
       typeof v === "bigint" ? v.toString() : v
     ),
   };

@@ -17,8 +17,18 @@ export const SortByNumber = async (req: any, res: any) => {
        contact_number:'desc'
       },
     });
+    var desc_final_result = sortby_number_desc.map(function (e) {
+      var desc_result = {
+        ID: e.ID,
+        user_name: e.user_name,
+        contact_number: e.contact_number,
+        Address: e.Address,
+        profile_pic: e.profile_pic && Buffer.from(e.profile_pic).toString(),
+      };
+      return desc_result;
+    });
     let get_sortby_number_desc = {
-      datasadd: JSON.stringify(sortby_number_desc,(_,v) =>
+      datasadd: JSON.stringify(desc_final_result,(_,v) =>
         typeof v === "bigint" ? v.toString() : v
       ),
     };
@@ -31,8 +41,18 @@ export const SortByNumber = async (req: any, res: any) => {
           contact_number:'asc'
         },
       });
+      var aesc_final_result = sortby_number_asce.map(function (e) {
+        var aesc_result = {
+          ID: e.ID,
+          user_name: e.user_name,
+          contact_number: e.contact_number,
+          Address: e.Address,
+          profile_pic: e.profile_pic && Buffer.from(e.profile_pic).toString(),
+        };
+        return aesc_result;
+      });
       let get_sortby_number_asce = {
-        datasadd: JSON.stringify(sortby_number_asce, (_, v) =>
+        datasadd: JSON.stringify(aesc_final_result, (_, v) =>
           typeof v === "bigint" ? v.toString() : v
         ),
       };

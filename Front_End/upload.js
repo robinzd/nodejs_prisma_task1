@@ -3,12 +3,10 @@ $(document).ready(function () {
   var image = document.getElementById("sample_image");
   var cropper;
   var url_string = window.location.href;
-  console.log(url_string);
   var url = new URL(url_string);
   var id = url.searchParams.get("id");
   var decode_id = atob(id);
-  console.log(decode_id);
-  $("#upload_image").change(function (event) {
+ $("#upload_image").change(function (event) {
     var files = event.target.files;
     console.log(files);
     var done = function (url) {
@@ -52,8 +50,7 @@ $(document).ready(function () {
       reader.readAsDataURL(blob);
       reader.onloadend = function () {
         var base64data = reader.result;
-        console.log(base64data);
-        $.ajax({
+      $.ajax({
           url: upload_url,
           method: "POST",
           data: JSON.stringify({
@@ -76,8 +73,7 @@ $(document).ready(function () {
     });
   });
   // get Image Logic Starts //
-  console.log("hai");
-  var url = "http://localhost:2000/api//getuploadimage";
+ var url = "http://localhost:2000/api//getuploadimage";
   $.ajax({
     dataType: "json",
     url: url,
@@ -88,17 +84,32 @@ $(document).ready(function () {
     headers: {
       "Content-Type": "application/json",
     },
+    beforeSend: function () {
+      $('#loader').removeClass('hidden');
+      $("#heading").hide();
+  },
     success: function (datas) {
-      var final_imageresult = datas.data;
-      console.log(final_imageresult);
-      var datajpg = final_imageresult;
-      $("#photo").append(
-        `<img src=${datajpg} id="uploaded_image" class="img-responsive img-circle"/>`
-      );
+      var result;
+      var result1;
+      datas.data.forEach((item) => {
+        const { user_name, contact_number, address, profile_pic } = item;
+        result=`<img src=${profile_pic} id="uploaded_image" class="img-responsive img-circle"/>`
+        result1=`<h3>Name:${user_name}</h3><br>
+        <h3>Contact Number:${contact_number}</h3><br>
+        <h3>Address:${address}</h3>`
+      });
+      $("#heading").show();
+      $("#photo").append(result);
+      $("#details").html(result1);
       $("#takesnapbutton").html(
-        `<a href="webcam.html?id="${btoa(decode_id )}" class="btn btn-primary" type="button" id="takesnap"><i class="fa-solid fa-camera"></i>Take A Snap</a>`
+        `<a href="webcam.html?id="${btoa(
+          decode_id
+        )}" class="btn btn-primary" type="button" id="takesnap"><i class="fa-solid fa-camera"></i>Take A Snap</a>`
       );
     },
+    complete: function () {
+      $('#loader').addClass('hidden')
+  },
   });
   // get Image Logic Ends //
-});
+});ḍ

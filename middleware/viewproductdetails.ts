@@ -37,7 +37,7 @@ var final_result = allUsers.map(function (element, iterator) {
   });
   res
     .status(200)
-    .json({ Result: "Product Details For All The Users",data:final_result});
+    .json({Result: "Product Details For All The Users",data:final_result});
 };
 
 
