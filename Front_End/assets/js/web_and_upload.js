@@ -3,12 +3,12 @@ $(document).ready(function () {
   const cropModal = $("#cropModal");
   const cropArea = $("#cropimage");
   cropModal.on("hide.bs.modal", () => {
-    cropArea.html('<img id="imageprev" src=""/>');
+  cropArea.html('<img id="imageprev" src=""/>');
   });
   fileChooser.on("change", (e) => {
     cropModal.modal("show");
     var image = document.querySelector("#imageprev");
-    var files = e.target.files;
+    var files = e.target.files
     var done = function (url) {
       e.target.value = "";
       image.src = url;
@@ -175,8 +175,9 @@ $(document).ready(function () {
       };
     });
   });
-  //crop upload and crop web pic logic ends //
-  // get Image Logic Starts //
+  //crop upload and crop web pic logic ends//
+
+  //get Image Logic Starts//
   console.log("hai");
   var url = "http://localhost:2000/api//getprofilepic";
   $.ajax({
@@ -188,9 +189,9 @@ $(document).ready(function () {
       var datajpg = final_imageresult;
       $("#proficepic").html(`<h3 align="center">Profile Picture</h3>
       <img src="${datajpg}" id="proficepic" class="rounded-3" style="width: 300px;"
-      alt="Avatar" />
+      alt="Avatar"/>
       `);
     },
   });
-  // get Image Logic Ends //
+  //get Image Logic Ends//
 });
