@@ -1,121 +1,124 @@
 .image_area {
-    position: relative;
-  }
+  position: relative;
+}
 
-  img {
-        display: block;
-        max-width: 100%;
-  }
+img {
+  display: block;
+  max-width: 100%;
+}
 
-  .preview {
-        overflow: hidden;
-        width: 160px; 
-        height: 160px;
-        margin: 10px;
-        border: 1px solid red;
-  }
+.preview {
+  overflow: hidden;
+  width: 160px;
+  height: 160px;
+  margin: 10px;
+  border: 1px solid red;
+}
 
-  .modal-lg{
-        max-width: 1000px !important;
-  }
+.modal-lg {
+  max-width: 1000px !important;
+}
 
-  .overlay {
-    position: absolute;
-    bottom: 10px;
-    left: 0;
-    right: 0;
-    background-color: rgba(255, 255, 255, 0.5);
-    overflow: hidden;
-    height: 0;
-    transition: .5s ease;
-    width: 100%;
-  }
+.overlay {
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  right: 0;
+  background-color: rgba(255, 255, 255, 0.5);
+  overflow: hidden;
+  height: 0;
+  transition: .5s ease;
+  width: 100%;
+}
 
-  .image_area:hover .overlay {
-    height: 50%;
-    cursor: pointer;
-  }
+.image_area:hover .overlay {
+  height: 50%;
+  cursor: pointer;
+}
 
-  .text {
-    color: #333;
-    font-size: 20px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    -webkit-transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-    text-align: center;
-  }
+.text {
+  color: #333;
+  font-size: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
 
-  #snapic{
-    margin-top: 40px !important;
-  }
+#snapic {
+  margin-top: 40px !important;
+}
 
-  div#button{
-    margin-left: 41%;
-    margin-top: 20px;
-  }
+div#button {
+  margin-left: 41%;
+  margin-top: 20px;
+}
 
-  img#uploaded_image{
-    width: 70%;
-  }
+img#uploaded_image {
+  width: 70%;
+}
 
-  .d-grid.gap-2.col-6.mx-auto{
-    margin-top: 50px;
-  }
+.d-grid.gap-2.col-6.mx-auto {
+  margin-top: 50px;
+}
 
-  .container{
-    margin-right: 20%;
-  }
+.container {
+  margin-right: 20%;
+}
 
-  h3{
-    margin-left: 32%;
-  }
+h3 {
+  margin-left: 32%;
+}
 
 
-  /*loader css*/
+/*loader css*/
 /*Hidden class for adding and removing*/
 .lds-dual-ring.hidden {
-    display: none;
+  display: none;
 }
 
 /*Add an overlay to the entire page blocking any further presses to buttons or other elements.*/
 #loader {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background: rgba(0,0,0,.8);
-    z-index: 999;
-    opacity: 1;
-    transition: all 0.5s;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, .8);
+  z-index: 999;
+  opacity: 1;
+  transition: all 0.5s;
 }
 
 /*Spinner Styles*/
 .lds-dual-ring {
-    display: inline-block;
-    width: 80px;
-    height: 80px;
+  display: inline-block;
+  width: 80px;
+  height: 80px;
 }
+
 .lds-dual-ring:after {
-    content: " ";
-    display: block;
-    width: 64px;
-    height: 64px;
-    margin: 5% auto;
-    border-radius: 50%;
-    border: 6px solid #fff;
-    border-color: #fff transparent #fff transparent;
-    animation: lds-dual-ring 1.2s linear infinite;
-    margin-top: 20% !important;
+  content: " ";
+  display: block;
+  width: 64px;
+  height: 64px;
+  margin: 5% auto;
+  border-radius: 50%;
+  border: 6px solid #fff;
+  border-color: #fff transparent #fff transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+  margin-top: 20% !important;
 }
+
 @keyframes lds-dual-ring {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
