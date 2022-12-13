@@ -18,7 +18,7 @@ export const GetTableDetails = async (req: any, res: any) => {
       user_name: e.user_name,
       contact_number: e.contact_number,
       Address: e.Address,
-      profile_pic:e.profile_pic && Buffer.from(e.profile_pic).toString(),
+      profile_pic:e.profile_pic && Buffer.from(e.profile_pic).toString(), 
     };
     return results;
   });
