@@ -21,7 +21,7 @@ export const ProductDetailsview = async (req: any, res: any) => {
     },
   });
 console.log(allUsers);
-var final_result = allUsers.map(function (element, iterator) {
+var final_result = allUsers.map(function (element,iterator) {
     var result = {
       ID: element.ID,
       customer_first_name: element.customer_first_name,

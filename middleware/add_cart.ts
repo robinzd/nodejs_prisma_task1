@@ -37,6 +37,6 @@ export const AddCart = async (req: any, res: any) => {
         product_image: productimage,
       },
     });
-    res.status(200).json({ Result: "Successfully Product Added To The Cart" });
+    res.status(200).json({Result: "Successfully Product Added To The Cart" });
   }
 };
